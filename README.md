@@ -5,4 +5,4 @@ Using data storytelling, I craft reports for both technical and non-technical au
 
 - [Flipside SQL Queries and Dashboards](https://flipsidecrypto.xyz/fantasy)
 - [Dune Analytics](https://dune.com/girlfantasy)
-- [Crypto Portfolio Tracker](https://github.com/GirlFantasy/crypto-portfolio-tracker) - Excel open-source tracker for managing crypto holdings.
+- [Crypto Portfolio Tracker](https://github.com/GirlFantasy/crypto-portfolio-tracker) - Excel open-source tracker for managing crypto holdings

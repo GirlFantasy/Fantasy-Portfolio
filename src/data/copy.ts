@@ -22,13 +22,29 @@ export const copy = {
     /** The first, larger sentence. */
     lead: 'I am Chimdalu Nnenne Egwu - a medical student, blockchain data analyst, blockchain in healthcare researcher, and a social impact advocate.',
 
-    /** The paragraphs underneath. Add or remove whole lines freely. */
+    /** Paragraphs BEFORE the pull quote. Add or remove whole lines freely. */
     paragraphs: [
       'My path across these fields has never felt like a collection of unrelated interests. Medicine taught me to think about improving people and systems. Data taught me how to find patterns within people and system complexities. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of Web 3.0 internet and the socially impactful possibilities that are coming with its innovations.',
       'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
       'The subject changes. The questions do not.',
       'Whether I am studying a patient, analysing a blockchain ecosystem, conducting research, or thinking about a social problem, I am interested in the same fundamental things:',
-      'What is happening? Why is it happening? Who is affected? And what can we do differently?',
+    ],
+
+    /**
+     * The pull quote — set large, in the serif, with an accent rule above it.
+     * Each question renders on its own line. Set to null to remove the quote
+     * entirely; move a sentence in or out of `paragraphs` to change what is
+     * emphasised.
+     */
+    pullQuote: [
+      'What is happening?',
+      'Why is it happening?',
+      'Who is affected?',
+      'And what can we do differently?',
+    ],
+
+    /** Paragraphs AFTER the pull quote. */
+    paragraphsAfter: [
       'These questions shape the work I build, the research I pursue, and the problems I choose to explore.',
     ],
   },

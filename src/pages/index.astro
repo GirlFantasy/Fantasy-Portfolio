@@ -75,6 +75,25 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
             <p class="mt-5 leading-[1.75] text-ink-2">{para}</p>
           ))
         }
+
+        {
+          copy.homeAbout.pullQuote.length > 0 && (
+            <blockquote class="accent-data my-9">
+              <div class="accent-rule mb-6" aria-hidden="true" />
+              {copy.homeAbout.pullQuote.map((line) => (
+                <p class="font-display text-[1.45rem] leading-[1.35] tracking-[-0.015em] text-ink sm:text-[1.6rem]">
+                  {line}
+                </p>
+              ))}
+            </blockquote>
+          )
+        }
+
+        {
+          copy.homeAbout.paragraphsAfter.map((para) => (
+            <p class="mt-5 leading-[1.75] text-ink-2">{para}</p>
+          ))
+        }
         <a
           href="/about"
           class="mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink"

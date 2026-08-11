@@ -39,7 +39,8 @@ export const profile = {
     {
       institution: 'Ebonyi State University',
       abbr: 'EBSU',
-      programme: 'Medicine',
+      school: 'College of Health Sciences',
+      programme: 'MBBS',
       expected: 'February 2027',
       current: true,
     },
@@ -88,11 +89,6 @@ export const profile = {
       handle: '@datainbyte',
       href: 'https://substack.com/@datainbyte',
     },
-    superteam: {
-      label: 'Superteam Earn',
-      handle: 'girlfantasy',
-      href: 'https://superteam.fun/earn/t/girlfantasy',
-    },
     millenniumFellows: {
       label: 'Millennium Fellowship',
       handle: 'Fellow profile',
@@ -140,6 +136,26 @@ export const profile = {
     tagline: 'Web3 Data Stories',
     description:
       'A data storytelling and Web3 analytics initiative — communicating blockchain data and insight in a way people can follow.',
+
+    /**
+     * Featured Dune dashboards, in display order.
+     * To add one: copy a block, paste the exact dashboard URL. Nothing else.
+     */
+    dashboards: [
+      {
+        title: 'SEI User Behavior Analysis',
+        href: 'https://dune.com/datainbyte/sei-user-behavior-analysis',
+        note: 'Ongoing',
+      },
+      {
+        title: 'Robinhood Chain — Tokenized Stock Overview',
+        href: 'https://dune.com/datainbyte/robinhood-chain-tokenized-stock-overview',
+      },
+      {
+        title: 'Arbitrum User Activation: Growth at What Cost?',
+        href: 'https://dune.com/datainbyte/arbitrum-user-activation',
+      },
+    ],
   },
 } as const;
 

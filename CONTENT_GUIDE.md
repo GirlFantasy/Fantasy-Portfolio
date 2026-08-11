@@ -111,7 +111,27 @@ These list automatically in the Data Stories section, newest first.
 
 ---
 
-## 4. Add a fellowship, role or award
+## 4. Add or reorder a Dune dashboard
+
+The three featured dashboards live in `src/data/profile.ts` under
+`datainbyte.dashboards`. Copy a block, paste the exact dashboard URL, done:
+
+```ts
+dashboards: [
+  {
+    title: 'SEI User Behavior Analysis',
+    href: 'https://dune.com/datainbyte/sei-user-behavior-analysis',
+    note: 'Ongoing',        // optional — omit if not needed
+  },
+  // ...
+],
+```
+
+Order in the array is the order on the page.
+
+---
+
+## 5. Add a fellowship, role, award or competition placement
 
 Create a file in `src/content/recognition/`:
 
@@ -120,7 +140,8 @@ Create a file in `src/content/recognition/`:
 title: 'Role or award name'
 organisation: 'Organisation'
 period: '2026 — 2027'     # leave out entirely if unconfirmed — it shows "—"
-category: 'fellowship'    # fellowship | leadership | award | advocacy
+category: 'fellowship'    # competition | fellowship | leadership | award | advocacy
+placement: '3rd Place'    # competitions only — omit for everything else
 summary: 'One or two sentences.'
 links:
   - label: 'Profile'
@@ -130,9 +151,13 @@ draft: false
 ---
 ```
 
+`category: 'competition'` entries appear under **Awards & analytics
+competitions**; everything else appears under **Leadership & impact**. The two
+sections are driven off that one field.
+
 ---
 
-## 5. Add a job (after graduation)
+## 6. Add a job (after graduation)
 
 `src/content/experience/` is empty on purpose. The Experience section does not
 appear on the site until you put something in it. Add a file:
@@ -150,7 +175,7 @@ draft: false
 
 ---
 
-## 6. Edit a pillar page
+## 7. Edit a pillar page
 
 The three pillar pages live in `src/content/pillars/`. The `intro:` line in the
 frontmatter is what shows on the homepage; everything below the `---` is the
@@ -158,7 +183,7 @@ frontmatter is what shows on the homepage; everything below the `---` is the
 
 ---
 
-## 7. Your photo
+## 8. Your photo
 
 Save your portrait as `public/portrait.jpg` (portrait orientation, roughly 4:5,
 at least 1000px wide). Then in `src/data/profile.ts`:
@@ -171,14 +196,14 @@ portrait: {
 },
 ```
 
-## 8. Your CV
+## 9. Your CV
 
 Save it as `public/cv.pdf`, then set `cv.available: true` in `profile.ts`. A
 download link appears in the footer and on the About page.
 
 ---
 
-## 9. Before you launch — turn off the editorial notes
+## 10. Before you launch — turn off the editorial notes
 
 The dashed boxes marked *"Editorial note — not shown after launch"* flag content
 that still needs your input. When you have filled the gaps, open
@@ -192,7 +217,7 @@ They are removed from the built site entirely.
 
 ---
 
-## 10. Running it on your own computer
+## 11. Running it on your own computer
 
 ```bash
 npm install     # once

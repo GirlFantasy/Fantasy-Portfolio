@@ -3,6 +3,7 @@ title: 'Solana User Retention Analysis'
 type: 'analysis'
 domains: ['data', 'blockchain']
 role: 'Independent analysis'
+status: 'Ongoing body of work'
 summary: 'On-chain analysis of Solana user acquisition and retention — examining the large influx of new users and what happened to those users over the following months.'
 method: 'On-chain data · SQL · Dune'
 metrics:
@@ -13,13 +14,16 @@ metrics:
     value: '0.02–0.6%'
     note: 'Share of acquired users still active in the 60–90 day window'
 links:
+  - label: 'Methodology — Activation: Where Web3 Adoption Begins'
+    href: 'https://datainbyte.substack.com/p/activation-where-web3-adoption-begins'
+    note: 'Substack'
   - label: 'Dashboards'
     href: 'https://dune.com/datainbyte'
     note: 'Dune'
 pillar: 'blockchain-data'
 featured: true
 caseStudy: true
-order: 1
+order: 2
 draft: false
 ---
 
@@ -43,25 +47,28 @@ churning.
 
 ## Data & method
 
-The analysis used on-chain data, queried with SQL and published as dashboards.
-Users were grouped into monthly acquisition cohorts and each cohort was followed
-forward to measure what share remained active in a later window.
+The analysis works from on-chain data, queried with SQL and published as
+dashboards, grouping users into acquisition cohorts and following each cohort
+forward.
+
+The parameter definitions this analysis runs on — how activation is defined, and
+what counts as a new and a retained user — are set out in
+[Activation: Where Web3 Adoption Begins](https://datainbyte.substack.com/p/activation-where-web3-adoption-begins).
 
 <Note>
-  **To add — this is the most important gap on the site.** Three details make
-  these figures defensible rather than challengeable:
+  **To add — paste the definitions here from your Substack article.** Three
+  fields, in your own words from the piece:
 
-  1. **The date range analysed** — which months the cohorts were drawn from
-  2. **The definition of "new user"** — first-ever transaction? first funded
-     wallet? unique signer with no prior activity?
-  3. **The definition of "retained"** — any transaction in the window? a minimum
-     number of transactions?
+  1. **Activation** — how you define it
+  2. **New user** — the qualifying first action
+  3. **Retained** — the activity threshold and the window
 
-  Analysts will ask all three. Answering them upfront turns the headline number
-  into a demonstration of rigour.
+  I have linked the article rather than paraphrasing it, because I could not
+  reach the page to quote you accurately. Restating the definitions inline is
+  worth doing anyway: analysts will not leave the page to go and find them.
 </Note>
 
-## Findings
+## Findings so far
 
 Across the period analysed, Solana was acquiring on the order of **25 to 200
 million new users per month**.
@@ -69,10 +76,10 @@ million new users per month**.
 Of those acquired users, approximately **0.02% to 0.6% remained within the 60 to
 90 day window**.
 
-The distance between those two figures is the entire finding. An ecosystem can
-report enormous top-line growth while retaining a fraction of a percent of the
-users that growth is composed of — and the headline number gives no indication
-that this is happening.
+The distance between those two figures is the finding. An ecosystem can report
+enormous top-line growth while retaining a fraction of a percent of the users
+that growth is composed of — and the headline number gives no indication that
+this is happening.
 
 ## Why it matters
 
@@ -83,8 +90,9 @@ For anyone allocating capital, attention or engineering time against ecosystem
 growth figures, the difference is not academic — it is the difference between a
 market that is expanding and one that is recycling.
 
-<Note>
-  **To add:** what you concluded about *why* retention decayed this sharply, and
-  anything the analysis changed — a decision, a conversation, a follow-up piece.
-  A "what it changed" section is what separates a chart from a case study.
-</Note>
+## Status
+
+This is an **ongoing body of work**, not a finished paper. The activation
+framework behind it continues to develop across DataInByte, and the same
+questions are being applied to other ecosystems — see the
+[SEI User Behavior Analysis](/work/sei-user-behavior-analysis).

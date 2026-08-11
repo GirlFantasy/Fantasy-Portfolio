@@ -20,6 +20,8 @@ const writing = live(await getCollection('writing')).sort(
 const recognition = live(await getCollection('recognition')).sort(
   (a, b) => a.data.order - b.data.order
 );
+const competitions = recognition.filter((r) => r.data.category === 'competition');
+const leadership = recognition.filter((r) => r.data.category !== 'competition');
 const experience = live(await getCollection('experience')).sort(
   (a, b) => a.data.order - b.data.order
 );
@@ -166,7 +168,8 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
               <div class="flex flex-wrap items-center justify-between gap-4">
                 <p class="meta">
                   Fig. {String(i + 1).padStart(2, '0')} · {item.data.type}
-                  {item.data.method && ` · ${item.data.method}`}
+                  {item.data.status && ` · ${item.data.status}`}
+                  {item.data.period && ` · ${item.data.period}`}
                 </p>
                 <DomainTag domains={item.data.domains} />
               </div>
@@ -202,9 +205,52 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
     </div>
   </section>
 
-  {/* ── 04 · Writing ───────────────────────────────────────────────────── */}
+  {/* ── 04 · Dashboards ────────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="dashboards">
+    <SectionHeader
+      numeral="04"
+      title="Dashboards & on-chain analytics"
+      href={profile.socials.dune.href}
+      hrefLabel="All dashboards on Dune"
+    />
+
+    <ul class="mt-10 border-t border-hairline">
+      {
+        profile.datainbyte.dashboards.map((d, i) => (
+          <li class="border-b border-hairline" data-reveal style={`--reveal-delay:${i * 60}ms`}>
+            <a
+              href={d.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group grid grid-cols-1 items-baseline gap-2 py-7 md:grid-cols-12 md:gap-8"
+            >
+              <span class="meta md:col-span-2">Dash. {String(i + 1).padStart(2, '0')}</span>
+              <h3 class="text-xl leading-snug md:col-span-7">
+                <span class="link-underline">{d.title}</span>
+              </h3>
+              <span class="meta md:col-span-3 md:text-right">
+                {'note' in d && d.note ? `${d.note} · ` : ''}Dune{' '}
+                <span
+                  class="inline-block transition-transform duration-300 group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  ↗
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="meta-note mt-6">
+      Queries are public on Dune, so every figure is inspectable and reproducible.
+    </p>
+  </section>
+
+  {/* ── 05 · Writing ───────────────────────────────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="writing">
-    <SectionHeader numeral="04" title="Data stories & writing" />
+    <SectionHeader numeral="05" title="Data stories & writing" />
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-5" data-reveal>
@@ -279,13 +325,47 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
     </div>
   </section>
 
-  {/* ── 05 · Recognition ───────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="recognition">
-    <SectionHeader numeral="05" title="Leadership & impact" />
+  {/* ── 06 · Awards & competitions ─────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="awards">
+    <SectionHeader
+      numeral="06"
+      title="Awards & analytics competitions"
+      note={`${competitions.length} placements`}
+    />
 
     <ul class="mt-10 border-t border-hairline">
       {
-        recognition.map((r, i) => (
+        competitions.map((c, i) => (
+          <li
+            class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8"
+            data-reveal
+            style={`--reveal-delay:${i * 60}ms`}
+          >
+            <div class="md:col-span-2">
+              <p class="font-mono text-lg leading-none tracking-tight">{c.data.placement}</p>
+            </div>
+            <div class="md:col-span-7">
+              <h3 class="font-sans text-[1.0625rem] font-medium tracking-normal">
+                {c.data.title}
+              </h3>
+              <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{c.data.summary}</p>
+            </div>
+            <div class="md:col-span-3 md:text-right">
+              <p class="meta">{c.data.organisation}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {/* ── 07 · Leadership ────────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="recognition">
+    <SectionHeader numeral="07" title="Leadership & impact" />
+
+    <ul class="mt-10 border-t border-hairline">
+      {
+        leadership.map((r, i) => (
           <li
             class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8"
             data-reveal
@@ -332,7 +412,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
   {/* ── 06 · Contact ───────────────────────────────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="contact">
-    <SectionHeader numeral="06" title="Let's connect" />
+    <SectionHeader numeral="08" title="Let's connect" />
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-7" data-reveal>

@@ -103,7 +103,9 @@ const recognition = defineCollection({
     organisation: z.string(),
     /** Leave undefined until confirmed — renders as "—" rather than a guess. */
     period: z.string().optional(),
-    category: z.enum(['fellowship', 'leadership', 'award', 'advocacy']),
+    /** e.g. "3rd Place". Rendered as the leading figure on competition entries. */
+    placement: z.string().optional(),
+    category: z.enum(['competition', 'fellowship', 'leadership', 'award', 'advocacy']),
     summary: z.string(),
     links: z.array(link).default([]),
     order: z.number().default(99),

@@ -19,12 +19,17 @@ export const copy = {
   //  HOMEPAGE → section 01, "The intersection"
   // ─────────────────────────────────────────────────────────────────────────
   homeAbout: {
-    /** The first, larger sentence. */
-    lead: 'I am Chimdalu Nnenne Egwu - a medical student, blockchain data analyst, blockchain in healthcare researcher, and a social impact advocate.',
+    /** Your name, set large in the serif face. */
+    lead: 'Chimdalu Nnenne Egwu',
+
+    /** The titles line beneath your name — rendered in bold italics. */
+    credentials:
+      'MBBS (in view), Blockchain Data Analyst, Blockchain in Healthcare Researcher, SDG5 Advocate',
 
     /** Paragraphs BEFORE the pull quote. Add or remove whole lines freely. */
     paragraphs: [
-      'My path across these fields has never felt like a collection of unrelated interests. Medicine taught me to think about improving people and systems. Data taught me how to find patterns within people and system complexities. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of Web 3.0 internet and the socially impactful possibilities that are coming with its innovations.',
+      'My path across these fields is not a scattering of unrelated interests but a set of related ones, channelled toward a single aim: to work at the forefront of blockchain innovation in healthcare — innovation that improves patient-centred care and the systems that deliver it.',
+      'Medicine taught me to think about improving people and systems. Data taught me how to find patterns within people and system complexities. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of Web 3.0 internet and the socially impactful possibilities that are coming with its innovations.',
       'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
       'The subject changes. The questions do not.',
       'Whether I am studying a patient, analysing a blockchain ecosystem, conducting research, or thinking about a social problem, I am interested in the same fundamental things:',

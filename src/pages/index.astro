@@ -71,7 +71,12 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
       </div>
 
       <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
-        <p class="text-lg leading-[1.7] text-ink">{copy.homeAbout.lead}</p>
+        <p class="font-display text-[1.6rem] leading-[1.2] tracking-[-0.02em] text-ink sm:text-[1.85rem]">
+          {copy.homeAbout.lead}
+        </p>
+        <p class="mt-2.5 text-[0.95rem] font-semibold italic leading-[1.55] text-ink-2">
+          {copy.homeAbout.credentials}
+        </p>
         {
           copy.homeAbout.paragraphs.map((para) => (
             <p class="mt-5 leading-[1.75] text-ink-2">{para}</p>

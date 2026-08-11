@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://chimdalu-egwu.vercel.app/sitemap-index.xml

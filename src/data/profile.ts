@@ -33,7 +33,7 @@ export const profile = {
    * Draft copy — rewrite freely. This is the one paragraph most people read.
    */
   statement:
-    'I research how blockchain can strengthen healthcare in Africa, and turn raw on-chain data into stories people can actually use.',
+    'I am a medical student, researcher, and emerging technology advocate exploring how data and innovation can solve problems that matter. My work sits at the intersection of healthcare, blockchain, research, and social impact - where I break down complex systems, communicate data-based solutions, and build initiatives that improve healthcare systems.',
 
   education: [
     {
@@ -135,7 +135,7 @@ export const profile = {
     name: 'DataInByte',
     tagline: 'Web3 Data Stories',
     description:
-      'A data storytelling and Web3 analytics initiative — communicating blockchain data and insight in a way people can follow.',
+      'DataInByte is building an onchain adoption intelligence system that measures how users interact with blockchain products through onchain user behavior analysis. It moves beyond vanity metrics like views, followers, and community size to track what activates users, how long they stay, where they drop off, and whether growth persists after the incentive wave.',
 
     /**
      * Featured Dune dashboards, in display order.

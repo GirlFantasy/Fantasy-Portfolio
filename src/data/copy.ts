@@ -20,12 +20,16 @@ export const copy = {
   // ─────────────────────────────────────────────────────────────────────────
   homeAbout: {
     /** The first, larger sentence. */
-    lead: 'I am a final-year medical student at Ebonyi State University, a blockchain data analyst, and a data storyteller.',
+    lead: 'I am Chimdalu Nnenne Egwu - a medical student, blockchain data analyst, blockchain in healthcare researcher, and a social impact advocate.',
 
     /** The paragraphs underneath. Add or remove whole lines freely. */
     paragraphs: [
-      'These sound like separate lives. They are the same instinct applied to different systems — find where a system loses people, measure it honestly, and say what the measurement means in language someone can act on.',
-      'In medicine that means asking why a patient\'s record never followed them. In on-chain analysis it means asking why a million new users arrived and almost none stayed. The subject changes. The question does not.',
+      'My path across these fields has never felt like a collection of unrelated interests. Medicine taught me to think about improving people and systems. Data taught me how to find patterns within people and system complexities. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of Web 3.0 internet and the socially impactful possibilities that are coming with its innovations.',
+      'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
+      'The subject changes. The questions do not.',
+      'Whether I am studying a patient, analysing a blockchain ecosystem, conducting research, or thinking about a social problem, I am interested in the same fundamental things:',
+      'What is happening? Why is it happening? Who is affected? And what can we do differently?',
+      'These questions shape the work I build, the research I pursue, and the problems I choose to explore.',
     ],
   },
 
@@ -34,7 +38,7 @@ export const copy = {
   // ─────────────────────────────────────────────────────────────────────────
   contact: {
     intro:
-      'Open to conversations about blockchain data analytics, Web3 research, health technology, and research collaborations.',
+      'Open to conversations about blockchain data analytics, Web3 research, health technology, and social impact collaborations.',
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -43,13 +47,12 @@ export const copy = {
   about: {
     /** Opening paragraphs, before the first heading. */
     opening: [
-      'Those descriptions usually belong to different people. Holding them together is deliberate, and it is the most useful thing about how I work.',
+      'The descriptions of what I do usually belong to different people. Holding them together is deliberate, and it is the most useful thing about the changes I am working to effect.',
     ],
 
     connectsHeading: 'What connects them',
     connectsParagraphs: [
-      'Clinical medicine trains a specific habit of mind: gather what is actually observable, resist the explanation you want to be true, and be honest about the limits of what you know. That habit transfers almost perfectly to data analysis, and it is rarer there than it should be.',
-      'Both fields also share a failure mode. Medicine can produce a diagnosis nobody explains to the patient. Analytics can produce a dashboard nobody reads. In both cases the work is technically complete and practically useless. So the third part of what I do — the storytelling — is not decoration on top of the analysis. It is the part that makes the analysis count.',
+      'Clinical medicine trains a specific habit of mind: gather what is actually observable, resist the explanation you want to be true, and be honest about the limits of what you know. That habit transfers almost perfectly to data analysis, and the need for collaborations to effect social impact solutions.',
     ],
 
     whereHeading: 'Where I work',

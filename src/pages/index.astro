@@ -8,6 +8,7 @@ import LinkList from '@/components/ui/LinkList.astro';
 import Intersection from '@/components/viz/Intersection.astro';
 import { profile } from '@/data/profile';
 import { accentClass } from '@/lib/domain';
+import { copy } from '@/data/copy';
 
 const live = <T extends { data: { draft: boolean } }>(c: T[]) => c.filter((e) => !e.data.draft);
 
@@ -68,22 +69,12 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
       </div>
 
       <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
-        <p class="text-lg leading-[1.7] text-ink">
-          I am a {profile.title.toLowerCase()} at {profile.education[0].institution}, a
-          blockchain data analyst, and a data storyteller.
-        </p>
-        <p class="mt-5 leading-[1.75] text-ink-2">
-          These sound like separate lives. They are the same instinct applied to
-          different systems — find where a system loses people, measure it
-          honestly, and say what the measurement means in language someone can
-          act on.
-        </p>
-        <p class="mt-5 leading-[1.75] text-ink-2">
-          In medicine that means asking why a patient's record never followed
-          them. In on-chain analysis it means asking why a million new users
-          arrived and almost none stayed. The subject changes. The question does
-          not.
-        </p>
+        <p class="text-lg leading-[1.7] text-ink">{copy.homeAbout.lead}</p>
+        {
+          copy.homeAbout.paragraphs.map((para) => (
+            <p class="mt-5 leading-[1.75] text-ink-2">{para}</p>
+          ))
+        }
         <a
           href="/about"
           class="mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink"
@@ -433,10 +424,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-7" data-reveal>
-        <p class="measure text-lg leading-[1.65] text-ink-2">
-          Open to conversations about blockchain data analytics, Web3 research,
-          health technology, and research collaborations.
-        </p>
+        <p class="measure text-lg leading-[1.65] text-ink-2">{copy.contact.intro}</p>
 
         <a
           href={`mailto:${profile.email}`}

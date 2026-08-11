@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Intersection from '@/components/viz/Intersection.astro';
 import Note from '@/components/ui/Note.astro';
 import { profile } from '@/data/profile';
+import { copy } from '@/data/copy';
 
 const pillars = (await getCollection('pillars'))
   .filter((p) => !p.data.draft)
@@ -33,36 +34,15 @@ const pillars = (await getCollection('pillars'))
             storyteller.
           </p>
 
-          <p>
-            Those descriptions usually belong to different people. Holding them
-            together is deliberate, and it is the most useful thing about how I
-            work.
-          </p>
+          {copy.about.opening.map((para) => <p>{para}</p>)}
 
-          <h2>What connects them</h2>
+          <h2>{copy.about.connectsHeading}</h2>
 
-          <p>
-            Clinical medicine trains a specific habit of mind: gather what is
-            actually observable, resist the explanation you want to be true, and
-            be honest about the limits of what you know. That habit transfers
-            almost perfectly to data analysis, and it is rarer there than it
-            should be.
-          </p>
+          {copy.about.connectsParagraphs.map((para) => <p>{para}</p>)}
 
-          <p>
-            Both fields also share a failure mode. Medicine can produce a
-            diagnosis nobody explains to the patient. Analytics can produce a
-            dashboard nobody reads. In both cases the work is technically
-            complete and practically useless. So the third part of what I do —
-            the storytelling — is not decoration on top of the analysis. It is
-            the part that makes the analysis count.
-          </p>
+          <h2>{copy.about.whereHeading}</h2>
 
-          <h2>Where I work</h2>
-
-          <p>
-            Three areas, each with its own page:
-          </p>
+          <p>{copy.about.whereIntro}</p>
 
           <ul>
             {
@@ -77,7 +57,7 @@ const pillars = (await getCollection('pillars'))
             }
           </ul>
 
-          <h2>Education</h2>
+          <h2>{copy.about.educationHeading}</h2>
 
           {
             profile.education.map((e) => (
@@ -88,13 +68,9 @@ const pillars = (await getCollection('pillars'))
             ))
           }
 
-          <h2>The name</h2>
+          <h2>{copy.about.nameHeading}</h2>
 
-          <p>
-            I publish some of my Web3 and data work as <strong>{profile.creativeName}</strong>.
-            It is a creative name, not a separate identity — the research and the
-            analysis are the same work.
-          </p>
+          <p>{copy.about.nameParagraph}</p>
 
           <Note>
             <p>

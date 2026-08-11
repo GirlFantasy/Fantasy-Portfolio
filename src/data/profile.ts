@@ -22,7 +22,7 @@ export const profile = {
   // ── CAREER STATUS ──────────────────────────────────────────────────────────
   //    ▲ THIS IS THE BLOCK YOU EDIT AFTER GRADUATION ▲
   title: 'Final-year medical student',
-  titleFull: 'Final-year medical student, blockchain data analyst and data storyteller',
+  titleFull: 'Final-year medical student, blockchain data analyst, blockchain in healthcare researcher, SDG5 advocate',
   /** 'student' | 'graduate' | 'physician' — drives conditional copy site-wide. */
   status: 'student' as 'student' | 'graduate' | 'physician',
   // ───────────────────────────────────────────────────────────────────────────
@@ -33,7 +33,7 @@ export const profile = {
    * Draft copy — rewrite freely. This is the one paragraph most people read.
    */
   statement:
-    'I am a medical student, researcher, and emerging technology advocate exploring how data and innovation can solve problems that matter. My work sits at the intersection of healthcare, blockchain, research, and social impact - where I break down complex systems, communicate data-based solutions, and build initiatives that improve healthcare systems.',
+    'I am a medical student, analyst, researcher, and SDG5 advocate exploring how data and innovation can solve problems that matter. My work sits at the intersection of healthcare, blockchain, research, and social impact - where I break down complex systems, communicate data-based solutions, and build initiatives that improve healthcare systems.',
 
   education: [
     {
@@ -181,5 +181,6 @@ export const seo = {
     'data storytelling',
     'health technology',
     'Nigeria',
+    'SDG5 advocate',
   ],
 } as const;

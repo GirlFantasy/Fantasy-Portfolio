@@ -1,0 +1,211 @@
+# How to update your website
+
+Written for you, not for a developer. You never need to touch design code.
+
+Everything on the site comes from two places:
+
+| What you want to change | Where to go |
+| --- | --- |
+| Your name, title, email, links, photo, CV | `src/data/profile.ts` |
+| Projects, research, pillars, writing, leadership | `src/content/` |
+
+Edit a file, save, commit, push. The site rebuilds and deploys itself.
+
+---
+
+## 1. After you graduate
+
+This is the change the whole site was built around. Open `src/data/profile.ts`
+and edit **one block**:
+
+```ts
+// ── CAREER STATUS ──
+title: 'Final-year medical student',
+titleFull: 'Final-year medical student, blockchain data analyst and data storyteller',
+status: 'student',
+```
+
+Change it to, for example:
+
+```ts
+title: 'Medical Doctor',
+titleFull: 'Medical doctor, blockchain data analyst and health-technology researcher',
+status: 'physician',
+```
+
+That updates the hero, the About page, the search-engine description, the
+structured data Google reads, and every other place your title appears. Nothing
+else needs touching.
+
+While you are in there, set `current: false` on your EBSU entry and add any new
+education.
+
+---
+
+## 2. Add a new project or piece of research
+
+Create one file in `src/content/work/`. Name it after the project, in lowercase
+with hyphens — that becomes its web address.
+
+`src/content/work/my-new-analysis.mdx`:
+
+```mdx
+---
+title: 'Title of the project'
+type: 'analysis'              # analysis | research | initiative | tool
+domains: ['data', 'blockchain']   # medicine | data | blockchain — pick any
+role: 'Independent analysis'
+summary: 'One or two sentences. This is what shows on the homepage card.'
+method: 'SQL · Dune'
+metrics:
+  - label: 'What you measured'
+    value: '42%'
+    note: 'How you measured it — always include this'
+links:
+  - label: 'Dashboard'
+    href: 'https://dune.com/...'
+    note: 'Dune'
+pillar: 'blockchain-data'     # which pillar page it belongs under
+featured: true                # show on the homepage?
+caseStudy: true               # give it its own full page?
+order: 1                      # lower numbers appear first
+draft: false                  # true = hidden from the site
+---
+
+## Context
+
+Write the case study here in plain Markdown.
+
+## The question
+## Data & method
+## Findings
+## Why it matters
+```
+
+That is the whole process. The project appears on the homepage, in `/work`, and
+gets its own page at `/work/my-new-analysis`.
+
+**Delete a project:** delete the file. **Hide it temporarily:** set
+`draft: true`.
+
+---
+
+## 3. Add an article, thread or explainer
+
+Create a file in `src/content/writing/`:
+
+```mdx
+---
+title: 'Why Solana retention collapses after 60 days'
+outlet: 'DataInByte'
+format: 'thread'          # article | thread | explainer | video | dashboard
+date: 2026-03-14
+href: 'https://...'
+domains: ['data', 'blockchain']
+featured: true
+draft: false
+---
+```
+
+These list automatically in the Data Stories section, newest first.
+
+---
+
+## 4. Add a fellowship, role or award
+
+Create a file in `src/content/recognition/`:
+
+```mdx
+---
+title: 'Role or award name'
+organisation: 'Organisation'
+period: '2026 — 2027'     # leave out entirely if unconfirmed — it shows "—"
+category: 'fellowship'    # fellowship | leadership | award | advocacy
+summary: 'One or two sentences.'
+links:
+  - label: 'Profile'
+    href: 'https://...'
+order: 1
+draft: false
+---
+```
+
+---
+
+## 5. Add a job (after graduation)
+
+`src/content/experience/` is empty on purpose. The Experience section does not
+appear on the site until you put something in it. Add a file:
+
+```mdx
+---
+role: 'House Officer'
+organisation: 'Hospital name'
+period: '2027 — present'
+summary: 'One or two sentences.'
+order: 1
+draft: false
+---
+```
+
+---
+
+## 6. Edit a pillar page
+
+The three pillar pages live in `src/content/pillars/`. The `intro:` line in the
+frontmatter is what shows on the homepage; everything below the `---` is the
+"Read more" page. Both are plain Markdown.
+
+---
+
+## 7. Your photo
+
+Save your portrait as `public/portrait.jpg` (portrait orientation, roughly 4:5,
+at least 1000px wide). Then in `src/data/profile.ts`:
+
+```ts
+portrait: {
+  src: '/portrait.jpg',
+  alt: 'Portrait of Chimdalu Nnenne Egwu',
+  isReal: true,        // ← change false to true
+},
+```
+
+## 8. Your CV
+
+Save it as `public/cv.pdf`, then set `cv.available: true` in `profile.ts`. A
+download link appears in the footer and on the About page.
+
+---
+
+## 9. Before you launch — turn off the editorial notes
+
+The dashed boxes marked *"Editorial note — not shown after launch"* flag content
+that still needs your input. When you have filled the gaps, open
+`src/data/profile.ts` and set:
+
+```ts
+showEditorialNotes: false,
+```
+
+They are removed from the built site entirely.
+
+---
+
+## 10. Running it on your own computer
+
+```bash
+npm install     # once
+npm run dev     # then open http://localhost:4321
+```
+
+Changes appear as you save. `npm run build` checks everything before you push —
+if you make a mistake in a frontmatter field, the build fails and tells you
+exactly which file and field, so a typo can never quietly break the live site.
+
+---
+
+## A rule worth keeping
+
+Every number on this site should carry a `note:` explaining how it was measured.
+Analysts trust figures with a method attached and discount figures without one.

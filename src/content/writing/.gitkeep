@@ -1,0 +1,13 @@
+# Individual articles, threads, explainers and dashboards go here.
+#
+# Create e.g. `solana-retention-thread.mdx`:
+#
+#   title: 'Why Solana retention collapses after 60 days'
+#   outlet: 'X'
+#   format: 'thread'          # article | thread | explainer | video | dashboard
+#   date: 2025-06-14
+#   href: 'https://x.com/IamFantasy__/status/...'
+#   domains: ['data', 'blockchain']
+#   featured: true
+#
+# They appear in the Writing section automatically, newest first.

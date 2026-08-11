@@ -1,0 +1,30 @@
+---
+import { domains, type DomainKey } from '@/data/profile';
+
+interface Props {
+  domains: readonly DomainKey[];
+  class?: string;
+}
+const { domains: keys, class: className = '' } = Astro.props;
+
+const swatch: Record<DomainKey, string> = {
+  medicine: 'var(--c-medicine)',
+  data: 'var(--c-data)',
+  blockchain: 'var(--c-blockchain)',
+};
+---
+
+<ul class={`flex flex-wrap items-center gap-x-3 gap-y-1 ${className}`}>
+  {
+    keys.map((key) => (
+      <li class="meta flex items-center gap-1.5">
+        <span
+          class="inline-block h-[5px] w-[5px] rounded-full"
+          style={`background:${swatch[key]}`}
+          aria-hidden="true"
+        />
+        {domains[key].label}
+      </li>
+    ))
+  }
+</ul>

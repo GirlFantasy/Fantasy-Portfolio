@@ -1,0 +1,26 @@
+---
+/**
+ * Editorial note — marks content that still needs Chimdalu's input.
+ * Visible while `profile.showEditorialNotes` is true; set it to false in
+ * src/data/profile.ts before launch and every note disappears at build time
+ * (they are removed from the output entirely, not just hidden with CSS).
+ */
+import { profile } from '@/data/profile';
+---
+
+{
+  profile.showEditorialNotes && (
+    <aside class="my-8 border border-dashed border-hairline-strong bg-surface-2/60 px-5 py-4">
+      <p class="meta mb-2 flex items-center gap-2">
+        <span
+          class="inline-block h-[5px] w-[5px] rounded-full bg-blockchain"
+          aria-hidden="true"
+        />
+        Editorial note — not shown after launch
+      </p>
+      <div class="text-sm text-ink-2 [&>p]:my-0">
+        <slot />
+      </div>
+    </aside>
+  )
+}

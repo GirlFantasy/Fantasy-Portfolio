@@ -1,0 +1,169 @@
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  SINGLE SOURCE OF TRUTH FOR IDENTITY
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  Nothing in this site hardcodes a job title, a school, an email or a link.
+ *  Everything reads from this file. To evolve the site as your career changes,
+ *  edit here — never in a component.
+ *
+ *  ► AFTER GRADUATION (expected Feb 2027), change only the CAREER STATUS block.
+ *    The whole site updates: hero, meta description, schema.org, footer, CV.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+export const profile = {
+  // ── Identity ───────────────────────────────────────────────────────────────
+  name: 'Chimdalu Nnenne Egwu',
+  shortName: 'Chimdalu Egwu',
+  /** Creative/brand name. Deliberately secondary — never the primary identity. */
+  creativeName: 'FANTASY',
+  positioning: 'Medicine × Data × Blockchain',
+
+  // ── CAREER STATUS ──────────────────────────────────────────────────────────
+  //    ▲ THIS IS THE BLOCK YOU EDIT AFTER GRADUATION ▲
+  title: 'Final-year medical student',
+  titleFull: 'Final-year medical student, blockchain data analyst and data storyteller',
+  /** 'student' | 'graduate' | 'physician' — drives conditional copy site-wide. */
+  status: 'student' as 'student' | 'graduate' | 'physician',
+  // ───────────────────────────────────────────────────────────────────────────
+
+  location: 'Ebonyi State, Nigeria',
+
+  /**
+   * Draft copy — rewrite freely. This is the one paragraph most people read.
+   */
+  statement:
+    'I research how blockchain can strengthen healthcare in Africa, and turn raw on-chain data into stories people can actually use.',
+
+  education: [
+    {
+      institution: 'Ebonyi State University',
+      abbr: 'EBSU',
+      programme: 'Medicine',
+      expected: 'February 2027',
+      current: true,
+    },
+  ],
+
+  // ── Contact ────────────────────────────────────────────────────────────────
+  email: 'nnennechimdalu@gmail.com',
+
+  /**
+   * Only verified links live here. Never add a URL that has not been confirmed.
+   * `handle` is what renders; `href` is never modified.
+   */
+  socials: {
+    x: {
+      label: 'X',
+      handle: '@IamFantasy__',
+      href: 'https://x.com/IamFantasy__',
+    },
+    linkedin: {
+      label: 'LinkedIn',
+      handle: 'chimdalunnenne',
+      href: 'https://www.linkedin.com/in/chimdalunnenne',
+    },
+    github: {
+      label: 'GitHub',
+      handle: 'GirlFantasy',
+      href: 'https://github.com/GirlFantasy',
+    },
+    tiktok: {
+      label: 'TikTok',
+      handle: '@chimdalunnenne',
+      href: 'https://www.tiktok.com/@chimdalunnenne',
+    },
+    substack: {
+      label: 'Substack',
+      handle: '@chimdalunnenne',
+      href: 'https://substack.com/@chimdalunnenne',
+    },
+    dune: {
+      label: 'Dune',
+      handle: 'datainbyte',
+      href: 'https://dune.com/datainbyte',
+    },
+    datainbyteSubstack: {
+      label: 'DataInByte on Substack',
+      handle: '@datainbyte',
+      href: 'https://substack.com/@datainbyte',
+    },
+    superteam: {
+      label: 'Superteam Earn',
+      handle: 'girlfantasy',
+      href: 'https://superteam.fun/earn/t/girlfantasy',
+    },
+    millenniumFellows: {
+      label: 'Millennium Fellowship',
+      handle: 'Fellow profile',
+      href: 'https://www.millenniumfellows.org/fellow/2025/ebsu/chimdalu-nnenne-egwu',
+    },
+  },
+
+  /** Channels surfaced in the Writing section, in display order. */
+  writingChannels: ['datainbyteSubstack', 'substack', 'x', 'tiktok'] as const,
+
+  /** Compact link set for the nav/footer. */
+  primarySocials: ['x', 'linkedin', 'github', 'substack'] as const,
+
+  // ── Assets ─────────────────────────────────────────────────────────────────
+  /** Replace /public/portrait.jpg with your photo — no code change needed. */
+  portrait: {
+    src: '/portrait.jpg',
+    alt: 'Portrait of Chimdalu Nnenne Egwu',
+    /** Set to true once a real photo replaces the placeholder. */
+    isReal: false,
+  },
+
+  /** Drop your PDF at /public/cv.pdf, then set `available: true`. */
+  cv: {
+    href: '/cv.pdf',
+    available: false,
+  },
+
+  /**
+   * Hero availability line. Set to null to hide it entirely.
+   * e.g. 'Open to blockchain data analytics and health-tech research roles'
+   */
+  availability: null as string | null,
+
+  /**
+   * Editorial notes (<Note> blocks in MDX) mark content that still needs your
+   * input. They are visible while the site is in draft so you can see the gaps.
+   * ► Set this to false before launch and every note disappears site-wide.
+   */
+  showEditorialNotes: true,
+
+  // ── DataInByte ─────────────────────────────────────────────────────────────
+  datainbyte: {
+    name: 'DataInByte',
+    tagline: 'Web3 Data Stories',
+    description:
+      'A data storytelling and Web3 analytics initiative — communicating blockchain data and insight in a way people can follow.',
+  },
+} as const;
+
+/** The three domains. Drives the taxonomic colour system. */
+export const domains = {
+  medicine: { label: 'Medicine', token: 'medicine' },
+  data: { label: 'Data', token: 'data' },
+  blockchain: { label: 'Blockchain', token: 'blockchain' },
+} as const;
+
+export type DomainKey = keyof typeof domains;
+export type SocialKey = keyof typeof profile.socials;
+
+export const seo = {
+  title: `${profile.shortName} — ${profile.positioning}`,
+  description: `${profile.name}. ${profile.titleFull}. ${profile.statement}`,
+  keywords: [
+    'blockchain data analyst',
+    'on-chain analytics',
+    'blockchain in healthcare',
+    'electronic health records',
+    'Web3 research',
+    'data storytelling',
+    'health technology',
+    'Nigeria',
+  ],
+} as const;

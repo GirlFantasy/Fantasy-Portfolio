@@ -1,0 +1,38 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+  note?: string;
+}
+interface Props {
+  links: LinkItem[];
+  class?: string;
+}
+const { links, class: className = '' } = Astro.props;
+---
+
+{
+  links.length > 0 && (
+    <ul class={`flex flex-wrap gap-x-6 gap-y-2 ${className}`}>
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-baseline gap-2 text-sm text-ink-2 transition-colors hover:text-ink"
+          >
+            <span class="link-underline">{l.label}</span>
+            {l.note && <span class="meta">{l.note}</span>}
+            <span
+              class="translate-y-[-1px] text-xs opacity-40 transition-transform duration-300 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DomainTag from '@/components/ui/DomainTag.astro';
+import LinkList from '@/components/ui/LinkList.astro';
+import Note from '@/components/ui/Note.astro';
+
+export async function getStaticPaths() {
+  const pillars = (await getCollection('pillars')).filter((p) => !p.data.draft);
+  const work = (await getCollection('work')).filter((w) => !w.data.draft);
+
+  return pillars.map((pillar) => ({
+    params: { id: pillar.id },
+    props: { pillar, related: work.filter((w) => w.data.pillar === pillar.id) },
+  }));
+}
+
+const { pillar, related } = Astro.props;
+const { Content } = await render(pillar);
+---
+
+<BaseLayout title={pillar.data.title} description={pillar.data.intro}>
+  <article class="shell pt-14 pb-4 md:pt-20">
+    <a href="/#pillars" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
+      <span aria-hidden="true">←</span> All pillars
+    </a>
+
+    <header class="mt-10 border-t border-hairline pt-8">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <p class="meta">{pillar.data.numeral} · {pillar.data.kicker}</p>
+        <DomainTag domains={pillar.data.domains} />
+      </div>
+
+      <h1 class="mt-7 max-w-[16ch] text-[length:var(--text-display-l)] leading-[1.05]">
+        {pillar.data.title}
+      </h1>
+
+      <p class="measure mt-7 text-lg leading-[1.65] text-ink-2">{pillar.data.intro}</p>
+
+      <LinkList links={pillar.data.links} class="mt-8" />
+    </header>
+
+    <div class="prose mt-14">
+      <Content components={{ Note }} />
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="mt-[var(--spacing-section)] border-t border-hairline pt-8">
+          <h2 class="meta">Work in this area</h2>
+          <ul class="mt-6">
+            {related.map((w) => (
+              <li class="border-b border-hairline">
+                <a href={`/work/${w.id}`} class="group flex items-baseline justify-between gap-6 py-5">
+                  <span class="max-w-[52ch] text-[1.0625rem] leading-snug">
+                    <span class="link-underline">{w.data.title}</span>
+                  </span>
+                  <span class="meta whitespace-nowrap transition-all duration-300 group-hover:text-ink">
+                    {w.data.type} <span aria-hidden="true">→</span>
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="mt-16">
+      <a href="/#contact" class="inline-flex items-center gap-2 text-sm font-medium">
+        <span class="link-underline">Get in touch about this work</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,91 @@
+---
+import CohortGrid from '@/components/viz/CohortGrid.astro';
+import { profile } from '@/data/profile';
+
+// The positioning line, tinted by domain. Encodes the taxonomy immediately.
+const positioning = [
+  { word: 'Medicine', cls: 'domain-medicine' },
+  { word: 'Data', cls: 'domain-data' },
+  { word: 'Blockchain', cls: 'domain-blockchain' },
+];
+
+const strip = [profile.title, profile.location, profile.availability].filter(Boolean);
+---
+
+<section class="shell relative pt-16 pb-[var(--spacing-section)] md:pt-24">
+  <div class="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
+    <div class="lg:col-span-7">
+      <p class="meta mb-6" data-reveal>Portfolio</p>
+
+      <h1
+        class="text-[length:var(--text-display-xl)] leading-[0.98] tracking-[-0.03em]"
+        data-reveal
+        style="--reveal-delay:60ms"
+      >
+        {profile.name}
+      </h1>
+
+      <p
+        class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.8125rem] font-medium tracking-[0.14em] uppercase sm:text-sm"
+        data-reveal
+        style="--reveal-delay:140ms"
+      >
+        {
+          positioning.map((p, i) => (
+            <>
+              {i > 0 && <span class="text-meta" aria-hidden="true">×</span>}
+              <span class={p.cls}>{p.word}</span>
+            </>
+          ))
+        }
+      </p>
+
+      <p
+        class="measure mt-8 text-lg leading-[1.65] text-ink-2 sm:text-xl"
+        data-reveal
+        style="--reveal-delay:220ms"
+      >
+        {profile.statement}
+      </p>
+
+      <div
+        class="mt-11 flex flex-wrap items-center gap-3"
+        data-reveal
+        style="--reveal-delay:300ms"
+      >
+        <a
+          href="#work"
+          class="inline-flex items-center gap-2.5 border border-ink bg-ink px-6 py-3 text-sm font-medium text-bg transition-colors duration-300 hover:bg-transparent hover:text-ink"
+        >
+          View my work
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2.5 border border-hairline-strong px-6 py-3 text-sm font-medium transition-colors duration-300 hover:border-ink"
+        >
+          Let's connect
+        </a>
+      </div>
+
+      <ul
+        class="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-hairline pt-6"
+        data-reveal
+        style="--reveal-delay:380ms"
+      >
+        {
+          strip.map((item, i) => (
+            <>
+              {i > 0 && <li class="meta opacity-40" aria-hidden="true">/</li>}
+              <li class="meta">{item}</li>
+            </>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="lg:col-span-5" data-reveal style="--reveal-delay:180ms">
+      <CohortGrid class="text-ink-2 opacity-90" />
+    </div>
+  </div>
+</section>

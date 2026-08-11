@@ -1,0 +1,391 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/sections/Hero.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import DomainTag from '@/components/ui/DomainTag.astro';
+import LinkList from '@/components/ui/LinkList.astro';
+import Intersection from '@/components/viz/Intersection.astro';
+import { profile } from '@/data/profile';
+
+const live = <T extends { data: { draft: boolean } }>(c: T[]) => c.filter((e) => !e.data.draft);
+
+const pillars = live(await getCollection('pillars')).sort((a, b) => a.data.order - b.data.order);
+const work = live(await getCollection('work'))
+  .filter((w) => w.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+const writing = live(await getCollection('writing')).sort(
+  (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
+);
+const recognition = live(await getCollection('recognition')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const experience = live(await getCollection('experience')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const channels = profile.writingChannels.map((k) => profile.socials[k]);
+const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] as const).map(
+  (k) => profile.socials[k]
+);
+---
+
+<BaseLayout>
+  <Hero />
+
+  {/* ── 01 · About ─────────────────────────────────────────────────────── */}
+  <section class="shell scroll-mt-24" id="about">
+    <SectionHeader numeral="01" title="The intersection" href="/about" hrefLabel="Read more" />
+
+    <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-4" data-reveal>
+        <div
+          class="relative aspect-[4/5] w-full overflow-hidden border border-hairline bg-surface-2"
+        >
+          {
+            profile.portrait.isReal ? (
+              <img
+                src={profile.portrait.src}
+                alt={profile.portrait.alt}
+                width="640"
+                height="800"
+                class="h-full w-full object-cover"
+              />
+            ) : (
+              <div class="plot-grid flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
+                <span class="meta">Portrait</span>
+                <p class="meta-note max-w-[24ch] normal-case">
+                  Replace /public/portrait.jpg and set isReal to true in profile.ts
+                </p>
+              </div>
+            )
+          }
+        </div>
+        <p class="meta mt-4">Fig. — {profile.shortName}</p>
+      </div>
+
+      <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
+        <p class="text-lg leading-[1.7] text-ink">
+          I am a {profile.title.toLowerCase()} at {profile.education[0].institution}, a
+          blockchain data analyst, and a data storyteller.
+        </p>
+        <p class="mt-5 leading-[1.75] text-ink-2">
+          These sound like separate lives. They are the same instinct applied to
+          different systems — find where a system loses people, measure it
+          honestly, and say what the measurement means in language someone can
+          act on.
+        </p>
+        <p class="mt-5 leading-[1.75] text-ink-2">
+          In medicine that means asking why a patient's record never followed
+          them. In on-chain analysis it means asking why a million new users
+          arrived and almost none stayed. The subject changes. The question does
+          not.
+        </p>
+        <a
+          href="/about"
+          class="mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink"
+        >
+          <span class="link-underline">Read the full story</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="flex items-center lg:col-span-3" data-reveal style="--reveal-delay:160ms">
+        <Intersection class="w-full max-w-[260px] text-ink" />
+      </div>
+    </div>
+  </section>
+
+  {/* ── 02 · Pillars ───────────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="pillars">
+    <SectionHeader numeral="02" title="Three parts of the work" note={`${pillars.length} pillars`} />
+
+    <div class="mt-4">
+      {
+        pillars.map((pillar, i) => (
+          <article
+            class="group border-b border-hairline"
+            data-reveal
+            style={`--reveal-delay:${i * 70}ms`}
+          >
+            <a
+              href={`/pillars/${pillar.id}`}
+              class="grid grid-cols-1 gap-6 py-10 transition-colors duration-500 md:grid-cols-12 md:gap-8 md:py-12"
+            >
+              <div class="md:col-span-2">
+                <span class="font-display text-3xl leading-none text-meta transition-colors duration-500 group-hover:text-ink">
+                  {pillar.data.numeral}
+                </span>
+                <p class="meta mt-3">{pillar.data.kicker}</p>
+              </div>
+
+              <div class="md:col-span-7">
+                <h3 class="text-[length:var(--text-display-m)] leading-[1.15]">
+                  {pillar.data.title}
+                </h3>
+                <p class="measure mt-4 leading-[1.7] text-ink-2">{pillar.data.intro}</p>
+                {pillar.data.links.length > 0 && (
+                  <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5">
+                    {pillar.data.links.map((l) => (
+                      <li class="meta">{l.note ?? l.label}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div class="flex items-start justify-between gap-4 md:col-span-3 md:flex-col md:items-end">
+                <DomainTag domains={pillar.data.domains} class="md:justify-end" />
+                <span class="meta inline-flex items-center gap-2 whitespace-nowrap text-ink-2 transition-all duration-500 group-hover:gap-3 group-hover:text-ink">
+                  Read more <span aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ── 03 · Selected work ─────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="work">
+    <SectionHeader
+      numeral="03"
+      title="Selected work"
+      href="/work"
+      hrefLabel="All work"
+    />
+
+    <div class="mt-10 flex flex-col gap-6">
+      {
+        work.map((item, i) => (
+          <article data-reveal style={`--reveal-delay:${i * 70}ms`}>
+            <a
+              href={`/work/${item.id}`}
+              class="group block border border-hairline bg-surface p-7 transition-colors duration-500 hover:border-hairline-strong md:p-10"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <p class="meta">
+                  Fig. {String(i + 1).padStart(2, '0')} · {item.data.type}
+                  {item.data.method && ` · ${item.data.method}`}
+                </p>
+                <DomainTag domains={item.data.domains} />
+              </div>
+
+              <h3 class="mt-6 max-w-[24ch] text-[length:var(--text-display-m)] leading-[1.15] md:max-w-[30ch]">
+                {item.data.title}
+              </h3>
+
+              <p class="measure mt-4 leading-[1.7] text-ink-2">{item.data.summary}</p>
+
+              {item.data.metrics.length > 0 && (
+                <dl class="mt-8 grid grid-cols-1 gap-6 border-t border-hairline pt-6 sm:grid-cols-2 lg:max-w-3xl">
+                  {item.data.metrics.map((m) => (
+                    <div>
+                      <dt class="meta">{m.label}</dt>
+                      <dd class="mt-1.5 font-mono text-2xl tracking-tight md:text-3xl">
+                        {m.value}
+                      </dd>
+                      {m.note && <dd class="meta-note mt-2">{m.note}</dd>}
+                    </div>
+                  ))}
+                </dl>
+              )}
+
+              <span class="mt-8 inline-flex items-center gap-2 text-sm font-medium transition-all duration-500 group-hover:gap-3">
+                <span class="link-underline">Read case study</span>
+                <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* ── 04 · Writing ───────────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="writing">
+    <SectionHeader numeral="04" title="Data stories & writing" />
+
+    <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-5" data-reveal>
+        <p class="meta">{profile.datainbyte.tagline}</p>
+        <h3 class="mt-3 font-display text-[length:var(--text-display-m)] leading-tight">
+          {profile.datainbyte.name}
+        </h3>
+        <p class="measure mt-5 leading-[1.7] text-ink-2">{profile.datainbyte.description}</p>
+      </div>
+
+      <div class="lg:col-span-7" data-reveal style="--reveal-delay:80ms">
+        <p class="meta mb-5">Where the work is published</p>
+        <ul class="border-t border-hairline">
+          {
+            channels.map((c) => (
+              <li class="border-b border-hairline">
+                <a
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-baseline justify-between gap-6 py-4 transition-colors duration-300"
+                >
+                  <span class="text-[0.9375rem] font-medium transition-opacity group-hover:opacity-70">
+                    {c.label}
+                  </span>
+                  <span class="meta flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
+                    {c.handle} <span aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        {
+          writing.length > 0 && (
+            <ul class="mt-10 border-t border-hairline">
+              {writing.slice(0, 5).map((w) => (
+                <li class="border-b border-hairline">
+                  <a
+                    href={w.data.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group block py-5"
+                  >
+                    <p class="meta">
+                      {w.data.outlet} · {w.data.format}
+                    </p>
+                    <p class="mt-2 text-[0.9375rem] leading-snug">
+                      <span class="link-underline">{w.data.title}</span>
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        {
+          profile.showEditorialNotes && writing.length === 0 && (
+            <aside class="mt-8 border border-dashed border-hairline-strong bg-surface-2/60 px-5 py-4">
+              <p class="meta mb-2">Editorial note — not shown after launch</p>
+              <p class="text-sm text-ink-2">
+                Individual articles, threads and explainers will list here as soon as you add
+                them. Drop a file in <code class="font-mono text-xs">src/content/writing/</code>{' '}
+                for each piece you want featured — see CONTENT_GUIDE.md.
+              </p>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* ── 05 · Recognition ───────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="recognition">
+    <SectionHeader numeral="05" title="Leadership & impact" />
+
+    <ul class="mt-10 border-t border-hairline">
+      {
+        recognition.map((r, i) => (
+          <li
+            class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8"
+            data-reveal
+            style={`--reveal-delay:${i * 60}ms`}
+          >
+            <div class="md:col-span-3">
+              <p class="meta">{r.data.category}</p>
+              <p class="meta mt-1">{r.data.period ?? '—'}</p>
+            </div>
+            <div class="md:col-span-6">
+              <h3 class="font-sans text-[1.0625rem] font-medium tracking-normal">
+                {r.data.title}
+              </h3>
+              <p class="meta mt-1.5">{r.data.organisation}</p>
+              <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{r.data.summary}</p>
+            </div>
+            <div class="md:col-span-3 md:text-right">
+              <LinkList links={r.data.links} class="md:justify-end" />
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      experience.length > 0 && (
+        <ul class="mt-16 border-t border-hairline">
+          {experience.map((e) => (
+            <li class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8">
+              <div class="md:col-span-3">
+                <p class="meta">{e.data.period}</p>
+              </div>
+              <div class="md:col-span-9">
+                <h3 class="font-sans text-[1.0625rem] font-medium">{e.data.role}</h3>
+                <p class="meta mt-1.5">{e.data.organisation}</p>
+                <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{e.data.summary}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  {/* ── 06 · Contact ───────────────────────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="contact">
+    <SectionHeader numeral="06" title="Let's connect" />
+
+    <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+      <div class="lg:col-span-7" data-reveal>
+        <p class="measure text-lg leading-[1.65] text-ink-2">
+          Open to conversations about blockchain data analytics, Web3 research,
+          health technology, and research collaborations.
+        </p>
+
+        <a
+          href={`mailto:${profile.email}`}
+          class="mt-8 inline-block font-mono text-[1.25rem] leading-tight tracking-tight break-words sm:text-[length:var(--text-display-m)]"
+        >
+          <span class="link-underline">{profile.email}</span>
+        </a>
+
+        {
+          profile.showEditorialNotes && (
+            <aside class="mt-8 border border-dashed border-hairline-strong bg-surface-2/60 px-5 py-4">
+              <p class="meta mb-2">Editorial note — not shown after launch</p>
+              <p class="text-sm text-ink-2">
+                The paragraph above is draft copy — tell me what you actually want to be
+                approached for and I will rewrite it. You can also set an availability line in
+                profile.ts to show it in the hero.
+              </p>
+            </aside>
+          )
+        }
+      </div>
+
+      <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
+        <p class="meta mb-5">Elsewhere</p>
+        <ul class="border-t border-hairline">
+          {
+            contactLinks.map((s) => (
+              <li class="border-b border-hairline">
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-baseline justify-between gap-6 py-4"
+                >
+                  <span class="text-[0.9375rem] font-medium transition-opacity group-hover:opacity-70">
+                    {s.label}
+                  </span>
+                  <span class="meta flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
+                    {s.handle} <span aria-hidden="true">↗</span>
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+/**
+ * The three-set diagram. Used exactly once, in About.
+ * Used once it is an identity; used repeatedly it becomes a pattern.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<figure class={className}>
+  <svg
+    viewBox="0 0 260 240"
+    class="h-auto w-full"
+    role="img"
+    aria-label="Venn diagram of three overlapping sets — Medicine, Data and Blockchain — with the work sitting at their intersection."
+  >
+    <g fill="none" stroke-width="1.15">
+      <circle cx="130" cy="86" r="62" stroke="var(--c-medicine)" opacity="0.85"></circle>
+      <circle cx="92" cy="150" r="62" stroke="var(--c-data)" opacity="0.85"></circle>
+      <circle cx="168" cy="150" r="62" stroke="var(--c-blockchain)" opacity="0.85"></circle>
+    </g>
+
+    <g class="meta" style="font-size:9px;letter-spacing:0.11em">
+      <text x="130" y="34" text-anchor="middle" fill="var(--c-medicine)">MEDICINE</text>
+      <text x="30" y="196" text-anchor="middle" fill="var(--c-data)">DATA</text>
+      <text x="232" y="196" text-anchor="middle" fill="var(--c-blockchain)">BLOCKCHAIN</text>
+    </g>
+
+    <circle cx="130" cy="128" r="2.5" fill="currentColor"></circle>
+  </svg>
+  <figcaption class="meta mt-4 text-center">Fig. — the working intersection</figcaption>
+</figure>
+
+<style>
+  circle,
+  text {
+    animation: fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  circle:nth-of-type(2) { animation-delay: 0.1s; }
+  circle:nth-of-type(3) { animation-delay: 0.2s; }
+  text { animation-delay: 0.45s; }
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+</style>

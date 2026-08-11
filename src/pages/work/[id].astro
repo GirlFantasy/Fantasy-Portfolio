@@ -1,0 +1,87 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DomainTag from '@/components/ui/DomainTag.astro';
+import LinkList from '@/components/ui/LinkList.astro';
+import Note from '@/components/ui/Note.astro';
+
+export async function getStaticPaths() {
+  const work = (await getCollection('work')).filter((w) => !w.data.draft && w.data.caseStudy);
+  return work.map((item) => ({ params: { id: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const facts = [
+  { label: 'Type', value: item.data.type },
+  { label: 'Role', value: item.data.role },
+  { label: 'Method', value: item.data.method },
+  { label: 'Period', value: item.data.period },
+  { label: 'Status', value: item.data.status },
+].filter((f) => Boolean(f.value));
+---
+
+<BaseLayout title={item.data.title} description={item.data.summary}>
+  <article class="shell pt-14 pb-4 md:pt-20">
+    <a href="/work" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
+      <span aria-hidden="true">←</span> All work
+    </a>
+
+    <header class="mt-10 border-t border-hairline pt-8">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <p class="meta">Case study</p>
+        <DomainTag domains={item.data.domains} />
+      </div>
+
+      <h1 class="mt-7 max-w-[22ch] text-[length:var(--text-display-l)] leading-[1.06]">
+        {item.data.title}
+      </h1>
+
+      <p class="measure mt-7 text-lg leading-[1.65] text-ink-2">{item.data.summary}</p>
+
+      <dl class="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-hairline pt-6 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          facts.map((f) => (
+            <div>
+              <dt class="meta">{f.label}</dt>
+              <dd class="mt-1.5 text-sm">{f.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      {
+        item.data.metrics.length > 0 && (
+          <dl class="mt-10 grid grid-cols-1 gap-8 border-t border-hairline pt-8 sm:grid-cols-2 lg:max-w-3xl">
+            {item.data.metrics.map((m) => (
+              <div>
+                <dt class="meta">{m.label}</dt>
+                <dd class="mt-2 font-mono text-[length:var(--text-display-m)] leading-none tracking-tight">
+                  {m.value}
+                </dd>
+                {m.note && <dd class="meta-note mt-3">{m.note}</dd>}
+              </div>
+            ))}
+          </dl>
+        )
+      }
+
+      <LinkList links={item.data.links} class="mt-8" />
+    </header>
+
+    <div class="prose mt-14">
+      <Content components={{ Note }} />
+    </div>
+
+    <nav class="mt-[var(--spacing-section)] flex flex-wrap items-center justify-between gap-6 border-t border-hairline pt-8">
+      <a href="/work" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
+        <span aria-hidden="true">←</span> All work
+      </a>
+      <a href="/#contact" class="inline-flex items-center gap-2 text-sm font-medium">
+        <span class="link-underline">Discuss this work</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </nav>
+  </article>
+</BaseLayout>

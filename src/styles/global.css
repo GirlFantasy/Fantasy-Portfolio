@@ -1,0 +1,338 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — "Specimen"
+   Neutrals do the work. Hue is taxonomy, never decoration.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Light: "Plate" ──────────────────────────────────────────────────────── */
+:root {
+  --c-bg: #fbfaf8;
+  --c-surface: #ffffff;
+  --c-surface-2: #f4f2ee;
+  --c-hairline: #e4e1db;
+  --c-hairline-strong: #cbc7bf;
+  --c-text: #14161a;
+  --c-text-2: #565b63; /* 6.19:1 on --c-bg */
+  --c-text-meta: #6b7079; /* 4.56:1 — AA for the small mono labels */
+
+  --c-medicine: #3f6b5c; /* 5.55:1 */
+  --c-data: #2f5675; /* 7.06:1 */
+  --c-blockchain: #96552f; /* 5.25:1 */
+
+  --c-focus: #2f5675;
+  --grid-line: rgba(20, 22, 26, 0.045);
+}
+
+/* ── Dark: "Field" ───────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --c-bg: #0b0c0e;
+    --c-surface: #131519;
+    --c-surface-2: #1a1d22;
+    --c-hairline: #24272c;
+    --c-hairline-strong: #3a3e45;
+    --c-text: #ecedef;
+    --c-text-2: #9ca1a8;
+    --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
+
+    --c-medicine: #6fa593;
+    --c-data: #7ba7c9;
+    --c-blockchain: #c98a5e;
+
+    --c-focus: #7ba7c9;
+    --grid-line: rgba(236, 237, 239, 0.05);
+  }
+}
+
+:root[data-theme='dark'] {
+  --c-bg: #0b0c0e;
+  --c-surface: #131519;
+  --c-surface-2: #1a1d22;
+  --c-hairline: #24272c;
+  --c-hairline-strong: #3a3e45;
+  --c-text: #ecedef;
+  --c-text-2: #9ca1a8;
+  --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
+
+  --c-medicine: #6fa593;
+  --c-data: #7ba7c9;
+  --c-blockchain: #c98a5e;
+
+  --c-focus: #7ba7c9;
+  --grid-line: rgba(236, 237, 239, 0.05);
+}
+
+/* ── Token bridge into Tailwind ──────────────────────────────────────────── */
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-hairline: var(--c-hairline);
+  --color-hairline-strong: var(--c-hairline-strong);
+  --color-ink: var(--c-text);
+  --color-ink-2: var(--c-text-2);
+  --color-meta: var(--c-text-meta);
+  --color-medicine: var(--c-medicine);
+  --color-data: var(--c-data);
+  --color-blockchain: var(--c-blockchain);
+
+  --font-display: 'Newsreader Variable', Newsreader, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-display-xl: clamp(2.75rem, 7vw, 5.25rem);
+  --text-display-l: clamp(2rem, 4.5vw, 3.25rem);
+  --text-display-m: clamp(1.65rem, 3vw, 2.25rem);
+
+  --spacing-section: clamp(5rem, 11vw, 9rem);
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Every numeral on this site aligns. Small detail, reads as rigour. */
+  body {
+    font-variant-numeric: tabular-nums;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--c-focus);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  ::selection {
+    background: var(--c-text);
+    color: var(--c-bg);
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* ── Components ──────────────────────────────────────────────────────────── */
+@layer components {
+  /* Monospace metadata label — the connective tissue of the whole design. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    color: var(--c-text-meta);
+  }
+
+  /* Methodology note beneath a figure. Mono, but readable — never uppercase,
+     never dimmed with opacity (that is what broke contrast the first time). */
+  .meta-note {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.65;
+    color: var(--c-text-2);
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  .measure {
+    max-width: 62ch;
+  }
+
+  /* Faint plot-grid page texture. Data as background, not ornament. */
+  .plot-grid {
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Entrance reveal. Opt-in via data-reveal; instant if JS is off. */
+  [data-reveal] {
+    opacity: 1;
+  }
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Long-form content: case studies and pillar pages. */
+  .prose {
+    max-width: 68ch;
+  }
+  .prose > * + * {
+    margin-top: 1.5rem;
+  }
+  .prose h2 {
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    line-height: 1.25;
+    margin-top: 3.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--c-hairline);
+  }
+  .prose h3 {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin-top: 2.5rem;
+  }
+  .prose p {
+    color: var(--c-text-2);
+    line-height: 1.75;
+  }
+  .prose strong {
+    color: var(--c-text);
+    font-weight: 600;
+  }
+  .prose a {
+    color: var(--c-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--c-hairline-strong);
+    transition: text-decoration-color 0.3s;
+  }
+  .prose a:hover {
+    text-decoration-color: currentColor;
+  }
+  .prose ul,
+  .prose ol {
+    color: var(--c-text-2);
+    padding-left: 1.15rem;
+    line-height: 1.75;
+  }
+  .prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .prose ul > li {
+    position: relative;
+    padding-left: 1.35rem;
+  }
+  .prose ul > li + li {
+    margin-top: 0.6rem;
+  }
+  .prose ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 5px;
+    height: 1px;
+    background: var(--c-hairline-strong);
+  }
+  .prose ol {
+    list-style: decimal;
+  }
+  .prose ol > li + li {
+    margin-top: 0.6rem;
+  }
+  .prose ol > li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    color: var(--c-text-meta);
+  }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--c-surface-2);
+    padding: 0.15em 0.4em;
+    border: 1px solid var(--c-hairline);
+  }
+  .prose blockquote {
+    border-left: 2px solid var(--c-hairline-strong);
+    padding-left: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--c-text);
+  }
+  .prose hr {
+    border: 0;
+    border-top: 1px solid var(--c-hairline);
+    margin-block: 2.5rem;
+  }
+}
+
+@layer utilities {
+  .domain-medicine {
+    color: var(--c-medicine);
+  }
+  .domain-data {
+    color: var(--c-data);
+  }
+  .domain-blockchain {
+    color: var(--c-blockchain);
+  }
+}

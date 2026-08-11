@@ -1,0 +1,40 @@
+---
+---
+
+<button
+  type="button"
+  id="theme-toggle"
+  class="group -m-2 inline-flex items-center gap-2 p-2 text-meta transition-colors hover:text-ink"
+  aria-label="Switch colour theme"
+>
+  <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <circle cx="10" cy="10" r="6.25" stroke="currentColor" stroke-width="1.25"></circle>
+    <path d="M10 3.75V16.25A6.25 6.25 0 0 0 10 3.75Z" fill="currentColor"></path>
+  </svg>
+  <span class="meta hidden sm:inline" data-theme-label>Auto</span>
+</button>
+
+<script>
+  const KEY = 'theme-preference';
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const label = btn?.querySelector('[data-theme-label]');
+  const order = ['auto', 'light', 'dark'] as const;
+  type Pref = (typeof order)[number];
+
+  const apply = (pref: Pref) => {
+    if (pref === 'auto') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', pref);
+    if (label) label.textContent = pref[0].toUpperCase() + pref.slice(1);
+    btn?.setAttribute('aria-label', `Colour theme: ${pref}. Click to change.`);
+  };
+
+  let current = ((localStorage.getItem(KEY) as Pref) ?? 'auto') as Pref;
+  apply(current);
+
+  btn?.addEventListener('click', () => {
+    current = order[(order.indexOf(current) + 1) % order.length];
+    localStorage.setItem(KEY, current);
+    apply(current);
+  });
+</script>

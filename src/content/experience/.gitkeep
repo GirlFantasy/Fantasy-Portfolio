@@ -1,0 +1,12 @@
+# Post-graduation roles go here.
+#
+# Create a file like `2027-house-officer.mdx` with frontmatter:
+#
+#   role: 'House Officer'
+#   organisation: 'Hospital name'
+#   period: '2027 — present'
+#   summary: 'One or two sentences.'
+#   order: 1
+#
+# The Experience section appears on the site automatically once the first
+# entry exists. No code changes needed.

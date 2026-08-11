@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Intersection from '@/components/viz/Intersection.astro';
+import Note from '@/components/ui/Note.astro';
+import { profile } from '@/data/profile';
+
+const pillars = (await getCollection('pillars'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="About"
+  description={`${profile.name} — ${profile.titleFull}. ${profile.statement}`}
+>
+  <div class="shell pt-14 md:pt-20">
+    <header class="border-b border-hairline pb-10">
+      <p class="meta">About</p>
+      <h1 class="mt-5 max-w-[18ch] text-[length:var(--text-display-l)] leading-[1.05]">
+        {profile.name}
+      </h1>
+      <p class="measure mt-6 text-lg leading-[1.65] text-ink-2">{profile.titleFull}.</p>
+    </header>
+
+    <div class="mt-14 grid grid-cols-1 gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <div class="prose">
+          <p>
+            I am a {profile.title.toLowerCase()} at {profile.education[0].institution} ({
+              profile.education[0].abbr
+            }) in {profile.location}, a blockchain data analyst, and a data
+            storyteller.
+          </p>
+
+          <p>
+            Those descriptions usually belong to different people. Holding them
+            together is deliberate, and it is the most useful thing about how I
+            work.
+          </p>
+
+          <h2>What connects them</h2>
+
+          <p>
+            Clinical medicine trains a specific habit of mind: gather what is
+            actually observable, resist the explanation you want to be true, and
+            be honest about the limits of what you know. That habit transfers
+            almost perfectly to data analysis, and it is rarer there than it
+            should be.
+          </p>
+
+          <p>
+            Both fields also share a failure mode. Medicine can produce a
+            diagnosis nobody explains to the patient. Analytics can produce a
+            dashboard nobody reads. In both cases the work is technically
+            complete and practically useless. So the third part of what I do —
+            the storytelling — is not decoration on top of the analysis. It is
+            the part that makes the analysis count.
+          </p>
+
+          <h2>Where I work</h2>
+
+          <p>
+            Three areas, each with its own page:
+          </p>
+
+          <ul>
+            {
+              pillars.map((p) => (
+                <li>
+                  <a href={`/pillars/${p.id}`}>
+                    <strong>{p.data.title}</strong>
+                  </a>{' '}
+                  — {p.data.intro}
+                </li>
+              ))
+            }
+          </ul>
+
+          <h2>Education</h2>
+
+          {
+            profile.education.map((e) => (
+              <p>
+                <strong>{e.institution}</strong> ({e.abbr}) — {e.programme}.
+                {e.current && ` Expected ${e.expected}.`}
+              </p>
+            ))
+          }
+
+          <h2>The name</h2>
+
+          <p>
+            I publish some of my Web3 and data work as <strong>{profile.creativeName}</strong>.
+            It is a creative name, not a separate identity — the research and the
+            analysis are the same work.
+          </p>
+
+          <Note>
+            <p>
+              <strong>To add:</strong> anything you want people to know that is not
+              on this page — how you got into blockchain data, what you are working
+              toward after graduation, what kind of role or collaboration you want
+              next. This page is where a longer, more personal account belongs.
+            </p>
+          </Note>
+        </div>
+
+        <div class="mt-14 flex flex-wrap gap-4 border-t border-hairline pt-8">
+          <a
+            href={`mailto:${profile.email}`}
+            class="inline-flex items-center gap-2.5 border border-ink bg-ink px-6 py-3 text-sm font-medium text-bg transition-colors duration-300 hover:bg-transparent hover:text-ink"
+          >
+            Get in touch
+          </a>
+          {
+            profile.cv.available && (
+              <a
+                href={profile.cv.href}
+                class="inline-flex items-center gap-2.5 border border-hairline-strong px-6 py-3 text-sm font-medium transition-colors duration-300 hover:border-ink"
+              >
+                Download CV <span aria-hidden="true">↓</span>
+              </a>
+            )
+          }
+        </div>
+      </div>
+
+      <aside class="lg:col-span-5">
+        <div class="lg:sticky lg:top-24">
+          <div class="aspect-[4/5] w-full overflow-hidden border border-hairline bg-surface-2">
+            {
+              profile.portrait.isReal ? (
+                <img
+                  src={profile.portrait.src}
+                  alt={profile.portrait.alt}
+                  width="640"
+                  height="800"
+                  class="h-full w-full object-cover"
+                />
+              ) : (
+                <div class="plot-grid flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
+                  <span class="meta">Portrait</span>
+                  <p class="meta-note max-w-[26ch] normal-case">
+                    Replace /public/portrait.jpg and set isReal to true in profile.ts
+                  </p>
+                </div>
+              )
+            }
+          </div>
+          <p class="meta mt-4">Fig. — {profile.shortName}, {profile.location}</p>
+
+          <Intersection class="mt-12 w-full max-w-[280px] text-ink" />
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

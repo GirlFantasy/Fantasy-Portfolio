@@ -1,0 +1,90 @@
+---
+title: 'Solana User Retention Analysis'
+type: 'analysis'
+domains: ['data', 'blockchain']
+role: 'Independent analysis'
+summary: 'On-chain analysis of Solana user acquisition and retention — examining the large influx of new users and what happened to those users over the following months.'
+method: 'On-chain data · SQL · Dune'
+metrics:
+  - label: 'New users per month'
+    value: '25–200M'
+    note: 'Range observed across the period analysed'
+  - label: 'Retained, 60–90 days'
+    value: '0.02–0.6%'
+    note: 'Share of acquired users still active in the 60–90 day window'
+links:
+  - label: 'Dashboards'
+    href: 'https://dune.com/datainbyte'
+    note: 'Dune'
+pillar: 'blockchain-data'
+featured: true
+caseStudy: true
+order: 1
+draft: false
+---
+
+## Context
+
+Solana's growth story is usually told with acquisition numbers. New addresses,
+new wallets, new users — figures that are straightforward to produce and easy to
+present as momentum.
+
+Acquisition, on its own, tells you how many people arrived. It tells you nothing
+about whether they stayed.
+
+## The question
+
+**Of the users a chain acquires in a given month, how many are still there two
+to three months later?**
+
+This reframes growth as a retention problem rather than an accounting one, and
+it is the question that determines whether an ecosystem is compounding or
+churning.
+
+## Data & method
+
+The analysis used on-chain data, queried with SQL and published as dashboards.
+Users were grouped into monthly acquisition cohorts and each cohort was followed
+forward to measure what share remained active in a later window.
+
+<Note>
+  **To add — this is the most important gap on the site.** Three details make
+  these figures defensible rather than challengeable:
+
+  1. **The date range analysed** — which months the cohorts were drawn from
+  2. **The definition of "new user"** — first-ever transaction? first funded
+     wallet? unique signer with no prior activity?
+  3. **The definition of "retained"** — any transaction in the window? a minimum
+     number of transactions?
+
+  Analysts will ask all three. Answering them upfront turns the headline number
+  into a demonstration of rigour.
+</Note>
+
+## Findings
+
+Across the period analysed, Solana was acquiring on the order of **25 to 200
+million new users per month**.
+
+Of those acquired users, approximately **0.02% to 0.6% remained within the 60 to
+90 day window**.
+
+The distance between those two figures is the entire finding. An ecosystem can
+report enormous top-line growth while retaining a fraction of a percent of the
+users that growth is composed of — and the headline number gives no indication
+that this is happening.
+
+## Why it matters
+
+Acquisition is a marketing metric. Retention is a product metric. Reporting the
+first without the second describes reach, not adoption.
+
+For anyone allocating capital, attention or engineering time against ecosystem
+growth figures, the difference is not academic — it is the difference between a
+market that is expanding and one that is recycling.
+
+<Note>
+  **To add:** what you concluded about *why* retention decayed this sharply, and
+  anything the analysis changed — a decision, a conversation, a follow-up piece.
+  A "what it changed" section is what separates a chart from a case study.
+</Note>

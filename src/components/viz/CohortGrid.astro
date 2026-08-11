@@ -1,0 +1,95 @@
+---
+/**
+ * Cohort retention grid.
+ *
+ * Rows are cohorts, columns are elapsed periods, opacity is retained share.
+ * The decay shape is the literal shape of a retention curve — the visual is a
+ * data object, not decoration. Deterministic (seeded), so the build is stable.
+ *
+ * Pure SVG + CSS. No JS, no canvas. Fully static under prefers-reduced-motion.
+ */
+interface Props {
+  rows?: number;
+  cols?: number;
+  class?: string;
+}
+const { rows = 11, cols = 22, class: className = '' } = Astro.props;
+
+const CELL = 9;
+const GAP = 4;
+const STEP = CELL + GAP;
+
+// Deterministic pseudo-random — same output every build.
+const noise = (r: number, c: number) => {
+  const n = Math.sin(r * 12.9898 + c * 78.233) * 43758.5453;
+  return n - Math.floor(n);
+};
+
+const cells = [];
+for (let r = 0; r < rows; r++) {
+  // Each cohort starts a little differently.
+  const seed = 0.82 + noise(r, 0) * 0.18;
+  for (let c = 0; c < cols; c++) {
+    // Sharp early drop-off, long thin tail.
+    const decay = Math.exp(-Math.pow(c / (cols * 0.26), 1.15));
+    const jitter = 0.82 + noise(r, c + 1) * 0.36;
+    const value = Math.max(0, Math.min(1, seed * decay * jitter));
+    cells.push({
+      x: c * STEP,
+      y: r * STEP,
+      o: Number((0.05 + value * 0.85).toFixed(3)),
+      d: c * 26 + r * 14,
+    });
+  }
+}
+
+const width = cols * STEP - GAP;
+const height = rows * STEP - GAP;
+---
+
+<figure class={className} data-cohort-grid>
+  <svg
+    viewBox={`0 0 ${width} ${height}`}
+    width={width}
+    height={height}
+    class="h-auto w-full"
+    role="img"
+    aria-label="Abstract cohort retention grid: a dense field of marks decaying from left to right, representing users retained over successive periods."
+  >
+    {
+      cells.map((cell) => (
+        <rect
+          x={cell.x}
+          y={cell.y}
+          width={CELL}
+          height={CELL}
+          fill="currentColor"
+          opacity={cell.o}
+          style={`--d:${cell.d}ms`}
+        />
+      ))
+    }
+  </svg>
+  <figcaption class="meta mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
+    <span>Fig. — cohort retention, schematic</span>
+    <span>Periods elapsed →</span>
+  </figcaption>
+</figure>
+
+<style>
+  [data-cohort-grid] rect {
+    animation: cell-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--d);
+  }
+  @keyframes cell-in {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-cohort-grid] rect {
+      animation: none;
+    }
+  }
+</style>

@@ -103,12 +103,23 @@ export const profile = {
   primarySocials: ['x', 'linkedin', 'github', 'substack'] as const,
 
   // ── Assets ─────────────────────────────────────────────────────────────────
-  /** Replace /public/portrait.jpg with your photo — no code change needed. */
+  /**
+   * ► TO SWAP YOUR PHOTO LATER: save the new one over `public/portrait.jpg`,
+   *   keeping that exact filename. Nothing here needs to change.
+   *   Portrait orientation, at least 1000px wide, ideally under 300KB.
+   */
   portrait: {
     src: '/portrait.jpg',
     alt: 'Portrait of Chimdalu Nnenne Egwu',
-    /** Set to true once a real photo replaces the placeholder. */
-    isReal: false,
+    /** Set to false to go back to the placeholder box. */
+    isReal: true,
+    /**
+     * Which part of the photo stays visible when it is cropped to the frame.
+     * First number is left→right, second is top→bottom.
+     * Lower second number = keeps more of the top (head); higher = more of
+     * the bottom. Try '50% 0%' or '50% 40%' if a new photo sits wrong.
+     */
+    objectPosition: '50% 0%',
   },
 
   /** Drop your PDF at /public/cv.pdf, then set `available: true`. */

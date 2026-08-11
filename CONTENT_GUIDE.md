@@ -185,16 +185,30 @@ frontmatter is what shows on the homepage; everything below the `---` is the
 
 ## 8. Your photo
 
-Save your portrait as `public/portrait.jpg` (portrait orientation, roughly 4:5,
-at least 1000px wide). Then in `src/data/profile.ts`:
+Your portrait is already in. **To swap it for a better shot later:**
+
+1. Go to [`public/`](https://github.com/GirlFantasy/Fantasy-Portfolio/tree/main/public)
+   on GitHub
+2. Click **Add file → Upload files**
+3. Drag in your new photo, renamed to exactly **`portrait.jpg`**
+4. Click **Commit changes**
+
+It overwrites the old one and appears everywhere in about 90 seconds. No code
+change needed.
+
+**What makes a good one:** portrait orientation, at least 1000px wide, under
+about 300KB. Anything larger will still work but slows the page down — send it
+to me instead and I will compress it first.
+
+**If the crop sits wrong**, the frame is 4:5 so taller photos get trimmed top
+and bottom. Adjust one line in `src/data/profile.ts`:
 
 ```ts
-portrait: {
-  src: '/portrait.jpg',
-  alt: 'Portrait of Chimdalu Nnenne Egwu',
-  isReal: true,        // ← change false to true
-},
+objectPosition: '50% 0%',
 ```
+
+The second number is top-to-bottom. `0%` keeps the very top of the photo,
+`50%` centres it, `100%` keeps the bottom. Nudge it until your face sits well.
 
 ## 9. Your CV
 

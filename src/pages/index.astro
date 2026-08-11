@@ -7,6 +7,7 @@ import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
 import Intersection from '@/components/viz/Intersection.astro';
 import { profile } from '@/data/profile';
+import { accentClass } from '@/lib/domain';
 
 const live = <T extends { data: { draft: boolean } }>(c: T[]) => c.filter((e) => !e.data.draft);
 
@@ -106,7 +107,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
       {
         pillars.map((pillar, i) => (
           <article
-            class="group border-b border-hairline"
+            class={`group border-b border-hairline ${accentClass(pillar.data.domains)}`}
             data-reveal
             style={`--reveal-delay:${i * 70}ms`}
           >
@@ -115,9 +116,17 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
               class="grid grid-cols-1 gap-6 py-10 transition-colors duration-500 md:grid-cols-12 md:gap-8 md:py-12"
             >
               <div class="md:col-span-2">
-                <span class="font-display text-3xl leading-none text-meta transition-colors duration-500 group-hover:text-ink">
+                <span
+                  class="font-display text-4xl leading-none"
+                  style="color:var(--accent)"
+                >
                   {pillar.data.numeral}
                 </span>
+                <div
+                  class="mt-3 h-[2px] w-8 transition-all duration-500 group-hover:w-16"
+                  style="background:var(--accent)"
+                  aria-hidden="true"
+                />
                 <p class="meta mt-3">{pillar.data.kicker}</p>
               </div>
 
@@ -163,7 +172,8 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
           <article data-reveal style={`--reveal-delay:${i * 70}ms`}>
             <a
               href={`/work/${item.id}`}
-              class="group block border border-hairline bg-surface p-7 transition-colors duration-500 hover:border-hairline-strong md:p-10"
+              class={`group block border border-t-[3px] border-hairline bg-surface p-7 transition-colors duration-500 md:p-10 ${accentClass(item.data.domains)}`}
+              style="border-top-color:var(--accent)"
             >
               <div class="flex flex-wrap items-center justify-between gap-4">
                 <p class="meta">
@@ -185,7 +195,10 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
                   {item.data.metrics.map((m) => (
                     <div>
                       <dt class="meta">{m.label}</dt>
-                      <dd class="mt-1.5 font-mono text-2xl tracking-tight md:text-3xl">
+                      <dd
+                        class="mt-1.5 font-mono text-2xl tracking-tight md:text-3xl"
+                        style="color:var(--accent)"
+                      >
                         {m.value}
                       </dd>
                       {m.note && <dd class="meta-note mt-2">{m.note}</dd>}
@@ -224,7 +237,9 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
               rel="noopener noreferrer"
               class="group grid grid-cols-1 items-baseline gap-2 py-7 md:grid-cols-12 md:gap-8"
             >
-              <span class="meta md:col-span-2">Dash. {String(i + 1).padStart(2, '0')}</span>
+              <span class="meta md:col-span-2 text-data">
+                Dash. {String(i + 1).padStart(2, '0')}
+              </span>
               <h3 class="text-xl leading-snug md:col-span-7">
                 <span class="link-underline">{d.title}</span>
               </h3>
@@ -342,7 +357,9 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
             style={`--reveal-delay:${i * 60}ms`}
           >
             <div class="md:col-span-2">
-              <p class="font-mono text-lg leading-none tracking-tight">{c.data.placement}</p>
+              <p class="font-mono text-lg leading-none tracking-tight text-data">
+                {c.data.placement}
+              </p>
             </div>
             <div class="md:col-span-7">
               <h3 class="font-sans text-[1.0625rem] font-medium tracking-normal">

@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
 import Note from '@/components/ui/Note.astro';
+import { accentClass } from '@/lib/domain';
 
 export async function getStaticPaths() {
   const work = (await getCollection('work')).filter((w) => !w.data.draft && w.data.caseStudy);
@@ -23,12 +24,12 @@ const facts = [
 ---
 
 <BaseLayout title={item.data.title} description={item.data.summary}>
-  <article class="shell pt-14 pb-4 md:pt-20">
+  <article class={`shell pt-14 pb-4 md:pt-20 ${accentClass(item.data.domains)}`}>
     <a href="/work" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
       <span aria-hidden="true">←</span> All work
     </a>
 
-    <header class="mt-10 border-t border-hairline pt-8">
+    <header class="mt-10 border-t-[3px] pt-8" style="border-top-color:var(--accent)">
       <div class="flex flex-wrap items-center justify-between gap-4">
         <p class="meta">Case study</p>
         <DomainTag domains={item.data.domains} />
@@ -57,7 +58,10 @@ const facts = [
             {item.data.metrics.map((m) => (
               <div>
                 <dt class="meta">{m.label}</dt>
-                <dd class="mt-2 font-mono text-[length:var(--text-display-m)] leading-none tracking-tight">
+                <dd
+                  class="mt-2 font-mono text-[length:var(--text-display-m)] leading-none tracking-tight"
+                  style="color:var(--accent)"
+                >
                   {m.value}
                 </dd>
                 {m.note && <dd class="meta-note mt-3">{m.note}</dd>}

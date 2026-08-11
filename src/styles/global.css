@@ -7,21 +7,27 @@
 
 /* ── Light: "Plate" ──────────────────────────────────────────────────────── */
 :root {
-  --c-bg: #fbfaf8;
+  --c-bg: #faf8f4;
   --c-surface: #ffffff;
-  --c-surface-2: #f4f2ee;
-  --c-hairline: #e4e1db;
-  --c-hairline-strong: #cbc7bf;
-  --c-text: #14161a;
-  --c-text-2: #565b63; /* 6.19:1 on --c-bg */
-  --c-text-meta: #6b7079; /* 4.56:1 — AA for the small mono labels */
+  --c-surface-2: #f2eee6;
+  --c-hairline: #e3ded4;
+  --c-hairline-strong: #c7c0b3;
+  --c-text: #16181c;
+  --c-text-2: #545962; /* 6.3:1 on --c-bg */
+  --c-text-meta: #6a6f78; /* 4.6:1 — AA for the small mono labels */
 
-  --c-medicine: #3f6b5c; /* 5.55:1 */
-  --c-data: #2f5675; /* 7.06:1 */
-  --c-blockchain: #96552f; /* 5.25:1 */
+  /* Domain hues — now doing visible work, not just labelling. */
+  --c-medicine: #2f6b57; /* 5.8:1 */
+  --c-data: #1f5a86;     /* 6.5:1 */
+  --c-blockchain: #a5541f; /* 4.9:1 */
 
-  --c-focus: #2f5675;
-  --grid-line: rgba(20, 22, 26, 0.045);
+  /* Surface tints derived from the hues above. */
+  --t-medicine: #eaf2ee;
+  --t-data: #e8f0f7;
+  --t-blockchain: #f8ede3;
+
+  --c-focus: #1f5a86;
+  --grid-line: rgba(22, 24, 28, 0.05);
 }
 
 /* ── Dark: "Field" ───────────────────────────────────────────────────────── */
@@ -36,12 +42,16 @@
     --c-text-2: #9ca1a8;
     --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
 
-    --c-medicine: #6fa593;
-    --c-data: #7ba7c9;
-    --c-blockchain: #c98a5e;
+    --c-medicine: #5fc4a2;
+    --c-data: #6fb6ea;
+    --c-blockchain: #e39a5f;
 
-    --c-focus: #7ba7c9;
-    --grid-line: rgba(236, 237, 239, 0.05);
+    --t-medicine: #12241e;
+    --t-data: #101f2b;
+    --t-blockchain: #291b11;
+
+    --c-focus: #6fb6ea;
+    --grid-line: rgba(236, 237, 239, 0.055);
   }
 }
 
@@ -55,12 +65,16 @@
   --c-text-2: #9ca1a8;
   --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
 
-  --c-medicine: #6fa593;
-  --c-data: #7ba7c9;
-  --c-blockchain: #c98a5e;
+  --c-medicine: #5fc4a2;
+  --c-data: #6fb6ea;
+  --c-blockchain: #e39a5f;
 
-  --c-focus: #7ba7c9;
-  --grid-line: rgba(236, 237, 239, 0.05);
+  --t-medicine: #12241e;
+  --t-data: #101f2b;
+  --t-blockchain: #291b11;
+
+  --c-focus: #6fb6ea;
+  --grid-line: rgba(236, 237, 239, 0.055);
 }
 
 /* ── Token bridge into Tailwind ──────────────────────────────────────────── */
@@ -76,6 +90,9 @@
   --color-medicine: var(--c-medicine);
   --color-data: var(--c-data);
   --color-blockchain: var(--c-blockchain);
+  --color-tint-medicine: var(--t-medicine);
+  --color-tint-data: var(--t-data);
+  --color-tint-blockchain: var(--t-blockchain);
 
   --font-display: 'Newsreader Variable', Newsreader, Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
@@ -175,6 +192,21 @@
     color: var(--c-text-2);
   }
 
+  /* Per-element accent, set from an item's primary domain. Lets a card colour
+     its border, its numeral and its hover tint from one class. */
+  .accent-medicine {
+    --accent: var(--c-medicine);
+    --accent-tint: var(--t-medicine);
+  }
+  .accent-data {
+    --accent: var(--c-data);
+    --accent-tint: var(--t-data);
+  }
+  .accent-blockchain {
+    --accent: var(--c-blockchain);
+    --accent-tint: var(--t-blockchain);
+  }
+
   .shell {
     width: 100%;
     max-width: 78rem;
@@ -257,14 +289,23 @@
     font-weight: 600;
   }
   .prose a {
-    color: var(--c-text);
+    color: var(--c-data);
+    font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: var(--c-hairline-strong);
+    text-decoration-thickness: 1px;
+    text-decoration-color: color-mix(in srgb, var(--c-data) 35%, transparent);
     transition: text-decoration-color 0.3s;
   }
   .prose a:hover {
     text-decoration-color: currentColor;
+  }
+
+  /* Section rule under a heading, carrying the section's accent. */
+  .accent-rule {
+    height: 2px;
+    width: 2.5rem;
+    background: var(--accent, var(--c-data));
   }
   .prose ul,
   .prose ol {

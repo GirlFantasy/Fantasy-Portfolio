@@ -14,7 +14,7 @@ const { numeral, title, note, href, hrefLabel, id } = Astro.props;
 <header class="border-t border-hairline pt-5" id={id} data-reveal>
   <div class="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
     <div class="flex items-baseline gap-4 md:gap-6">
-      <span class="meta shrink-0 pt-1">{numeral}</span>
+      <span class="meta shrink-0 pt-1 text-data">{numeral}</span>
       <h2 class="text-[length:var(--text-display-m)] leading-[1.1]">{title}</h2>
     </div>
     {note && <span class="meta">{note}</span>}

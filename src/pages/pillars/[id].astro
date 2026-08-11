@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
 import Note from '@/components/ui/Note.astro';
+import { accentClass } from '@/lib/domain';
 
 export async function getStaticPaths() {
   const pillars = (await getCollection('pillars')).filter((p) => !p.data.draft);
@@ -20,12 +21,12 @@ const { Content } = await render(pillar);
 ---
 
 <BaseLayout title={pillar.data.title} description={pillar.data.intro}>
-  <article class="shell pt-14 pb-4 md:pt-20">
+  <article class={`shell pt-14 pb-4 md:pt-20 ${accentClass(pillar.data.domains)}`}>
     <a href="/#pillars" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
       <span aria-hidden="true">←</span> All pillars
     </a>
 
-    <header class="mt-10 border-t border-hairline pt-8">
+    <header class="mt-10 border-t-[3px] pt-8" style="border-top-color:var(--accent)">
       <div class="flex flex-wrap items-center justify-between gap-4">
         <p class="meta">{pillar.data.numeral} · {pillar.data.kicker}</p>
         <DomainTag domains={pillar.data.domains} />

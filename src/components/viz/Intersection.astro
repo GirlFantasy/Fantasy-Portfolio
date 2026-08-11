@@ -16,10 +16,13 @@ const { class: className = '' } = Astro.props;
     role="img"
     aria-label="Venn diagram of three overlapping sets — Medicine, Data and Blockchain — with the work sitting at their intersection."
   >
-    <g fill="none" stroke-width="1.15">
-      <circle cx="130" cy="86" r="62" stroke="var(--c-medicine)" opacity="0.85"></circle>
-      <circle cx="92" cy="150" r="62" stroke="var(--c-data)" opacity="0.85"></circle>
-      <circle cx="168" cy="150" r="62" stroke="var(--c-blockchain)" opacity="0.85"></circle>
+    <g stroke-width="1.4" style="mix-blend-mode:multiply">
+      <circle cx="130" cy="86" r="62" fill="var(--c-medicine)" fill-opacity="0.14"
+        stroke="var(--c-medicine)"></circle>
+      <circle cx="92" cy="150" r="62" fill="var(--c-data)" fill-opacity="0.14"
+        stroke="var(--c-data)"></circle>
+      <circle cx="168" cy="150" r="62" fill="var(--c-blockchain)" fill-opacity="0.14"
+        stroke="var(--c-blockchain)"></circle>
     </g>
 
     <g class="meta" style="font-size:9px;letter-spacing:0.11em">

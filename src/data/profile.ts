@@ -139,7 +139,7 @@ export const profile = {
    * input. They are visible while the site is in draft so you can see the gaps.
    * ► Set this to false before launch and every note disappears site-wide.
    */
-  showEditorialNotes: true,
+  showEditorialNotes: false,
 
   // ── DataInByte ─────────────────────────────────────────────────────────────
   datainbyte: {

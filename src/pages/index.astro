@@ -4,34 +4,40 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
-import LinkList from '@/components/ui/LinkList.astro';
 import Intersection from '@/components/viz/Intersection.astro';
 import { profile } from '@/data/profile';
 import { accentClass } from '@/lib/domain';
 import { copy } from '@/data/copy';
 
-const live = <T extends { data: { draft: boolean } }>(c: T[]) => c.filter((e) => !e.data.draft);
-
-const pillars = live(await getCollection('pillars')).sort((a, b) => a.data.order - b.data.order);
-const work = live(await getCollection('work'))
-  .filter((w) => w.data.featured)
+const pillars = (await getCollection('pillars'))
+  .filter((p) => !p.data.draft)
   .sort((a, b) => a.data.order - b.data.order);
-const writing = live(await getCollection('writing')).sort(
-  (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
-);
-const recognition = live(await getCollection('recognition')).sort(
-  (a, b) => a.data.order - b.data.order
-);
-const competitions = recognition.filter((r) => r.data.category === 'competition');
-const leadership = recognition.filter((r) => r.data.category !== 'competition');
-const experience = live(await getCollection('experience')).sort(
-  (a, b) => a.data.order - b.data.order
-);
 
-const channels = profile.writingChannels.map((k) => profile.socials[k]);
-const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] as const).map(
-  (k) => profile.socials[k]
-);
+/** One line per pillar describing what a visitor will find on that page. */
+const contents: Record<string, string[]> = {
+  'medicine-global-health': [
+    'MBBS training & student leadership',
+    'Millennium Fellowship, Class of 2025',
+    'Her Path to Power — Campus Director',
+    'Peer-to-peer abuse research',
+  ],
+  'blockchain-healthcare': [
+    'Why blockchain fits the records problem',
+    'What it will and will not solve',
+    'Systematic review — in progress',
+    'Explorations on Substack',
+  ],
+  'blockchain-data': [
+    'DataInByte — adoption intelligence',
+    'Dune dashboards',
+    'Awards & analytics competitions',
+    'Writing, speaking & toolkit',
+  ],
+};
+
+const contactLinks = (
+  ['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] as const
+).map((k) => profile.socials[k]);
 ---
 
 <BaseLayout>
@@ -43,9 +49,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-4" data-reveal>
-        <div
-          class="relative aspect-[4/5] w-full overflow-hidden border border-hairline bg-surface-2"
-        >
+        <div class="relative aspect-[4/5] w-full overflow-hidden border border-hairline bg-surface-2">
           {
             profile.portrait.isReal ? (
               <img
@@ -59,8 +63,8 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
               />
             ) : (
               <div class="plot-grid flex h-full w-full items-center justify-center">
-                  <span class="font-display text-5xl text-meta">CE</span>
-                </div>
+                <span class="font-display text-5xl text-meta">CE</span>
+              </div>
             )
           }
         </div>
@@ -98,10 +102,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
             <p class="mt-5 leading-[1.75] text-ink-2">{para}</p>
           ))
         }
-        <a
-          href="/about"
-          class="mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink"
-        >
+        <a href="/about" class="mt-7 inline-flex items-center gap-2 text-sm font-medium text-ink">
           <span class="link-underline">Read the full story</span>
           <span aria-hidden="true">→</span>
         </a>
@@ -113,129 +114,66 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
     </div>
   </section>
 
-  {/* ── 02 · Pillars ───────────────────────────────────────────────────── */}
+  {/* ── 02 · The three pillars — the directory ─────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="pillars">
     <SectionHeader
       numeral="02"
       title="Three parts of the work"
-      note={`${pillars.length} pillars`}
+      note="Choose a path"
       accent="medicine"
-    />
-
-    <div class="mt-4">
-      {
-        pillars.map((pillar, i) => (
-          <article
-            class={`group border-b border-hairline ${accentClass(pillar.data.domains)}`}
-            data-reveal
-            style={`--reveal-delay:${i * 70}ms`}
-          >
-            <a
-              href={`/pillars/${pillar.id}`}
-              class="grid grid-cols-1 gap-6 py-10 transition-colors duration-500 md:grid-cols-12 md:gap-8 md:py-12"
-            >
-              <div class="md:col-span-2">
-                <span
-                  class="font-display text-4xl leading-none"
-                  style="color:var(--accent)"
-                >
-                  {pillar.data.numeral}
-                </span>
-                <div
-                  class="mt-3 h-[2px] w-8 transition-all duration-500 group-hover:w-16"
-                  style="background:var(--accent)"
-                  aria-hidden="true"
-                />
-                <p class="meta mt-3">{pillar.data.kicker}</p>
-              </div>
-
-              <div class="md:col-span-7">
-                <h3 class="text-[length:var(--text-display-m)] leading-[1.15]">
-                  {pillar.data.title}
-                </h3>
-                <p class="measure mt-4 leading-[1.7] text-ink-2">{pillar.data.intro}</p>
-                {pillar.data.links.length > 0 && (
-                  <ul class="mt-5 flex flex-wrap gap-x-5 gap-y-1.5">
-                    {pillar.data.links.map((l) => (
-                      <li class="meta">{l.note ?? l.label}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div class="flex items-start justify-between gap-4 md:col-span-3 md:flex-col md:items-end">
-                <DomainTag domains={pillar.data.domains} class="md:justify-end" />
-                <span class="meta inline-flex items-center gap-2 whitespace-nowrap text-ink-2 transition-all duration-500 group-hover:gap-3 group-hover:text-ink">
-                  Read more <span aria-hidden="true">→</span>
-                </span>
-              </div>
-            </a>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  {/* ── 03 · Selected work ─────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="work">
-    <SectionHeader
-      numeral="03"
-      title="Selected work"
-      href="/work"
-      hrefLabel="All work"
-      accent="blockchain"
     />
 
     <div class="mt-10 flex flex-col gap-6">
       {
-        work.map((item, i) => (
-          <article data-reveal style={`--reveal-delay:${i * 70}ms`}>
+        pillars.map((pillar, i) => (
+          <article data-reveal style={`--reveal-delay:${i * 80}ms`}>
             <a
-              href={`/work/${item.id}`}
-              class={`card-accent group block p-7 md:p-10 ${accentClass(item.data.domains)}`}
+              href={`/pillars/${pillar.id}`}
+              class={`card-accent group block p-7 md:p-10 ${accentClass(pillar.data.domains)}`}
             >
-              <div class="flex flex-wrap items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <span class="chip">{item.data.type}</span>
-                  <p class="meta">
-                    Fig. {String(i + 1).padStart(2, '0')}
-                    {item.data.status && ` · ${item.data.status}`}
-                    {item.data.period && ` · ${item.data.period}`}
-                  </p>
+              <div class="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-10">
+                <div class="md:col-span-7">
+                  <div class="flex flex-wrap items-center justify-between gap-4">
+                    <span class="chip">{pillar.data.numeral} · {pillar.data.kicker}</span>
+                    <DomainTag domains={pillar.data.domains} class="md:hidden" />
+                  </div>
+
+                  <h3 class="mt-6 text-[length:var(--text-display-m)] leading-[1.12]">
+                    {pillar.data.title}
+                  </h3>
+
+                  <p class="measure mt-4 leading-[1.7] text-ink-2">{pillar.data.intro}</p>
+
+                  <span
+                    class="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-500 group-hover:gap-3"
+                    style="color:var(--accent)"
+                  >
+                    <span class="link-underline">Explore this work</span>
+                    <span aria-hidden="true">→</span>
+                  </span>
                 </div>
-                <DomainTag domains={item.data.domains} />
+
+                <div class="md:col-span-5">
+                  <p class="meta">What's inside</p>
+                  <ul class="mt-4 space-y-2.5">
+                    {
+                      (contents[pillar.id] ?? []).map((line) => (
+                        <li class="flex items-baseline gap-3 text-sm leading-snug text-ink-2">
+                          <span
+                            class="mt-[6px] inline-block h-[5px] w-[5px] shrink-0 rounded-full"
+                            style="background:var(--accent)"
+                            aria-hidden="true"
+                          />
+                          {line}
+                        </li>
+                      ))
+                    }
+                  </ul>
+                  <div class="mt-6 hidden md:block">
+                    <DomainTag domains={pillar.data.domains} />
+                  </div>
+                </div>
               </div>
-
-              <h3 class="mt-6 max-w-[24ch] text-[length:var(--text-display-m)] leading-[1.15] md:max-w-[30ch]">
-                {item.data.title}
-              </h3>
-
-              <p class="measure mt-4 leading-[1.7] text-ink-2">{item.data.summary}</p>
-
-              {item.data.metrics.length > 0 && (
-                <dl class="mt-8 grid grid-cols-1 gap-6 border-t border-hairline pt-6 sm:grid-cols-2 lg:max-w-3xl">
-                  {item.data.metrics.map((m) => (
-                    <div>
-                      <dt class="meta">{m.label}</dt>
-                      <dd
-                        class="mt-1.5 font-mono text-2xl tracking-tight md:text-3xl"
-                        style="color:var(--accent)"
-                      >
-                        {m.value}
-                      </dd>
-                      {m.note && <dd class="meta-note mt-2">{m.note}</dd>}
-                    </div>
-                  ))}
-                </dl>
-              )}
-
-              <span
-                class="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-500 group-hover:gap-3"
-                style="color:var(--accent)"
-              >
-                <span class="link-underline">Read case study</span>
-                <span aria-hidden="true">→</span>
-              </span>
             </a>
           </article>
         ))
@@ -243,219 +181,70 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
     </div>
   </section>
 
-  {/* ── 04 · Dashboards ────────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="dashboards">
+  {/* ── 03 · Education & certifications ────────────────────────────────── */}
+  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="credentials">
     <SectionHeader
-      numeral="04"
-      accent="data"
-      title="Dashboards & on-chain analytics"
-      href={profile.socials.dune.href}
-      hrefLabel="All dashboards on Dune"
+      numeral="03"
+      title="Education & certifications"
+      note={`${profile.certifications.length} certifications`}
+      accent="blockchain"
     />
-
-    <ul class="mt-10 border-t border-hairline">
-      {
-        profile.datainbyte.dashboards.map((d, i) => (
-          <li class="border-b border-hairline" data-reveal style={`--reveal-delay:${i * 60}ms`}>
-            <a
-              href={d.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group grid grid-cols-1 items-baseline gap-2 py-7 md:grid-cols-12 md:gap-8"
-            >
-              <span class="meta md:col-span-2 text-data">
-                Dash. {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 class="text-xl leading-snug md:col-span-7">
-                <span class="link-underline">{d.title}</span>
-              </h3>
-              <span class="meta md:col-span-3 md:text-right">
-                {'note' in d && d.note ? `${d.note} · ` : ''}Dune{' '}
-                <span
-                  class="inline-block transition-transform duration-300 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                >
-                  ↗
-                </span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-
-    <p class="meta-note mt-6">
-      Queries are public on Dune, so every figure is inspectable and reproducible.
-    </p>
-  </section>
-
-  {/* ── 05 · Writing ───────────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="writing">
-    <SectionHeader numeral="05" title="Data stories & writing" accent="warm" />
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-5" data-reveal>
-        <p class="meta">{profile.datainbyte.tagline}</p>
-        <h3 class="mt-3 font-display text-[length:var(--text-display-m)] leading-tight">
-          {profile.datainbyte.name}
-        </h3>
-        <p class="measure mt-5 leading-[1.7] text-ink-2">{profile.datainbyte.description}</p>
+        <p class="meta">Education</p>
+        {
+          profile.education.map((e) => (
+            <div class="mt-5 border-t border-hairline pt-5">
+              <h3 class="font-sans text-[1.0625rem] font-semibold tracking-normal">
+                {e.programme}
+              </h3>
+              <p class="mt-1.5 text-sm text-ink-2">
+                {e.school}, {e.institution}
+              </p>
+              <p class="meta mt-2">{e.period}</p>
+            </div>
+          ))
+        }
+
+        <p class="meta mt-10">Student leadership</p>
+        <ul class="mt-4 border-t border-hairline">
+          {
+            profile.medicalRoles.map((role) => (
+              <li class="border-b border-hairline py-3 text-sm text-ink-2">{role}</li>
+            ))
+          }
+        </ul>
       </div>
 
       <div class="lg:col-span-7" data-reveal style="--reveal-delay:80ms">
-        <p class="meta mb-5">Where the work is published</p>
-        <ul class="border-t border-hairline">
+        <p class="meta">Certifications</p>
+        <ul class="mt-5 border-t border-hairline">
           {
-            channels.map((c) => (
-              <li class="border-b border-hairline">
-                <a
-                  href={c.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group flex items-baseline justify-between gap-6 py-4 transition-colors duration-300"
-                >
-                  <span class="text-[0.9375rem] font-medium transition-opacity group-hover:opacity-70">
-                    {c.label}
-                  </span>
-                  <span class="meta flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
-                    {c.handle} <span aria-hidden="true">↗</span>
-                  </span>
-                </a>
+            profile.certifications.map((c) => (
+              <li class="grid grid-cols-1 gap-1 border-b border-hairline py-4 md:grid-cols-12 md:gap-6">
+                <div class="md:col-span-8">
+                  <p class="text-[0.9375rem] font-medium leading-snug">{c.title}</p>
+                  <p class="meta mt-1.5">{c.issuer}</p>
+                </div>
+                <p class="meta md:col-span-4 md:text-right">{c.period}</p>
               </li>
             ))
           }
         </ul>
-
-        {
-          writing.length > 0 && (
-            <ul class="mt-10 border-t border-hairline">
-              {writing.slice(0, 5).map((w) => (
-                <li class="border-b border-hairline">
-                  <a
-                    href={w.data.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="group block py-5"
-                  >
-                    <p class="meta">
-                      {w.data.outlet} · {w.data.format}
-                    </p>
-                    <p class="mt-2 text-[0.9375rem] leading-snug">
-                      <span class="link-underline">{w.data.title}</span>
-                    </p>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )
-        }
-
       </div>
     </div>
   </section>
 
-  {/* ── 06 · Awards & competitions ─────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="awards">
-    <SectionHeader
-      numeral="06"
-      accent="blockchain"
-      title="Awards & analytics competitions"
-      note={`${competitions.length} placements`}
-    />
-
-    <ul class="mt-10 border-t border-hairline">
-      {
-        competitions.map((c, i) => (
-          <li
-            class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8"
-            data-reveal
-            style={`--reveal-delay:${i * 60}ms`}
-          >
-            <div class="md:col-span-2">
-              <p class="font-mono text-lg leading-none tracking-tight text-data">
-                {c.data.placement}
-              </p>
-            </div>
-            <div class="md:col-span-7">
-              <h3 class="font-sans text-[1.0625rem] font-medium tracking-normal">
-                {c.data.title}
-              </h3>
-              <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{c.data.summary}</p>
-            </div>
-            <div class="md:col-span-3 md:text-right">
-              <p class="meta">{c.data.organisation}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  {/* ── 07 · Leadership ────────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="recognition">
-    <SectionHeader numeral="07" title="Leadership & impact" accent="medicine" />
-
-    <ul class="mt-10 border-t border-hairline">
-      {
-        leadership.map((r, i) => (
-          <li
-            class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8"
-            data-reveal
-            style={`--reveal-delay:${i * 60}ms`}
-          >
-            <div class="md:col-span-3">
-              <p class="meta">{r.data.category}</p>
-              <p class="meta mt-1">{r.data.period ?? '—'}</p>
-            </div>
-            <div class="md:col-span-6">
-              <h3 class="font-sans text-[1.0625rem] font-medium tracking-normal">
-                {r.data.title}
-              </h3>
-              <p class="meta mt-1.5">{r.data.organisation}</p>
-              <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{r.data.summary}</p>
-            </div>
-            <div class="md:col-span-3 md:text-right">
-              <LinkList links={r.data.links} class="md:justify-end" />
-            </div>
-          </li>
-        ))
-      }
-    </ul>
-
-    {
-      experience.length > 0 && (
-        <ul class="mt-16 border-t border-hairline">
-          {experience.map((e) => (
-            <li class="grid grid-cols-1 gap-3 border-b border-hairline py-7 md:grid-cols-12 md:gap-8">
-              <div class="md:col-span-3">
-                <p class="meta">{e.data.period}</p>
-              </div>
-              <div class="md:col-span-9">
-                <h3 class="font-sans text-[1.0625rem] font-medium">{e.data.role}</h3>
-                <p class="meta mt-1.5">{e.data.organisation}</p>
-                <p class="measure mt-3 text-sm leading-[1.7] text-ink-2">{e.data.summary}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )
-    }
-  </section>
-
-  {/* ── 08 · Contact — the one large colour moment ─────────────────────── */}
+  {/* ── 04 · Contact — the one large colour moment ─────────────────────── */}
   <section class="panel accent-data mt-[var(--spacing-section)] scroll-mt-24" id="contact">
     <div class="shell py-[var(--spacing-section)]">
       <header data-reveal>
         <div class="flex flex-wrap items-baseline gap-4 md:gap-6">
-          <span class="meta shrink-0">08</span>
+          <span class="meta shrink-0">04</span>
           <h2 class="text-[length:var(--text-display-l)] leading-[1.05]">Let's connect</h2>
         </div>
-        <div
-          class="mt-5 h-[2px] w-12"
-          style="background:var(--c-data)"
-          aria-hidden="true"
-        >
-        </div>
+        <div class="mt-5 h-[2px] w-12" style="background:var(--c-data)" aria-hidden="true"></div>
       </header>
 
       <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">

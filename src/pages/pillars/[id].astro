@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
 import { accentClass } from '@/lib/domain';
+import Gallery from '@/components/ui/Gallery.astro';
 
 export async function getStaticPaths() {
   const pillars = (await getCollection('pillars')).filter((p) => !p.data.draft);
@@ -39,6 +40,8 @@ const { Content } = await render(pillar);
 
       <LinkList links={pillar.data.links} class="mt-8" />
     </header>
+
+    <Gallery gallery={pillar.data.gallery} />
 
     <div class="prose mt-14">
       <Content />

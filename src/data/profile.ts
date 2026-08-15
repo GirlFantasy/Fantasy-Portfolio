@@ -39,11 +39,47 @@ export const profile = {
     {
       institution: 'Ebonyi State University',
       abbr: 'EBSU',
-      school: 'College of Health Sciences',
-      programme: 'MBBS',
+      school: 'College of Medicine',
+      programme: 'Bachelor of Medicine, Bachelor of Surgery (MBBS)',
+      period: 'September 2019 — expected February 2027',
       expected: 'February 2027',
       current: true,
     },
+  ],
+
+  /** Taken from your CV. Add a new block whenever you complete another. */
+  certifications: [
+    {
+      title: 'SQL: A Practical Introduction for Querying Databases',
+      issuer: 'IBM (Coursera)',
+      period: 'Sept 2024 — Jan 2025',
+    },
+    {
+      title: 'Data Analytics — Spreadsheets, SQL, R, Tableau, Power BI',
+      issuer: 'Google (Coursera)',
+      period: 'Sept 2023 — Dec 2024',
+    },
+    {
+      title: 'Strategies of Content Marketing',
+      issuer: 'University of California, Davis (Coursera)',
+      period: 'Aug 2023 — Aug 2024',
+    },
+    {
+      title: 'Technical Writing',
+      issuer: 'Aptlearn',
+      period: 'Sept 2022 — Aug 2023',
+    },
+    {
+      title: 'Creative Writing',
+      issuer: 'Creative-in-Business',
+      period: 'Nov 2020 — Feb 2021',
+    },
+  ],
+
+  /** Roles held within medical student bodies. */
+  medicalRoles: [
+    'Secretary Technical Officer, NiMSA',
+    'Local Officer, Mental Health Advocate, EMSA',
   ],
 
   // ── Contact ────────────────────────────────────────────────────────────────
@@ -89,6 +125,21 @@ export const profile = {
       handle: '@datainbyte',
       href: 'https://substack.com/@datainbyte',
     },
+    web3Writing: {
+      label: 'Web3 writing archive',
+      handle: 'Google Drive',
+      href: 'https://drive.google.com/drive/folders/1VfjGqrmN8XJ4uCA8WpAdlc8zziYE8rd2',
+    },
+    hppArchive: {
+      label: 'Her Path to Power — project archive',
+      handle: 'Google Drive',
+      href: 'https://drive.google.com/drive/folders/1TpPstTCuPbZ0paNW8kmoQSUmV6CI5MFs',
+    },
+    abuseResearch: {
+      label: 'Peer-to-peer sexual abuse research',
+      handle: 'Google Drive',
+      href: 'https://drive.google.com/drive/folders/1y2-g_7efAkWT13il6vkzxFBZGQLD21-U',
+    },
     millenniumFellows: {
       label: 'Millennium Fellowship',
       handle: 'Fellow profile',
@@ -122,7 +173,10 @@ export const profile = {
     objectPosition: '50% 0%',
   },
 
-  /** Drop your PDF at /public/cv.pdf, then set `available: true`. */
+  /**
+   * Your CV lives at /public/cv.pdf. Set `available: true` to show the download
+   * link in the footer and on the About page.
+   */
   cv: {
     href: '/cv.pdf',
     available: false,

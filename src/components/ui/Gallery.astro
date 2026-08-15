@@ -1,0 +1,55 @@
+---
+/**
+ * Photo strip for a pillar page. Renders images when they exist; otherwise it
+ * shows a single link out to the full archive, so the page never looks broken
+ * while images are still being added.
+ */
+interface Props {
+  gallery?: {
+    folder?: string;
+    caption?: string;
+    images?: { src: string; alt: string }[];
+  };
+}
+const { gallery } = Astro.props;
+const images = gallery?.images ?? [];
+---
+
+{
+  gallery && (
+    <figure class="mt-12">
+      {images.length > 0 && (
+        <ul
+          class="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3"
+          role="list"
+        >
+          {images.map((img) => (
+            <li class="overflow-hidden border border-hairline bg-surface-2">
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <figcaption class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        {gallery.caption && <span class="meta">{gallery.caption}</span>}
+        {gallery.folder && (
+          <a
+            href={gallery.folder}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="meta link-underline inline-flex items-center gap-2"
+            style="color:var(--accent)"
+          >
+            View the full archive <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </figcaption>
+    </figure>
+  )
+}

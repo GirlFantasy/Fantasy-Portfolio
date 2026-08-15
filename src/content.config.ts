@@ -26,6 +26,19 @@ const pillars = defineCollection({
     /** 30–60 words. Shown on the homepage. Body MDX is the "read more" page. */
     intro: z.string(),
     links: z.array(link).default([]),
+    /**
+     * Optional photo gallery. Drop images into public/ and list them here;
+     * `folder` links out to the full archive.
+     */
+    gallery: z
+      .object({
+        folder: z.string().url().optional(),
+        caption: z.string().optional(),
+        images: z
+          .array(z.object({ src: z.string(), alt: z.string() }))
+          .default([]),
+      })
+      .optional(),
     draft: z.boolean().default(false),
   }),
 });

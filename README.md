@@ -65,5 +65,5 @@ Defined entirely in `src/styles/global.css`.
 - Every number displayed should carry a methodology `note:`.
 - Content is validated at build time — a bad frontmatter field fails the build
   rather than shipping broken.
-- No content on this site is invented. Unverified details are marked with
-  `<Note>` blocks, which disappear when `showEditorialNotes` is set to `false`.
+- No content on this site is invented. Anything unverified is left out rather
+  than guessed at.

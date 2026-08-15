@@ -13,20 +13,28 @@
   --c-hairline: #e3ded4;
   --c-hairline-strong: #c7c0b3;
   --c-text: #16181c;
-  --c-text-2: #545962; /* 6.3:1 on --c-bg */
-  --c-text-meta: #6a6f78; /* 4.6:1 — AA for the small mono labels */
+  --c-text-2: #545962; /* 6.64:1 */
+  --c-text-meta: #6a6f78; /* 4.76:1 — AA at the small mono size */
 
-  /* Domain hues — now doing visible work, not just labelling. */
-  --c-medicine: #2f6b57; /* 5.8:1 */
-  --c-data: #1f5a86;     /* 6.5:1 */
-  --c-blockchain: #a5541f; /* 4.9:1 */
+  /* Domain hues. Each is AA on --c-bg; ratios verified, noted inline. */
+  --c-medicine: #17705c;   /* teal — healthcare & research       5.64:1 */
+  --c-data: #1d4e9b;       /* cobalt — data & analytics          7.57:1 */
+  --c-blockchain: #4b3fa8; /* indigo — blockchain & Web3         7.69:1 */
+  --c-accent: #a94e15;     /* amber — emphasis only, used rarely 5.23:1 */
 
-  /* Surface tints derived from the hues above. */
-  --t-medicine: #eaf2ee;
-  --t-data: #e8f0f7;
-  --t-blockchain: #f8ede3;
+  /* Surface washes. Deliberately faint so cards stay paper, not colour blocks. */
+  --t-medicine: #eaf3f0;
+  --t-data: #ecf1f9;
+  --t-blockchain: #efeef9;
+  --t-accent: #faefe6;
 
-  --c-focus: #1f5a86;
+  /* The deep panel that closes the page. */
+  --c-panel: #12233d;
+  --c-panel-text: #f4f6f9;
+  --c-panel-muted: #9db0c9;
+  --c-panel-line: #2b3f5e;
+
+  --c-focus: #1d4e9b;
   --grid-line: rgba(22, 24, 28, 0.05);
 }
 
@@ -40,17 +48,24 @@
     --c-hairline-strong: #3a3e45;
     --c-text: #ecedef;
     --c-text-2: #9ca1a8;
-    --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
+    --c-text-meta: #8a9098;
 
-    --c-medicine: #5fc4a2;
-    --c-data: #6fb6ea;
-    --c-blockchain: #e39a5f;
+    --c-medicine: #4fc2a0;   /* 8.91:1 */
+    --c-data: #6ba6f0;       /* 7.77:1 */
+    --c-blockchain: #a093f5; /* 7.44:1 */
+    --c-accent: #f0a05a;     /* 9.21:1 */
 
-    --t-medicine: #12241e;
-    --t-data: #101f2b;
-    --t-blockchain: #291b11;
+    --t-medicine: #0d211b;
+    --t-data: #0e1a2a;
+    --t-blockchain: #16142b;
+    --t-accent: #241a10;
 
-    --c-focus: #6fb6ea;
+    --c-panel: #0f1720;
+    --c-panel-text: #ecedef;
+    --c-panel-muted: #99a3ad;
+    --c-panel-line: #26313d;
+
+    --c-focus: #6ba6f0;
     --grid-line: rgba(236, 237, 239, 0.055);
   }
 }
@@ -63,17 +78,24 @@
   --c-hairline-strong: #3a3e45;
   --c-text: #ecedef;
   --c-text-2: #9ca1a8;
-  --c-text-meta: #8a9098; /* 6.10:1 on --c-bg */
+  --c-text-meta: #8a9098;
 
-  --c-medicine: #5fc4a2;
-  --c-data: #6fb6ea;
-  --c-blockchain: #e39a5f;
+  --c-medicine: #4fc2a0;   /* 8.91:1 */
+  --c-data: #6ba6f0;       /* 7.77:1 */
+  --c-blockchain: #a093f5; /* 7.44:1 */
+  --c-accent: #f0a05a;     /* 9.21:1 */
 
-  --t-medicine: #12241e;
-  --t-data: #101f2b;
-  --t-blockchain: #291b11;
+  --t-medicine: #0d211b;
+  --t-data: #0e1a2a;
+  --t-blockchain: #16142b;
+  --t-accent: #241a10;
 
-  --c-focus: #6fb6ea;
+  --c-panel: #0f1720;
+  --c-panel-text: #ecedef;
+  --c-panel-muted: #99a3ad;
+  --c-panel-line: #26313d;
+
+  --c-focus: #6ba6f0;
   --grid-line: rgba(236, 237, 239, 0.055);
 }
 
@@ -90,9 +112,15 @@
   --color-medicine: var(--c-medicine);
   --color-data: var(--c-data);
   --color-blockchain: var(--c-blockchain);
+  --color-accent: var(--c-accent);
   --color-tint-medicine: var(--t-medicine);
   --color-tint-data: var(--t-data);
   --color-tint-blockchain: var(--t-blockchain);
+  --color-tint-accent: var(--t-accent);
+  --color-panel: var(--c-panel);
+  --color-panel-text: var(--c-panel-text);
+  --color-panel-muted: var(--c-panel-muted);
+  --color-panel-line: var(--c-panel-line);
 
   --font-display: 'Newsreader Variable', Newsreader, Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter Variable', Inter, system-ui, -apple-system, sans-serif;
@@ -205,6 +233,54 @@
   .accent-blockchain {
     --accent: var(--c-blockchain);
     --accent-tint: var(--t-blockchain);
+  }
+  .accent-warm {
+    --accent: var(--c-accent);
+    --accent-tint: var(--t-accent);
+  }
+
+  /* Project card. Base state already carries the accent border and the label
+     colour, so nothing meaningful is hover-only — mobile loses nothing. */
+  .card-accent {
+    background: var(--c-surface);
+    border: 1px solid var(--c-hairline);
+    border-top: 3px solid var(--accent);
+    transition: background-color 0.45s ease, border-color 0.45s ease;
+  }
+  @media (hover: hover) {
+    .card-accent:hover {
+      background: var(--accent-tint);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--c-hairline));
+      border-top-color: var(--accent);
+    }
+  }
+
+  /* Small category chip. Text label plus colour — never colour alone. */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.28rem 0.6rem;
+    background: var(--accent-tint);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* The deep block that closes the page — the one large colour moment. */
+  .panel {
+    background: var(--c-panel);
+    color: var(--c-panel-text);
+  }
+  .panel .meta {
+    color: var(--c-panel-muted);
+  }
+  .panel .border-hairline {
+    border-color: var(--c-panel-line);
   }
 
   .shell {

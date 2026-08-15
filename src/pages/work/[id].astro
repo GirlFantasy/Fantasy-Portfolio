@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
-import Note from '@/components/ui/Note.astro';
 import { accentClass } from '@/lib/domain';
 
 export async function getStaticPaths() {
@@ -46,7 +45,7 @@ const facts = [
           facts.map((f) => (
             <div>
               <dt class="meta">{f.label}</dt>
-              <dd class="mt-1.5 text-sm">{f.value}</dd>
+              <dd class="mt-1.5 text-sm first-letter:uppercase">{f.value}</dd>
             </div>
           ))
         }
@@ -75,7 +74,7 @@ const facts = [
     </header>
 
     <div class="prose mt-14">
-      <Content components={{ Note }} />
+      <Content />
     </div>
 
     <nav class="mt-[var(--spacing-section)] flex flex-wrap items-center justify-between gap-6 border-t border-hairline pt-8">

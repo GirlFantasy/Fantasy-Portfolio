@@ -217,21 +217,7 @@ download link appears in the footer and on the About page.
 
 ---
 
-## 10. Before you launch — turn off the editorial notes
-
-The dashed boxes marked *"Editorial note — not shown after launch"* flag content
-that still needs your input. When you have filled the gaps, open
-`src/data/profile.ts` and set:
-
-```ts
-showEditorialNotes: false,
-```
-
-They are removed from the built site entirely.
-
----
-
-## 11. Running it on your own computer
+## 10. Running it on your own computer
 
 ```bash
 npm install     # once

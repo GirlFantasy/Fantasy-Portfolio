@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
-import Note from '@/components/ui/Note.astro';
 import { accentClass } from '@/lib/domain';
 
 export async function getStaticPaths() {
@@ -42,7 +41,7 @@ const { Content } = await render(pillar);
     </header>
 
     <div class="prose mt-14">
-      <Content components={{ Note }} />
+      <Content />
     </div>
 
     {

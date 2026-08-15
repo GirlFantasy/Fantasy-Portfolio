@@ -34,10 +34,14 @@ for (let r = 0; r < rows; r++) {
     const decay = Math.exp(-Math.pow(c / (cols * 0.26), 1.15));
     const jitter = 0.82 + noise(r, c + 1) * 0.36;
     const value = Math.max(0, Math.min(1, seed * decay * jitter));
+    // Hue ramps cobalt → teal across elapsed periods, so the decay reads as a
+    // shift in kind as well as in density. Opacity still carries the value.
+    const mix = Math.round((c / (cols - 1)) * 100);
     cells.push({
       x: c * STEP,
       y: r * STEP,
-      o: Number((0.05 + value * 0.85).toFixed(3)),
+      o: Number((0.08 + value * 0.85).toFixed(3)),
+      fill: `color-mix(in oklab, var(--c-medicine) ${mix}%, var(--c-data))`,
       d: c * 26 + r * 14,
     });
   }
@@ -63,16 +67,28 @@ const height = rows * STEP - GAP;
           y={cell.y}
           width={CELL}
           height={CELL}
-          fill="currentColor"
+          fill={cell.fill}
           opacity={cell.o}
           style={`--d:${cell.d}ms`}
         />
       ))
     }
   </svg>
-  <figcaption class="meta mt-5 flex flex-wrap items-center gap-x-4 gap-y-1">
-    <span>Fig. — cohort retention, schematic</span>
-    <span>Periods elapsed →</span>
+  <figcaption class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+    <span class="meta">Fig. — cohort retention, schematic</span>
+    <span class="meta flex items-center gap-2">
+      <span
+        class="inline-block h-[5px] w-[5px] rounded-full"
+        style="background:var(--c-data)"
+        aria-hidden="true"></span>
+      Acquired
+      <span aria-hidden="true" class="opacity-50">→</span>
+      <span
+        class="inline-block h-[5px] w-[5px] rounded-full"
+        style="background:var(--c-medicine)"
+        aria-hidden="true"></span>
+      Retained
+    </span>
   </figcaption>
 </figure>
 

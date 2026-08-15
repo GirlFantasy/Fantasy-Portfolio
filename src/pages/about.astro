@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Intersection from '@/components/viz/Intersection.astro';
-import Note from '@/components/ui/Note.astro';
 import { profile } from '@/data/profile';
 import { copy } from '@/data/copy';
 
@@ -72,14 +71,6 @@ const pillars = (await getCollection('pillars'))
 
           <p>{copy.about.nameParagraph}</p>
 
-          <Note>
-            <p>
-              <strong>To add:</strong> anything you want people to know that is not
-              on this page — how you got into blockchain data, what you are working
-              toward after graduation, what kind of role or collaboration you want
-              next. This page is where a longer, more personal account belongs.
-            </p>
-          </Note>
         </div>
 
         <div class="mt-14 flex flex-wrap gap-4 border-t border-hairline pt-8">
@@ -117,11 +108,8 @@ const pillars = (await getCollection('pillars'))
                   style={`object-position:${profile.portrait.objectPosition}`}
                 />
               ) : (
-                <div class="plot-grid flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
-                  <span class="meta">Portrait</span>
-                  <p class="meta-note max-w-[26ch] normal-case">
-                    Replace /public/portrait.jpg and set isReal to true in profile.ts
-                  </p>
+                <div class="plot-grid flex h-full w-full items-center justify-center">
+                  <span class="font-display text-5xl text-meta">CE</span>
                 </div>
               )
             }

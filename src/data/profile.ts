@@ -111,7 +111,7 @@ export const profile = {
   portrait: {
     src: '/portrait.jpg',
     alt: 'Portrait of Chimdalu Nnenne Egwu',
-    /** Set to false to go back to the placeholder box. */
+    /** Set to false to fall back to a plain monogram tile. */
     isReal: true,
     /**
      * Which part of the photo stays visible when it is cropped to the frame.
@@ -134,12 +134,6 @@ export const profile = {
    */
   availability: null as string | null,
 
-  /**
-   * Editorial notes (<Note> blocks in MDX) mark content that still needs your
-   * input. They are visible while the site is in draft so you can see the gaps.
-   * ► Set this to false before launch and every note disappears site-wide.
-   */
-  showEditorialNotes: false,
 
   // ── DataInByte ─────────────────────────────────────────────────────────────
   datainbyte: {

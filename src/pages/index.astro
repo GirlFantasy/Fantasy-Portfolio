@@ -39,7 +39,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
   {/* ── 01 · About ─────────────────────────────────────────────────────── */}
   <section class="shell scroll-mt-24" id="about">
-    <SectionHeader numeral="01" title="The intersection" href="/about" hrefLabel="Read more" />
+    <SectionHeader numeral="01" title="The intersection" href="/about" hrefLabel="Read more" accent="data" />
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-4" data-reveal>
@@ -58,12 +58,9 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
                 style={`object-position:${profile.portrait.objectPosition}`}
               />
             ) : (
-              <div class="plot-grid flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center">
-                <span class="meta">Portrait</span>
-                <p class="meta-note max-w-[24ch] normal-case">
-                  Replace /public/portrait.jpg and set isReal to true in profile.ts
-                </p>
-              </div>
+              <div class="plot-grid flex h-full w-full items-center justify-center">
+                  <span class="font-display text-5xl text-meta">CE</span>
+                </div>
             )
           }
         </div>
@@ -118,7 +115,12 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
   {/* ── 02 · Pillars ───────────────────────────────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="pillars">
-    <SectionHeader numeral="02" title="Three parts of the work" note={`${pillars.length} pillars`} />
+    <SectionHeader
+      numeral="02"
+      title="Three parts of the work"
+      note={`${pillars.length} pillars`}
+      accent="medicine"
+    />
 
     <div class="mt-4">
       {
@@ -181,6 +183,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
       title="Selected work"
       href="/work"
       hrefLabel="All work"
+      accent="blockchain"
     />
 
     <div class="mt-10 flex flex-col gap-6">
@@ -189,15 +192,17 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
           <article data-reveal style={`--reveal-delay:${i * 70}ms`}>
             <a
               href={`/work/${item.id}`}
-              class={`group block border border-t-[3px] border-hairline bg-surface p-7 transition-colors duration-500 md:p-10 ${accentClass(item.data.domains)}`}
-              style="border-top-color:var(--accent)"
+              class={`card-accent group block p-7 md:p-10 ${accentClass(item.data.domains)}`}
             >
               <div class="flex flex-wrap items-center justify-between gap-4">
-                <p class="meta">
-                  Fig. {String(i + 1).padStart(2, '0')} · {item.data.type}
-                  {item.data.status && ` · ${item.data.status}`}
-                  {item.data.period && ` · ${item.data.period}`}
-                </p>
+                <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span class="chip">{item.data.type}</span>
+                  <p class="meta">
+                    Fig. {String(i + 1).padStart(2, '0')}
+                    {item.data.status && ` · ${item.data.status}`}
+                    {item.data.period && ` · ${item.data.period}`}
+                  </p>
+                </div>
                 <DomainTag domains={item.data.domains} />
               </div>
 
@@ -224,7 +229,10 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
                 </dl>
               )}
 
-              <span class="mt-8 inline-flex items-center gap-2 text-sm font-medium transition-all duration-500 group-hover:gap-3">
+              <span
+                class="mt-8 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-500 group-hover:gap-3"
+                style="color:var(--accent)"
+              >
                 <span class="link-underline">Read case study</span>
                 <span aria-hidden="true">→</span>
               </span>
@@ -239,6 +247,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="dashboards">
     <SectionHeader
       numeral="04"
+      accent="data"
       title="Dashboards & on-chain analytics"
       href={profile.socials.dune.href}
       hrefLabel="All dashboards on Dune"
@@ -282,7 +291,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
   {/* ── 05 · Writing ───────────────────────────────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="writing">
-    <SectionHeader numeral="05" title="Data stories & writing" />
+    <SectionHeader numeral="05" title="Data stories & writing" accent="warm" />
 
     <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
       <div class="lg:col-span-5" data-reveal>
@@ -341,18 +350,6 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
           )
         }
 
-        {
-          profile.showEditorialNotes && writing.length === 0 && (
-            <aside class="mt-8 border border-dashed border-hairline-strong bg-surface-2/60 px-5 py-4">
-              <p class="meta mb-2">Editorial note — not shown after launch</p>
-              <p class="text-sm text-ink-2">
-                Individual articles, threads and explainers will list here as soon as you add
-                them. Drop a file in <code class="font-mono text-xs">src/content/writing/</code>{' '}
-                for each piece you want featured — see CONTENT_GUIDE.md.
-              </p>
-            </aside>
-          )
-        }
       </div>
     </div>
   </section>
@@ -361,6 +358,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="awards">
     <SectionHeader
       numeral="06"
+      accent="blockchain"
       title="Awards & analytics competitions"
       note={`${competitions.length} placements`}
     />
@@ -395,7 +393,7 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
 
   {/* ── 07 · Leadership ────────────────────────────────────────────────── */}
   <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="recognition">
-    <SectionHeader numeral="07" title="Leadership & impact" />
+    <SectionHeader numeral="07" title="Leadership & impact" accent="medicine" />
 
     <ul class="mt-10 border-t border-hairline">
       {
@@ -444,58 +442,58 @@ const contactLinks = (['x', 'linkedin', 'github', 'substack', 'dune', 'tiktok'] 
     }
   </section>
 
-  {/* ── 06 · Contact ───────────────────────────────────────────────────── */}
-  <section class="shell mt-[var(--spacing-section)] scroll-mt-24" id="contact">
-    <SectionHeader numeral="08" title="Let's connect" />
-
-    <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
-      <div class="lg:col-span-7" data-reveal>
-        <p class="measure text-lg leading-[1.65] text-ink-2">{copy.contact.intro}</p>
-
-        <a
-          href={`mailto:${profile.email}`}
-          class="mt-8 inline-block font-mono text-[1.25rem] leading-tight tracking-tight break-words sm:text-[length:var(--text-display-m)]"
+  {/* ── 08 · Contact — the one large colour moment ─────────────────────── */}
+  <section class="panel accent-data mt-[var(--spacing-section)] scroll-mt-24" id="contact">
+    <div class="shell py-[var(--spacing-section)]">
+      <header data-reveal>
+        <div class="flex flex-wrap items-baseline gap-4 md:gap-6">
+          <span class="meta shrink-0">08</span>
+          <h2 class="text-[length:var(--text-display-l)] leading-[1.05]">Let's connect</h2>
+        </div>
+        <div
+          class="mt-5 h-[2px] w-12"
+          style="background:var(--c-data)"
+          aria-hidden="true"
         >
-          <span class="link-underline">{profile.email}</span>
-        </a>
+        </div>
+      </header>
 
-        {
-          profile.showEditorialNotes && (
-            <aside class="mt-8 border border-dashed border-hairline-strong bg-surface-2/60 px-5 py-4">
-              <p class="meta mb-2">Editorial note — not shown after launch</p>
-              <p class="text-sm text-ink-2">
-                The paragraph above is draft copy — tell me what you actually want to be
-                approached for and I will rewrite it. You can also set an availability line in
-                profile.ts to show it in the hero.
-              </p>
-            </aside>
-          )
-        }
-      </div>
+      <div class="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
+        <div class="lg:col-span-7" data-reveal>
+          <p class="measure text-lg leading-[1.65]" style="color:var(--c-panel-muted)">
+            {copy.contact.intro}
+          </p>
 
-      <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
-        <p class="meta mb-5">Elsewhere</p>
-        <ul class="border-t border-hairline">
-          {
-            contactLinks.map((s) => (
-              <li class="border-b border-hairline">
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group flex items-baseline justify-between gap-6 py-4"
-                >
-                  <span class="text-[0.9375rem] font-medium transition-opacity group-hover:opacity-70">
-                    {s.label}
-                  </span>
-                  <span class="meta flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
-                    {s.handle} <span aria-hidden="true">↗</span>
-                  </span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+          <a
+            href={`mailto:${profile.email}`}
+            class="mt-8 inline-block font-mono text-[1.25rem] leading-tight tracking-tight break-words sm:text-[length:var(--text-display-m)]"
+          >
+            <span class="link-underline">{profile.email}</span>
+          </a>
+        </div>
+
+        <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
+          <p class="meta mb-5">Elsewhere</p>
+          <ul style="border-top:1px solid var(--c-panel-line)">
+            {
+              contactLinks.map((s) => (
+                <li style="border-bottom:1px solid var(--c-panel-line)">
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex items-baseline justify-between gap-6 py-4 transition-opacity hover:opacity-75"
+                  >
+                    <span class="text-[0.9375rem] font-medium">{s.label}</span>
+                    <span class="meta flex items-center gap-2 transition-all duration-300 group-hover:gap-3">
+                      {s.handle} <span aria-hidden="true">↗</span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
   </section>

@@ -28,8 +28,9 @@ export const copy = {
 
     /** Paragraphs BEFORE the pull quote. Add or remove whole lines freely. */
     paragraphs: [
-      'My path across these fields is not a scattering of unrelated interests but a set of related ones, channelled toward a single aim: to work at the forefront of blockchain innovation in healthcare — innovation that improves patient-centred care and the systems that deliver it.',
-      'Medicine taught me to think about improving people and systems. Data taught me how to find patterns within people and system complexities. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of Web 3.0 internet and the socially impactful possibilities that are coming with its innovations.',
+      'On a ward, the most valuable thing in the room is often not a drug or a machine. It is a record that arrived with the patient — the history that tells you what has already been tried, what failed, and what nearly worked. Watch how often that record does not arrive, and you stop seeing a clinical problem. You start seeing a systems problem.',
+      'That is the moment my work really began. Not a decision to leave medicine, but a decision to follow the question further out — into the data, into the infrastructure, into the technology deciding who gets remembered by a health system and who does not.',
+      'Medicine taught me to think about improving people and systems. Data taught me how to find patterns within the complexity of people and systems. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of the Web 3.0 internet, and to the socially impactful possibilities coming with its innovations.',
       'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
       'The subject changes. The questions do not.',
       'Whether I am studying a patient, analysing a blockchain ecosystem, conducting research, or thinking about a social problem, I am interested in the same fundamental things:',

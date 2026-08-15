@@ -4,7 +4,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/Hero.astro';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import DomainTag from '@/components/ui/DomainTag.astro';
-import Intersection from '@/components/viz/Intersection.astro';
 import { profile } from '@/data/profile';
 import { accentClass } from '@/lib/domain';
 import { copy } from '@/data/copy';
@@ -71,7 +70,7 @@ const contactLinks = (
         <p class="meta mt-4">Fig. — {profile.shortName}</p>
       </div>
 
-      <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
+      <div class="lg:col-span-8" data-reveal style="--reveal-delay:80ms">
         <p class="font-display text-[1.6rem] leading-[1.2] tracking-[-0.02em] text-ink sm:text-[1.85rem]">
           {copy.homeAbout.lead}
         </p>
@@ -108,9 +107,6 @@ const contactLinks = (
         </a>
       </div>
 
-      <div class="flex items-center lg:col-span-3" data-reveal style="--reveal-delay:160ms">
-        <Intersection class="w-full max-w-[260px] text-ink" />
-      </div>
     </div>
   </section>
 
@@ -261,7 +257,7 @@ const contactLinks = (
           </a>
         </div>
 
-        <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
+        <div class="lg:col-span-8" data-reveal style="--reveal-delay:80ms">
           <p class="meta mb-5">Elsewhere</p>
           <ul style="border-top:1px solid var(--c-panel-line)">
             {

@@ -1,5 +1,5 @@
 ---
-import CohortGrid from '@/components/viz/CohortGrid.astro';
+import Intersection from '@/components/viz/Intersection.astro';
 import { profile } from '@/data/profile';
 
 // The positioning line, tinted by domain. Encodes the taxonomy immediately.
@@ -84,8 +84,8 @@ const strip = [profile.title, profile.location, profile.availability].filter(Boo
       </ul>
     </div>
 
-    <div class="lg:col-span-5" data-reveal style="--reveal-delay:180ms">
-      <CohortGrid />
+    <div class="flex justify-center lg:col-span-5" data-reveal style="--reveal-delay:180ms">
+      <Intersection class="w-full max-w-[400px] text-ink" />
     </div>
   </div>
 </section>

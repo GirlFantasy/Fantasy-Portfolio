@@ -27,7 +27,7 @@ export const profile = {
   status: 'student' as 'student' | 'graduate' | 'physician',
   // ───────────────────────────────────────────────────────────────────────────
 
-  location: 'Ebonyi State, Nigeria',
+  location: 'Lagos State, Nigeria',
 
   /**
    * Draft copy — rewrite freely. This is the one paragraph most people read.

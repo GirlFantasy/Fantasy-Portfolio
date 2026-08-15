@@ -36,6 +36,8 @@
 
   --c-focus: #1d4e9b;
   --grid-line: rgba(22, 24, 28, 0.05);
+  --venn-blend: multiply;
+  --venn-fill: 0.16;
 }
 
 /* ── Dark: "Field" ───────────────────────────────────────────────────────── */
@@ -67,6 +69,8 @@
 
     --c-focus: #6ba6f0;
     --grid-line: rgba(236, 237, 239, 0.055);
+    --venn-blend: screen;
+    --venn-fill: 0.22;
   }
 }
 
@@ -97,6 +101,8 @@
 
   --c-focus: #6ba6f0;
   --grid-line: rgba(236, 237, 239, 0.055);
+  --venn-blend: screen;
+  --venn-fill: 0.22;
 }
 
 /* ── Token bridge into Tailwind ──────────────────────────────────────────── */

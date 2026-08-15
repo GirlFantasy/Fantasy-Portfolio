@@ -33,7 +33,6 @@ export const copy = {
       'Medicine trained me to think about improving people and systems. Data taught me how to find patterns within the complexity of people and systems. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of the Web 3.0 internet, and to the socially impactful possibilities coming with its innovations.',
       'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
       'The subject changes. The questions do not.',
-      'Whether I am studying a patient, analysing a blockchain ecosystem, conducting research, or thinking about a social problem, I am interested in the same fundamental things:',
     ],
 
     /**

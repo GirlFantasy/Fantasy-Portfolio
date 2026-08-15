@@ -31,7 +31,7 @@ const jsonLd = {
   name: profile.name,
   alternateName: profile.creativeName,
   jobTitle: profile.titleFull,
-  email: `mailto:${profile.email}`,
+  email: [profile.email, profile.emailSecondary].filter(Boolean).map((e) => `mailto:${e}`),
   url: Astro.site?.toString(),
   address: { '@type': 'PostalAddress', addressRegion: profile.location },
   alumniOf: profile.education.map((e) => ({

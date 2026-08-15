@@ -86,7 +86,10 @@ export const profile = {
   ],
 
   // ── Contact ────────────────────────────────────────────────────────────────
+  /** Primary address — used for the main mailto links and schema.org. */
   email: 'nnennechimdalu@gmail.com',
+  /** Second address, shown alongside the first. Set to null to hide it. */
+  emailSecondary: 'hollafantasy@gmail.com' as string | null,
 
   /**
    * Only verified links live here. Never add a URL that has not been confirmed.

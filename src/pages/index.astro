@@ -255,9 +255,21 @@ const contactLinks = (
           >
             <span class="link-underline">{profile.email}</span>
           </a>
+
+          {
+            profile.emailSecondary && (
+              <a
+                href={`mailto:${profile.emailSecondary}`}
+                class="mt-4 block font-mono text-[0.9375rem] leading-tight tracking-tight break-words sm:text-lg"
+                style="color:var(--c-panel-muted)"
+              >
+                <span class="link-underline">{profile.emailSecondary}</span>
+              </a>
+            )
+          }
         </div>
 
-        <div class="lg:col-span-8" data-reveal style="--reveal-delay:80ms">
+        <div class="lg:col-span-5" data-reveal style="--reveal-delay:80ms">
           <p class="meta mb-5">Elsewhere</p>
           <ul style="border-top:1px solid var(--c-panel-line)">
             {

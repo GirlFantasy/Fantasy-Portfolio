@@ -28,8 +28,8 @@ export const copy = {
 
     /** Paragraphs BEFORE the pull quote. Add or remove whole lines freely. */
     paragraphs: [
-      'On a ward, the most valuable thing in the room is often not a drug or a machine. It is a record that arrived with the patient — the history that tells you what has already been tried, what failed, and what nearly worked. Watch how often that record does not arrive, and you stop seeing a clinical problem. You start seeing a systems problem.',
-      'That is the moment my work really began. Not a decision to leave medicine, but a decision to follow the question further out — into the data, into the infrastructure, into the technology deciding who gets remembered by a health system and who does not.',
+      'Medicine taught me very early that good healthcare depends on more than what happens in front of a patient. Sometimes, the problem is the information that never gets there — the history that is missing, the data that is scattered, or the systems that were never designed to connect. The more I noticed these gaps, the more I became interested in what happens behind the clinical picture.',
+      'That curiosity is what pulled me beyond medicine. I did not leave medicine; I started asking bigger questions about it. I wanted to understand how data, technology, research and better systems could solve some of the problems I was seeing. That led me into blockchain, data analysis and healthcare research — different fields, but all connected by the same question: how do we build systems that work better for people?',
       'Medicine taught me to think about improving people and systems. Data taught me how to find patterns within the complexity of people and systems. Research taught me to question assumptions and look for evidence that aligns. Blockchain exposed me to the inevitable wave of the Web 3.0 internet, and to the socially impactful possibilities coming with its innovations.',
       'Today, I bring these perspectives together to understand problems and enact solutions that sit beyond the boundaries of any one discipline.',
       'The subject changes. The questions do not.',

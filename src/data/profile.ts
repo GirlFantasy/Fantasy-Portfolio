@@ -30,10 +30,13 @@ export const profile = {
   location: 'Lagos State, Nigeria',
 
   /**
-   * Draft copy — rewrite freely. This is the one paragraph most people read.
+   * The opening lines under your name. One entry per paragraph — add or remove
+   * whole lines freely. This is the text most visitors read first.
    */
-  statement:
-    'I am a medical student, analyst, researcher, and SDG5 advocate exploring how data and innovation can solve problems that matter. My work sits at the intersection of healthcare, blockchain, research, and social impact - where I break down complex systems, communicate data-based solutions, and build initiatives that improve healthcare systems.',
+  statement: [
+    'I am a medical student, researcher, data analyst, and SDG5 advocate exploring how medicine, data, and emerging technology can solve problems that matter.',
+    'My work sits at the intersection of healthcare, research, data, and blockchain — using evidence, technology, and systems thinking to understand complex problems and build better solutions.',
+  ],
 
   education: [
     {
@@ -179,7 +182,7 @@ export const profile = {
    */
   cv: {
     href: '/cv.pdf',
-    available: false,
+    available: true,
   },
 
   /**
@@ -230,7 +233,7 @@ export type SocialKey = keyof typeof profile.socials;
 
 export const seo = {
   title: `${profile.shortName} — ${profile.positioning}`,
-  description: `${profile.name}. ${profile.titleFull}. ${profile.statement}`,
+  description: `${profile.name}. ${profile.titleFull}. ${profile.statement.join(' ')}`,
   keywords: [
     'blockchain data analyst',
     'on-chain analytics',

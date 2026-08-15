@@ -40,13 +40,15 @@ const strip = [profile.title, profile.location, profile.availability].filter(Boo
         }
       </p>
 
-      <p
-        class="measure mt-8 text-lg leading-[1.65] text-ink-2 sm:text-xl"
-        data-reveal
-        style="--reveal-delay:220ms"
-      >
-        {profile.statement}
-      </p>
+      <div class="measure mt-8" data-reveal style="--reveal-delay:220ms">
+        {
+          profile.statement.map((para, i) => (
+            <p class={`text-lg leading-[1.65] text-ink-2 sm:text-xl ${i > 0 ? 'mt-5' : ''}`}>
+              {para}
+            </p>
+          ))
+        }
+      </div>
 
       <div
         class="mt-11 flex flex-wrap items-center gap-3"

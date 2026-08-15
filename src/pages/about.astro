@@ -29,8 +29,7 @@ const pillars = (await getCollection('pillars'))
           <p>
             I am a {profile.title.toLowerCase()} at {profile.education[0].institution} ({
               profile.education[0].abbr
-            }) in {profile.location}, a blockchain data analyst, and a data
-            storyteller.
+            }), a blockchain data analyst, and a data storyteller. Based in {profile.location}.
           </p>
 
           {copy.about.opening.map((para) => <p>{para}</p>)}
@@ -76,7 +75,7 @@ const pillars = (await getCollection('pillars'))
         <div class="mt-14 flex flex-wrap gap-4 border-t border-hairline pt-8">
           <a
             href={`mailto:${profile.email}`}
-            class="inline-flex items-center gap-2.5 border border-data bg-data px-6 py-3 text-sm font-medium text-white transition-colors duration-300 hover:bg-transparent hover:text-data"
+            class="inline-flex items-center gap-2.5 border border-data bg-data px-6 py-3 text-sm font-medium text-bg transition-colors duration-300 hover:bg-transparent hover:text-data"
           >
             Get in touch
           </a>

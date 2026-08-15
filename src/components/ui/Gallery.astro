@@ -8,7 +8,7 @@ interface Props {
   gallery?: {
     folder?: string;
     caption?: string;
-    images?: { src: string; alt: string }[];
+    images?: { src: string; alt: string; width?: number; height?: number }[];
   };
 }
 const { gallery } = Astro.props;
@@ -28,7 +28,10 @@ const images = gallery?.images ?? [];
               <img
                 src={img.src}
                 alt={img.alt}
+                width={img.width ?? 900}
+                height={img.height ?? 1200}
                 loading="lazy"
+                decoding="async"
                 class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
               />
             </li>

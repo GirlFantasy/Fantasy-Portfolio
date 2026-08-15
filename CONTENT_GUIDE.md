@@ -107,7 +107,10 @@ draft: false
 ---
 ```
 
-These list automatically in the Data Stories section, newest first.
+**Note:** since the homepage was restructured into three pillar pages, this
+collection is not currently rendered anywhere. Writing links live directly in
+`src/content/pillars/blockchain-data.mdx`. Add pieces there for now, or ask for
+this collection to be wired back into the Data & Web3 page.
 
 ---
 
@@ -151,16 +154,19 @@ draft: false
 ---
 ```
 
-`category: 'competition'` entries appear under **Awards & analytics
-competitions**; everything else appears under **Leadership & impact**. The two
-sections are driven off that one field.
+**Note:** since the restructure, this collection is not currently rendered.
+Awards and leadership now live directly in the pillar pages —
+`src/content/pillars/blockchain-data.mdx` for competitions and
+`medicine-global-health.mdx` for the fellowship. Edit those files, or ask for
+this collection to be wired back in.
 
 ---
 
 ## 6. Add a job (after graduation)
 
-`src/content/experience/` is empty on purpose. The Experience section does not
-appear on the site until you put something in it. Add a file:
+`src/content/experience/` is empty and, since the restructure, is not rendered
+anywhere yet. When you have post-graduation roles to add, send them over and I
+will build the section. The intended shape is:
 
 ```mdx
 ---

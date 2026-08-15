@@ -23,6 +23,14 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? Astro.url).toString();
+
+/** Search engines cut descriptions around 160 chars — trim on a word boundary. */
+const clamp = (text: string, max = 158) => {
+  const t = text.replace(/\s+/g, ' ').trim();
+  if (t.length <= max) return t;
+  return t.slice(0, t.lastIndexOf(' ', max - 1)).replace(/[,;:—-]$/, '') + '…';
+};
+const metaDescription = clamp(description);
 const pageTitle = title === seo.title ? title : `${title} — ${profile.shortName}`;
 
 const jsonLd = {
@@ -53,17 +61,22 @@ const jsonLd = {
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <meta name="author" content={profile.name} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={profile.shortName} />
+    <meta property="og:image" content={new URL('/og.jpg', Astro.site ?? Astro.url).toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${profile.name} — ${profile.positioning}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/og.jpg', Astro.site ?? Astro.url).toString()} />
     <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
 
     <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)" />

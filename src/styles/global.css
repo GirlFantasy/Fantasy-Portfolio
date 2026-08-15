@@ -348,6 +348,17 @@
   .prose > * + * {
     margin-top: 1.5rem;
   }
+  /* Short blurbs nested under their own heading — award entries, list items. */
+  .prose-tight {
+    max-width: 62ch;
+  }
+  .prose-tight > * + * {
+    margin-top: 0.85rem;
+  }
+  .prose-tight p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
   .prose h2 {
     font-size: clamp(1.4rem, 2.4vw, 1.85rem);
     line-height: 1.25;

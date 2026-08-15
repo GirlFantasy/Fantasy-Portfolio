@@ -86,8 +86,10 @@ const work = defineCollection({
 
 /**
  * WRITING — individual articles, threads and explainers.
- * Empty for now: the homepage falls back to showing channels from profile.ts.
- * Add pieces here as they publish and they appear automatically.
+ *
+ * Empty until you add pieces. Drop a .mdx file in src/content/writing/ with a
+ * `pillar` matching one of the pillar ids, and a "Selected writing" section
+ * appears on that pillar page automatically. See _TEMPLATE.md in that folder.
  */
 const writing = defineCollection({
   loader: glob({ base: './src/content/writing', pattern: '**/*.mdx' }),
@@ -100,6 +102,8 @@ const writing = defineCollection({
     summary: z.string().optional(),
     href: z.string().url(),
     domains: z.array(domain).default([]),
+    /** Which pillar page this appears on, by pillar id. Omit to hide it. */
+    pillar: z.string().optional(),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
   }),
@@ -107,7 +111,14 @@ const writing = defineCollection({
 
 /**
  * RECOGNITION — fellowships, leadership roles, awards, advocacy.
- * Rendered as an append-only ledger, most recent first.
+ *
+ * THIS IS THE ONLY PLACE AWARDS ARE RECORDED. It feeds two surfaces:
+ *   • the compact ledger on /about — every entry, newest section first
+ *   • the full write-up on a pillar page — only entries with a `pillar` set,
+ *     which render the MDX body beneath the heading
+ *
+ * So: keep the frontmatter short (it is what the ledger shows), and put the
+ * detailed prose in the body (it is what the pillar page shows).
  */
 const recognition = defineCollection({
   loader: glob({ base: './src/content/recognition', pattern: '**/*.mdx' }),
@@ -121,14 +132,23 @@ const recognition = defineCollection({
     category: z.enum(['competition', 'fellowship', 'leadership', 'award', 'advocacy']),
     summary: z.string(),
     links: z.array(link).default([]),
+    /**
+     * Which pillar page carries the full write-up, by pillar id.
+     * Omit it and the entry still appears in the /about ledger — use that for
+     * anything a pillar page already tells better in its own prose.
+     */
+    pillar: z.string().optional(),
     order: z.number().default(99),
     draft: z.boolean().default(false),
   }),
 });
 
 /**
- * EXPERIENCE — intentionally empty. This is where post-graduation roles go.
- * The site renders this section only when entries exist.
+ * EXPERIENCE — where post-graduation roles go.
+ *
+ * Empty by design. The moment you add your first .mdx file here, an
+ * "Experience" section appears on /about. Nothing else needs changing.
+ * See _TEMPLATE.md in that folder for the shape.
  */
 const experience = defineCollection({
   loader: glob({ base: './src/content/experience', pattern: '**/*.mdx' }),

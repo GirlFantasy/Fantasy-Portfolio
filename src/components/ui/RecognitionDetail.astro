@@ -1,0 +1,54 @@
+---
+/**
+ * Full write-up for recognition entries tagged to a pillar.
+ * Frontmatter supplies the heading; the MDX body supplies the prose.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+import LinkList from '@/components/ui/LinkList.astro';
+
+interface Props {
+  entries: CollectionEntry<'recognition'>[];
+  heading?: string;
+  class?: string;
+}
+
+const { entries, heading = 'Awards & recognition', class: className = '' } = Astro.props;
+
+/** Render each body once, up front — Astro components cannot await inside JSX. */
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+---
+
+{
+  rendered.length > 0 && (
+    <section class={`mt-[var(--spacing-section)] border-t border-hairline pt-8 ${className}`}>
+      <h2 class="meta">{heading}</h2>
+
+      <div class="mt-8 flex flex-col gap-10">
+        {rendered.map(({ entry, Content }) => (
+          <article>
+            <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              {entry.data.placement && (
+                <span class="font-mono text-sm font-medium" style="color:var(--accent)">
+                  {entry.data.placement}
+                </span>
+              )}
+              <h3 class="font-sans text-[1.0625rem] font-semibold tracking-normal">
+                {entry.data.title}
+              </h3>
+              <span class="meta">· {entry.data.organisation}</span>
+              {entry.data.period && <span class="meta">· {entry.data.period}</span>}
+            </div>
+
+            <div class="prose prose-tight mt-3">
+              <Content />
+            </div>
+
+            <LinkList links={entry.data.links} class="mt-4" />
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

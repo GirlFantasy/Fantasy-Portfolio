@@ -92,7 +92,8 @@ gets its own page at `/work/my-new-analysis`.
 
 ## 3. Add an article, thread or explainer
 
-Create a file in `src/content/writing/`:
+Create a file in `src/content/writing/` — there is a template with field notes
+at `src/content/writing/_TEMPLATE.md`:
 
 ```mdx
 ---
@@ -102,15 +103,18 @@ format: 'thread'          # article | thread | explainer | video | dashboard
 date: 2026-03-14
 href: 'https://...'
 domains: ['data', 'blockchain']
+pillar: 'blockchain-data' # ← decides which page it appears on
 featured: true
 draft: false
 ---
 ```
 
-**Note:** since the homepage was restructured into three pillar pages, this
-collection is not currently rendered anywhere. Writing links live directly in
-`src/content/pillars/blockchain-data.mdx`. Add pieces there for now, or ask for
-this collection to be wired back into the Data & Web3 page.
+`pillar` is the field that matters. Set it to `medicine-global-health`,
+`blockchain-healthcare` or `blockchain-data`, and a **Selected writing** section
+appears on that page, newest first. Leave it out and the piece stays hidden.
+
+The collection is empty right now, so no such section exists on any page yet.
+It appears on its own the moment you add the first file — no code change needed.
 
 ---
 
@@ -136,7 +140,19 @@ Order in the array is the order on the page.
 
 ## 5. Add a fellowship, role, award or competition placement
 
-Create a file in `src/content/recognition/`:
+`src/content/recognition/` is **the only place awards are recorded.** Nothing is
+written out by hand in a pillar page any more, so there is one file to edit per
+award and no risk of two versions drifting apart.
+
+Each entry feeds up to two surfaces:
+
+| Surface | What it shows | Which entries |
+| --- | --- | --- |
+| The ledger on `/about` | Frontmatter only, grouped by category | **every** entry |
+| A pillar page | Heading **plus the MDX body** | only entries with a `pillar` |
+
+So keep the frontmatter short — that is the ledger line — and put the detailed
+prose in the body below the `---`, which is what the pillar page prints.
 
 ```mdx
 ---
@@ -145,28 +161,34 @@ organisation: 'Organisation'
 period: '2026 — 2027'     # leave out entirely if unconfirmed — it shows "—"
 category: 'fellowship'    # competition | fellowship | leadership | award | advocacy
 placement: '3rd Place'    # competitions only — omit for everything else
-summary: 'One or two sentences.'
+summary: 'One or two sentences. This is the ledger line.'
 links:
   - label: 'Profile'
     href: 'https://...'
+pillar: 'blockchain-data' # omit → ledger only, no pillar write-up
 order: 1
 draft: false
 ---
+
+The longer write-up goes here, and appears on the pillar page only. Markdown
+works: **bold** for the figures that matter, links, short paragraphs.
 ```
 
-**Note:** since the restructure, this collection is not currently rendered.
-Awards and leadership now live directly in the pillar pages —
-`src/content/pillars/blockchain-data.mdx` for competitions and
-`medicine-global-health.mdx` for the fellowship. Edit those files, or ask for
-this collection to be wired back in.
+**When to omit `pillar`:** when a page already tells that story better in its
+own prose. The two Millennium Fellowship entries do exactly this — the Medicine
+& Global Health page narrates them properly, so they appear in the `/about`
+ledger and nowhere else. That is deliberate, and it is noted in those files.
 
 ---
 
 ## 6. Add a job (after graduation)
 
-`src/content/experience/` is empty and, since the restructure, is not rendered
-anywhere yet. When you have post-graduation roles to add, send them over and I
-will build the section. The intended shape is:
+`src/content/experience/` is empty on purpose. The section is already built and
+wired to the About page — it simply renders nothing while there are no entries.
+Add the first file and an **Experience** section appears above Recognition.
+No code change, no message to anyone.
+
+There is a template with field notes at `src/content/experience/_TEMPLATE.md`.
 
 ```mdx
 ---
@@ -174,10 +196,15 @@ role: 'House Officer'
 organisation: 'Hospital name'
 period: '2027 — present'
 summary: 'One or two sentences.'
-order: 1
+links: []
+order: 1          # lower numbers first — newest role gets order: 1
 draft: false
 ---
 ```
+
+This is the main thing that makes the site survive graduation: change the
+CAREER STATUS block in `src/data/profile.ts`, drop a file in here, and the site
+has caught up with your life.
 
 ---
 
@@ -233,6 +260,16 @@ npm run dev     # then open http://localhost:4321
 Changes appear as you save. `npm run build` checks everything before you push —
 if you make a mistake in a frontmatter field, the build fails and tells you
 exactly which file and field, so a typo can never quietly break the live site.
+
+**One gotcha, local only.** If you *delete* a content file and it still shows up
+in your local preview, Astro is holding it in a cache. Clear it:
+
+```bash
+rm -rf .astro dist && npm run build
+```
+
+This never affects the live site — Vercel builds from a fresh copy every time,
+so a deleted file is genuinely gone the moment you push.
 
 ---
 

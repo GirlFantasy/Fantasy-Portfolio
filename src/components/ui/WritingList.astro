@@ -1,0 +1,59 @@
+---
+/**
+ * Selected writing for a pillar page.
+ * Renders nothing at all while the writing collection is empty, so adding the
+ * first .mdx file is the only step needed to make this section appear.
+ */
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entries: CollectionEntry<'writing'>[];
+  heading?: string;
+  class?: string;
+}
+
+const { entries, heading = 'Selected writing', class: className = '' } = Astro.props;
+
+/** Newest first; undated pieces sort last rather than disappearing. */
+const sorted = [...entries].sort(
+  (a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
+);
+
+const dateFormat = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric' });
+---
+
+{
+  sorted.length > 0 && (
+    <section class={`mt-[var(--spacing-section)] border-t border-hairline pt-8 ${className}`}>
+      <h2 class="meta">{heading}</h2>
+      <ul class="mt-6 border-t border-hairline">
+        {sorted.map((piece) => (
+          <li class="border-b border-hairline">
+            <a
+              href={piece.data.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group grid grid-cols-1 gap-2 py-5 md:grid-cols-12 md:gap-6"
+            >
+              <div class="md:col-span-8">
+                <p class="text-[1.0625rem] leading-snug">
+                  <span class="link-underline">{piece.data.title}</span>
+                  <span aria-hidden="true" class="meta ml-2">
+                    ↗
+                  </span>
+                </p>
+                {piece.data.summary && (
+                  <p class="measure mt-2 text-sm leading-[1.7] text-ink-2">{piece.data.summary}</p>
+                )}
+              </div>
+              <p class="meta md:col-span-4 md:text-right">
+                {piece.data.outlet} · {piece.data.format}
+                {piece.data.date && ` · ${dateFormat.format(piece.data.date)}`}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

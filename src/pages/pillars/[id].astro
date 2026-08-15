@@ -5,18 +5,30 @@ import DomainTag from '@/components/ui/DomainTag.astro';
 import LinkList from '@/components/ui/LinkList.astro';
 import { accentClass } from '@/lib/domain';
 import Gallery from '@/components/ui/Gallery.astro';
+import RecognitionDetail from '@/components/ui/RecognitionDetail.astro';
+import WritingList from '@/components/ui/WritingList.astro';
 
 export async function getStaticPaths() {
   const pillars = (await getCollection('pillars')).filter((p) => !p.data.draft);
   const work = (await getCollection('work')).filter((w) => !w.data.draft);
+  const recognition = (await getCollection('recognition')).filter((r) => !r.data.draft);
+  const writing = (await getCollection('writing')).filter((w) => !w.data.draft);
 
+  /** Every collection is attached the same way: by matching `pillar` to the id. */
   return pillars.map((pillar) => ({
     params: { id: pillar.id },
-    props: { pillar, related: work.filter((w) => w.data.pillar === pillar.id) },
+    props: {
+      pillar,
+      related: work.filter((w) => w.data.pillar === pillar.id),
+      awards: recognition
+        .filter((r) => r.data.pillar === pillar.id)
+        .sort((a, b) => a.data.order - b.data.order),
+      writing: writing.filter((w) => w.data.pillar === pillar.id),
+    },
   }));
 }
 
-const { pillar, related } = Astro.props;
+const { pillar, related, awards, writing } = Astro.props;
 const { Content } = await render(pillar);
 ---
 
@@ -46,6 +58,10 @@ const { Content } = await render(pillar);
     <div class="prose mt-14">
       <Content />
     </div>
+
+    <RecognitionDetail entries={awards} heading="Awards & analytics competitions" />
+
+    <WritingList entries={writing} />
 
     {
       related.length > 0 && (

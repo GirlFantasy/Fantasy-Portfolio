@@ -2,12 +2,18 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Intersection from '@/components/viz/Intersection.astro';
+import RecognitionLedger from '@/components/ui/RecognitionLedger.astro';
+import ExperienceList from '@/components/ui/ExperienceList.astro';
 import { profile } from '@/data/profile';
 import { copy } from '@/data/copy';
 
 const pillars = (await getCollection('pillars'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => a.data.order - b.data.order);
+
+const recognition = (await getCollection('recognition')).filter((r) => !r.data.draft);
+/** Empty until after graduation — ExperienceList renders nothing until then. */
+const experience = (await getCollection('experience')).filter((e) => !e.data.draft);
 ---
 
 <BaseLayout
@@ -71,6 +77,10 @@ const pillars = (await getCollection('pillars'))
           <p>{copy.about.nameParagraph}</p>
 
         </div>
+
+        <ExperienceList entries={experience} class="mt-14 border-t border-hairline pt-10" />
+
+        <RecognitionLedger entries={recognition} class="mt-14 border-t border-hairline pt-10" />
 
         <div class="mt-14 flex flex-wrap gap-4 border-t border-hairline pt-8">
           <a

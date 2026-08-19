@@ -281,7 +281,23 @@ export const verification = {
 export const seo = {
   /** Leads with the headline: it is what a search result must answer. */
   title: `${profile.shortName} — ${profile.headline}`,
-  description: `${profile.name} — ${profile.headline}. ${profile.statement[0]}`,
+
+  /**
+   * The sentence Google shows beneath the title in a search result, and the
+   * one that appears when a link is shared.
+   *
+   * ► KEEP THIS UNDER 158 CHARACTERS. Past that it is cut off mid-word with
+   *   an ellipsis, which looks unfinished. This one is 148.
+   *
+   * ► DO NOT repeat your name or headline here. The title directly above it
+   *   already says both, so repeating them wastes half the space. Use it to
+   *   say the thing the title cannot — that medicine is where this starts.
+   *
+   * Deliberately its own sentence rather than reusing the hero line, so the
+   * two can be edited independently.
+   */
+  description:
+    'Medicine is where my work begins. I use research, data and blockchain analytics to explore better ways of solving problems in healthcare and beyond.',
   keywords: [
     'blockchain analyst',
     'health technology researcher',

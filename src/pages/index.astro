@@ -195,17 +195,34 @@ const contactLinks = (
       <div class="lg:col-span-5" data-reveal>
         <p class="meta">Education</p>
         {
-          profile.education.map((e) => (
-            <div class="mt-5 border-t border-hairline pt-5">
-              <h3 class="font-sans text-[1.0625rem] font-semibold tracking-normal">
-                {e.programme}
-              </h3>
-              <p class="mt-1.5 text-sm text-ink-2">
-                {e.school}, {e.institution}
-              </p>
-              <p class="meta mt-2">{e.period}</p>
-            </div>
-          ))
+          /* First entry is the primary qualification; later ones are earlier,
+             supporting ones and are set smaller and lighter. */
+          profile.education.map((e, i) =>
+            i === 0 ? (
+              <div class="mt-5 border-t border-hairline pt-5">
+                <h3 class="font-sans text-[1.0625rem] font-semibold tracking-normal">
+                  {e.programme}
+                </h3>
+                <p class="mt-1.5 text-sm text-ink-2">
+                  {[e.school, e.institution].filter(Boolean).join(', ')}
+                </p>
+                <p class="meta mt-2">{e.period}</p>
+                {e.current && e.expected && (
+                  <p class="meta mt-1">Expected graduation {e.expected}</p>
+                )}
+              </div>
+            ) : (
+              <div class="mt-6">
+                <h3 class="font-sans text-[0.9375rem] font-medium tracking-normal text-ink-2">
+                  {e.programme}
+                </h3>
+                <p class="meta mt-1.5">
+                  {[e.school, e.institution].filter(Boolean).join(', ')} ({e.abbr})
+                </p>
+                <p class="meta mt-1">{e.period}</p>
+              </div>
+            )
+          )
         }
 
         <p class="meta mt-10">Student leadership</p>

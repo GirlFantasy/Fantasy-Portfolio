@@ -59,17 +59,43 @@ export const profile = {
     'I work at the intersection of medicine, data, and emerging technology using research, analytics, and blockchain to explore better ways of solving problems in healthcare and beyond.',
   ],
 
+  /**
+   * Educational history, most significant FIRST. The first entry is rendered
+   * as the primary qualification; anything after it is shown as a smaller,
+   * supporting earlier qualification. Reorder only if that changes.
+   *
+   * `school` and `expected` are optional. `schemaType` tells search engines
+   * what kind of body awarded it — a university, or an examinations board.
+   */
   education: [
     {
       institution: 'Ebonyi State University',
       abbr: 'EBSU',
       school: 'College of Medicine',
-      programme: 'Bachelor of Medicine, Bachelor of Surgery (MBBS)',
-      period: 'September 2019 — expected February 2027',
+      programme: 'Doctor of Medicine (MD/MBBS)',
+      period: '2021 — 2027',
       expected: 'February 2027',
+      schemaType: 'CollegeOrUniversity',
       current: true,
     },
-  ],
+    {
+      institution: 'Joint Universities Preliminary Examinations Board',
+      abbr: 'JUPEB',
+      programme: 'Advanced Level Programme',
+      period: '2019 — 2020',
+      schemaType: 'EducationalOrganization',
+      current: false,
+    },
+  ] as ReadonlyArray<{
+    institution: string;
+    abbr: string;
+    school?: string;
+    programme: string;
+    period: string;
+    expected?: string;
+    schemaType: 'CollegeOrUniversity' | 'EducationalOrganization';
+    current: boolean;
+  }>,
 
   /** Taken from your CV. Add a new block whenever you complete another. */
   certifications: [

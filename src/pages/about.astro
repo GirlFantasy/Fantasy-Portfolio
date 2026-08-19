@@ -65,10 +65,12 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
           <h2>{copy.about.educationHeading}</h2>
 
           {
-            profile.education.map((e) => (
+            /* The primary qualification is emphasised; earlier ones read plain. */
+            profile.education.map((e, i) => (
               <p>
-                <strong>{e.institution}</strong> ({e.abbr}) — {e.programme}.
-                {e.current && ` Expected ${e.expected}.`}
+                {i === 0 ? <strong>{e.institution}</strong> : e.institution} ({e.abbr}) —{' '}
+                {e.programme}, {e.period}.
+                {e.current && e.expected && ` Expected ${e.expected}.`}
               </p>
             ))
           }

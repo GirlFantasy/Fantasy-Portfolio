@@ -56,7 +56,7 @@ export const profile = {
    * whole lines freely. This is the text most visitors read first.
    */
   statement: [
-    'I explore how medicine, data, and emerging technology can solve problems that matter — from healthcare and research to blockchain adoption and analytics.',
+    'I work at the intersection of medicine, data, and emerging technology using research, analytics, and blockchain to explore better ways of solving problems in healthcare and beyond.',
   ],
 
   education: [

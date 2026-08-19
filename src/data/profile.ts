@@ -72,7 +72,7 @@ export const profile = {
       institution: 'Ebonyi State University',
       abbr: 'EBSU',
       school: 'College of Medicine',
-      programme: 'Doctor of Medicine (MD/MBBS)',
+      programme: 'Bachelor of Medicine, Bachelor of Surgery (MBBS)',
       period: '2021 — 2027',
       expected: 'February 2027',
       schemaType: 'CollegeOrUniversity',

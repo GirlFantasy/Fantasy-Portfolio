@@ -26,13 +26,14 @@ export const copy = {
     credentials:
       'MBBS (in view), Blockchain Data Analyst, Blockchain in Healthcare Researcher, SDG5 Advocate',
 
-    /** Paragraphs BEFORE the pull quote. Add or remove whole lines freely. */
+    /**
+     * Paragraphs BEFORE the pull quote. Add or remove whole lines freely.
+     * The last one ends on a colon, because it leads straight into the
+     * four questions below. Keep that if you reorder these.
+     */
     paragraphs: [
-      'Medicine taught me very early that good healthcare depends on more than what happens in front of a patient. Sometimes, the problem is the information that never gets there — the history that is missing, the data that is scattered, or the systems that were never designed to connect. The more I noticed these gaps, the more I became interested in what happens behind the clinical picture.',
-      'That curiosity is what pulled me beyond medicine. I did not leave medicine; I started asking bigger questions about it. I wanted to understand how data, technology, research and better systems could solve some of the problems I was seeing. That led me into blockchain, data analysis and healthcare research — different fields, but all connected by the same question: how do we build systems that work better for people?',
-      'Medicine trained me to think about improving people and systems. Data taught me how to find patterns within the complexity of people and systems. Research taught me to question assumptions and look for evidence that aligns. Blockchain introduced me to a different way of thinking about technology, ownership, and how digital systems are built.',
-      'Today, I bring these perspectives together to understand problems, ask better questions, and explore how technology can help solve them.',
-      'The subject changes. The questions do not.',
+      'Medicine taught me very early that good healthcare depends on more than what happens in front of a patient. Sometimes, the problem is the information that never gets there — the missing history, scattered data, or systems that were never built to work together. The more I noticed these gaps, the more I became interested in what happens beyond the clinical picture.',
+      'I did not leave medicine; I started asking bigger questions about it. That curiosity led me into research, data analysis, blockchain, and health technology — different fields that keep bringing me back to the same questions:',
     ],
 
     /**
@@ -48,9 +49,10 @@ export const copy = {
       'And what can we do differently?',
     ],
 
-    /** Paragraphs AFTER the pull quote. */
+    /** Paragraphs AFTER the pull quote. The closing line lands last. */
     paragraphsAfter: [
-      'These questions shape the work I build, the research I pursue, and the problems I choose to explore.',
+      'Today, those questions shape the work I build, the research I pursue, and the problems I choose to explore.',
+      'The subject changes. The questions do not.',
     ],
   },
 

@@ -40,7 +40,7 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
           <p>
             I am a {profile.title.toLowerCase()} at {profile.education[0].institution} ({
               profile.education[0].abbr
-            }), a blockchain data analyst, and a data storyteller. Based in {profile.location}.
+            }), a blockchain data analyst, researcher, and SDG5 advocate based in {profile.location}.
           </p>
 
           {copy.about.opening.map((para) => <p>{para}</p>)}
@@ -51,20 +51,16 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
 
           <h2>{copy.about.whereHeading}</h2>
 
-          <p>{copy.about.whereIntro}</p>
-
-          <ul>
-            {
-              pillars.map((p) => (
-                <li>
-                  <a href={`/pillars/${p.id}`}>
-                    <strong>{p.data.title}</strong>
-                  </a>{' '}
-                  — {p.data.intro[0]}
-                </li>
-              ))
-            }
-          </ul>
+          {
+            pillars.map((p) => (
+              <Fragment>
+                <h3 class="area-name">
+                  <a href={`/pillars/${p.id}`}>{p.data.title}</a>
+                </h3>
+                <p>{copy.about.areas[p.id]}</p>
+              </Fragment>
+            ))
+          }
 
           <h2>{copy.about.educationHeading}</h2>
 
@@ -136,3 +132,17 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  /*
+    "Where I work" — each area is a name followed by its own description, so
+    the two need to read as one unit. The default prose rhythm puts equal
+    space above and below a heading, which would let them drift apart.
+  */
+  .area-name {
+    margin-top: 2.5rem;
+  }
+  .area-name + p {
+    margin-top: 0.5rem;
+  }
+</style>

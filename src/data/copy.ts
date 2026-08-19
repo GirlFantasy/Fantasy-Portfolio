@@ -70,16 +70,31 @@ export const copy = {
   about: {
     /** Opening paragraphs, before the first heading. */
     opening: [
-      'The descriptions of what I do usually belong to different people. Holding them together is deliberate, and it is the most useful thing about the changes I am working to effect.',
+      'At first, these may sound like different paths. For me, they are connected. My work sits across medicine, global health, blockchain in healthcare, and blockchain data & analytics — using research, data, and technology to understand problems and explore what we can do differently.',
     ],
 
     connectsHeading: 'What connects them',
     connectsParagraphs: [
-      'Clinical medicine trains a specific habit of mind: gather what is actually observable, resist the explanation you want to be true, and be honest about the limits of what you know. That habit transfers almost perfectly to data analysis, and the need for collaborations to effect social impact solutions.',
+      'Medicine taught me to look closely at people and the systems around them. Research taught me to question assumptions. Data taught me to look for patterns. Blockchain opened up a different way of thinking about how digital systems work.',
+      'Together, they shape the questions I ask and the work I choose to build.',
     ],
 
     whereHeading: 'Where I work',
-    whereIntro: 'Three areas, each with its own page:',
+
+    /**
+     * One line per area, keyed by the pillar's filename in
+     * src/content/pillars/. The heading and the link come from the pillar file
+     * itself, so renaming a pillar updates this list automatically — only the
+     * sentence below lives here.
+     */
+    areas: {
+      'medicine-global-health':
+        'I explore healthcare, women\'s health, gender equality, and global health through medicine, research, and advocacy.',
+      'blockchain-healthcare':
+        'I research how blockchain could be applied to healthcare, with a particular interest in health records, data ownership, interoperability, and trust.',
+      'blockchain-data':
+        'I use on-chain data to understand how blockchain products and ecosystems actually behave — from activation and retention to adoption and drop-off.',
+    } as Record<string, string>,
 
     educationHeading: 'Education',
 

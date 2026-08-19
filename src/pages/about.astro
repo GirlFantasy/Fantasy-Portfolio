@@ -18,15 +18,20 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
 
 <BaseLayout
   title="About"
-  description={`${profile.name} — ${profile.titleFull}. ${profile.statement.join(" ")}`}
+  description={`${profile.name} — ${profile.headline}. ${profile.statement[0]}`}
 >
   <div class="shell pt-14 md:pt-20">
     <header class="border-b border-hairline pb-10">
-      <p class="meta">About</p>
+      <p class="meta">{profile.field}</p>
       <h1 class="mt-5 max-w-[18ch] text-[length:var(--text-display-l)] leading-[1.05]">
         {profile.name}
       </h1>
-      <p class="measure mt-6 text-lg leading-[1.65] text-ink-2">{profile.titleFull}.</p>
+      <p class="mt-5 max-w-[30ch] font-display text-[1.35rem] leading-[1.25] tracking-[-0.015em] text-ink sm:text-[1.5rem]">
+        {profile.headline}
+      </p>
+      <p class="meta mt-4">
+        {profile.title} · {profile.location}
+      </p>
     </header>
 
     <div class="mt-14 grid grid-cols-1 gap-14 lg:grid-cols-12">

@@ -38,7 +38,9 @@ const jsonLd = {
   '@type': 'Person',
   name: profile.name,
   alternateName: profile.creativeName,
-  jobTitle: profile.titleFull,
+  /** The headline is the job title; titleFull is the fuller account beneath it. */
+  jobTitle: profile.headline,
+  description: `${profile.titleFull}. Working in ${profile.field}.`,
   email: [profile.email, profile.emailSecondary].filter(Boolean).map((e) => `mailto:${e}`),
   url: Astro.site?.toString(),
   address: { '@type': 'PostalAddress', addressRegion: profile.location },
@@ -72,7 +74,7 @@ const jsonLd = {
     <meta property="og:image" content={new URL('/og.jpg', Astro.site ?? Astro.url).toString()} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${profile.name} — ${profile.positioning}`} />
+    <meta property="og:image:alt" content={`${profile.name} — ${profile.headline}`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={new URL('/og.jpg', Astro.site ?? Astro.url).toString()} />
     <meta name="twitter:title" content={pageTitle} />

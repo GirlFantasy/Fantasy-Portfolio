@@ -13,6 +13,35 @@ Edit a file, save, commit, push. The site rebuilds and deploys itself.
 
 ---
 
+## 0. How you are described — the hierarchy
+
+A visitor should know what you do before they read a paragraph. Four lines in
+`src/data/profile.ts` do that job, and they are **ranked**. The site renders
+them in this order everywhere they appear together — hero, About, contact
+panel, footer, search results:
+
+| Rank | Field in `profile.ts` | Current value |
+| --- | --- | --- |
+| 1 | `field` | Blockchain Analytics & Health Technology |
+| 2 | `headline` | Blockchain Analyst & Health Technology Researcher |
+| 3 | `positioning` | Medicine × Data × Blockchain |
+| 4 | `title` | Final-year medical student |
+
+- **field** — the domain you work in. What someone files you under.
+- **headline** — your one-line professional identity. This is *the* answer to
+  "what does she do", and it is what the browser tab, Google result and shared
+  link all lead with.
+- **positioning** — the three-domain signature, tinted in your colours. A
+  signature, not a job title.
+- **title** — current status. This is the one that changes with your career.
+
+**The rule worth keeping:** resist adding a fifth. The reason this works is
+that it is short. The longer list of everything you are still exists as
+`titleFull`, but it is used only for the structured data search engines read —
+never for a line a human scans.
+
+---
+
 ## 1. After you graduate
 
 This is the change the whole site was built around. Open `src/data/profile.ts`
@@ -21,7 +50,7 @@ and edit **one block**:
 ```ts
 // ── CAREER STATUS ──
 title: 'Final-year medical student',
-titleFull: 'Final-year medical student, blockchain data analyst and data storyteller',
+titleFull: 'Final-year medical student, blockchain data analyst, blockchain in healthcare researcher, SDG5 advocate',
 status: 'student',
 ```
 
@@ -29,16 +58,21 @@ Change it to, for example:
 
 ```ts
 title: 'Medical Doctor',
-titleFull: 'Medical doctor, blockchain data analyst and health-technology researcher',
+titleFull: 'Medical doctor, blockchain data analyst, health technology researcher, SDG5 advocate',
 status: 'physician',
 ```
 
 That updates the hero, the About page, the search-engine description, the
-structured data Google reads, and every other place your title appears. Nothing
-else needs touching.
+structured data Google reads, and every other place your status appears.
+Nothing else needs touching.
+
+**Your `headline` and `field` do not have to change when you graduate** — that
+is the point of separating them. "Blockchain Analyst & Health Technology
+Researcher" stays true whether you are a student or a doctor. Change those two
+only when the work itself changes direction.
 
 While you are in there, set `current: false` on your EBSU entry and add any new
-education.
+education. Then drop your first role into `src/content/experience/` (section 6).
 
 ---
 
@@ -245,8 +279,14 @@ The second number is top-to-bottom. `0%` keeps the very top of the photo,
 
 ## 9. Your CV
 
-Save it as `public/cv.pdf`, then set `cv.available: true` in `profile.ts`. A
-download link appears in the footer and on the About page.
+Save it as `public/cv.pdf` — that exact filename — then set `cv.available: true`
+in `profile.ts`. A **CV ↓** button appears in the navigation bar at the top of
+every page, at every screen size, plus links in the footer and on the About
+page.
+
+To replace it later, save the new file over `public/cv.pdf` and push. Nothing
+in the code needs changing. Set `cv.available: false` to hide every CV link at
+once — useful if you ever want it temporarily offline.
 
 ---
 

@@ -12,10 +12,16 @@ const positioning = [
 const strip = [profile.title, profile.location, profile.availability].filter(Boolean);
 ---
 
+{/*
+  Reading order is deliberate and descending:
+    field → name → headline → domain taxonomy → statement → actions → status.
+  A visitor who reads only the first three lines still knows what she does.
+*/}
+
 <section class="shell relative pt-16 pb-[var(--spacing-section)] md:pt-24">
   <div class="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
     <div class="lg:col-span-7">
-      <p class="meta mb-6" data-reveal>Portfolio</p>
+      <p class="meta mb-6" data-reveal>{profile.field}</p>
 
       <h1
         class="text-[length:var(--text-display-xl)] leading-[0.98] tracking-[-0.03em]"
@@ -26,9 +32,17 @@ const strip = [profile.title, profile.location, profile.availability].filter(Boo
       </h1>
 
       <p
-        class="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.8125rem] font-medium tracking-[0.14em] uppercase sm:text-sm"
+        class="mt-5 max-w-[24ch] font-display text-[1.5rem] leading-[1.2] tracking-[-0.02em] text-ink sm:max-w-none sm:text-[1.75rem]"
         data-reveal
-        style="--reveal-delay:140ms"
+        style="--reveal-delay:110ms"
+      >
+        {profile.headline}
+      </p>
+
+      <p
+        class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.8125rem] font-medium tracking-[0.14em] uppercase sm:text-sm"
+        data-reveal
+        style="--reveal-delay:170ms"
       >
         {
           positioning.map((p, i) => (

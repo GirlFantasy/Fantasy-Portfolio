@@ -17,11 +17,33 @@ export const profile = {
   shortName: 'Chimdalu Egwu',
   /** Creative/brand name. Deliberately secondary — never the primary identity. */
   creativeName: 'FANTASY',
+
+  /**
+   * ─── THE HIERARCHY ───────────────────────────────────────────────────────
+   *  A visitor should be able to answer "what does she do?" in one glance,
+   *  before reading a single paragraph. These four lines are ranked, and the
+   *  site renders them in this order everywhere they appear together.
+   *
+   *    1. field      — the domain you work in. What a recruiter files you under.
+   *    2. headline   — your one-line professional identity. THE answer.
+   *    3. positioning— the three-domain taxonomy. A signature, not a title.
+   *    4. title      — current status/context. Changes with your career.
+   *
+   *  Resist adding a fifth. The point of this block is that it is short.
+   * ─────────────────────────────────────────────────────────────────────────
+   */
+  field: 'Blockchain Analytics & Health Technology',
+  headline: 'Blockchain Analyst & Health Technology Researcher',
   positioning: 'Medicine × Data × Blockchain',
 
   // ── CAREER STATUS ──────────────────────────────────────────────────────────
   //    ▲ THIS IS THE BLOCK YOU EDIT AFTER GRADUATION ▲
   title: 'Final-year medical student',
+  /**
+   * The long-form list of everything you are. Used only where a full account
+   * is genuinely wanted — schema.org, and nowhere a visitor reads at a glance.
+   * The headline above is what the pages actually show.
+   */
   titleFull: 'Final-year medical student, blockchain data analyst, blockchain in healthcare researcher, SDG5 advocate',
   /** 'student' | 'graduate' | 'physician' — drives conditional copy site-wide. */
   status: 'student' as 'student' | 'graduate' | 'physician',
@@ -235,9 +257,13 @@ export type DomainKey = keyof typeof domains;
 export type SocialKey = keyof typeof profile.socials;
 
 export const seo = {
-  title: `${profile.shortName} — ${profile.positioning}`,
-  description: `${profile.name}. ${profile.titleFull}. ${profile.statement.join(' ')}`,
+  /** Leads with the headline: it is what a search result must answer. */
+  title: `${profile.shortName} — ${profile.headline}`,
+  description: `${profile.name} — ${profile.headline}. ${profile.statement[0]}`,
   keywords: [
+    'blockchain analyst',
+    'health technology researcher',
+    'blockchain analytics',
     'blockchain data analyst',
     'on-chain analytics',
     'blockchain in healthcare',

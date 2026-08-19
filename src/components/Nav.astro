@@ -15,7 +15,7 @@ const links = [
 <header
   class="sticky top-0 z-40 border-b border-hairline bg-bg/95 backdrop-blur-md supports-[backdrop-filter]:bg-bg/88"
 >
-  <nav class="shell flex h-16 items-center justify-between gap-6" aria-label="Primary">
+  <nav class="shell flex h-16 items-center justify-between gap-3 md:gap-6" aria-label="Primary">
     <a
       href="/"
       class="group flex items-center gap-3 transition-opacity hover:opacity-70"
@@ -25,7 +25,7 @@ const links = [
       <span class="text-[0.9375rem] font-medium tracking-tight">{profile.shortName}</span>
     </a>
 
-    <div class="flex items-center gap-5 md:gap-8">
+    <div class="flex items-center gap-3 sm:gap-5 md:gap-8">
       <ul class="hidden items-center gap-6 md:flex lg:gap-8">
         {
           links.map((l) => (
@@ -37,6 +37,19 @@ const links = [
           ))
         }
       </ul>
+
+      {
+        /* Kept in the top bar at every width — a CV hidden behind a hamburger
+           is a CV nobody downloads. */
+        profile.cv.available && (
+          <a
+            href={profile.cv.href}
+            class="inline-flex shrink-0 items-center gap-1.5 border border-hairline-strong px-3 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap transition-colors duration-300 hover:border-ink md:px-4 md:text-sm"
+          >
+            CV <span aria-hidden="true">↓</span>
+          </a>
+        )
+      }
 
       <ThemeToggle />
 

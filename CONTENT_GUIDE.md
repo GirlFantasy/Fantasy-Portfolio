@@ -244,9 +244,32 @@ has caught up with your life.
 
 ## 7. Edit a pillar page
 
-The three pillar pages live in `src/content/pillars/`. The `intro:` line in the
-frontmatter is what shows on the homepage; everything below the `---` is the
-"Read more" page. Both are plain Markdown.
+The three pillar pages live in `src/content/pillars/`. Everything below the
+`---` is the "Read more" page, in plain Markdown.
+
+The `intro:` in the frontmatter is a **list of paragraphs**, one per line:
+
+```yaml
+intro:
+  - "First paragraph. This one does the most work — it appears everywhere."
+  - "Second paragraph."
+  - "Third paragraph."
+```
+
+Where each paragraph shows up:
+
+| Paragraph | Homepage card | Pillar page | About page list |
+| --- | --- | --- | --- |
+| 1st | ✓ | ✓ | ✓ |
+| 2nd | ✓ | ✓ | — |
+| 3rd and beyond | — | ✓ | — |
+
+So the homepage stays scannable while the pillar page carries the full opening.
+Put the paragraph you most want a stranger to read first — it is the one that
+travels furthest.
+
+A one-paragraph intro is still written as a one-item list. Keep the quote marks
+and the `- ` at the start of each line.
 
 ---
 

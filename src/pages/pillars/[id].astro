@@ -32,7 +32,7 @@ const { pillar, related, awards, writing } = Astro.props;
 const { Content } = await render(pillar);
 ---
 
-<BaseLayout title={pillar.data.title} description={pillar.data.intro}>
+<BaseLayout title={pillar.data.title} description={pillar.data.intro.join(' ')}>
   <article class={`shell pt-14 pb-4 md:pt-20 ${accentClass(pillar.data.domains)}`}>
     <a href="/#pillars" class="meta link-underline inline-flex items-center gap-2 hover:text-ink">
       <span aria-hidden="true">←</span> All pillars
@@ -48,7 +48,9 @@ const { Content } = await render(pillar);
         {pillar.data.title}
       </h1>
 
-      <p class="measure mt-7 text-lg leading-[1.65] text-ink-2">{pillar.data.intro}</p>
+      {pillar.data.intro.map((para) => (
+        <p class="measure mt-7 text-lg leading-[1.65] text-ink-2">{para}</p>
+      ))}
 
       <LinkList links={pillar.data.links} class="mt-8" />
     </header>

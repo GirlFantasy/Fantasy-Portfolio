@@ -60,7 +60,7 @@ const experience = (await getCollection('experience')).filter((e) => !e.data.dra
                   <a href={`/pillars/${p.id}`}>
                     <strong>{p.data.title}</strong>
                   </a>{' '}
-                  — {p.data.intro}
+                  — {p.data.intro[0]}
                 </li>
               ))
             }

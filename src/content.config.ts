@@ -23,8 +23,16 @@ const pillars = defineCollection({
     /** Rendered as mono metadata above the title. */
     kicker: z.string(),
     domains: z.array(domain).min(1),
-    /** 30–60 words. Shown on the homepage. Body MDX is the "read more" page. */
-    intro: z.string(),
+    /**
+     * The opening paragraphs, one string per paragraph.
+     *
+     *   • The pillar page shows ALL of them, under the title.
+     *   • The homepage shows only the FIRST TWO, so the directory stays
+     *     scannable. Put the paragraph you most want a visitor to read first.
+     *
+     * A single-paragraph intro is still written as a one-item list.
+     */
+    intro: z.array(z.string()).min(1),
     links: z.array(link).default([]),
     /**
      * Optional photo gallery. Drop images into public/ and list them here;

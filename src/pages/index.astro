@@ -138,7 +138,10 @@ const contactLinks = (
                     {pillar.data.title}
                   </h3>
 
-                  <p class="measure mt-4 leading-[1.7] text-ink-2">{pillar.data.intro}</p>
+                  {/* Directory view: first two paragraphs only. The rest is on the page. */}
+                  {pillar.data.intro.slice(0, 2).map((para) => (
+                    <p class="measure mt-4 leading-[1.7] text-ink-2">{para}</p>
+                  ))}
 
                   <span
                     class="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-500 group-hover:gap-3"

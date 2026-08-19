@@ -87,8 +87,10 @@ const contactLinks = (
           copy.homeAbout.pullQuote.length > 0 && (
             <blockquote class="accent-data my-9">
               <div class="accent-rule mb-6" aria-hidden="true" />
+              {/* Same size and rhythm as the surrounding paragraphs; the serif
+                  face and darker ink are what keep it a distinct block. */}
               {copy.homeAbout.pullQuote.map((line) => (
-                <p class="font-display text-[1.45rem] leading-[1.35] tracking-[-0.015em] text-ink sm:text-[1.6rem]">
+                <p class="font-display text-[1.0625rem] leading-[1.75] text-ink">
                   {line}
                 </p>
               ))}

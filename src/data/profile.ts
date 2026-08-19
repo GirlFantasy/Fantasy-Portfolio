@@ -79,11 +79,13 @@ export const profile = {
       current: true,
     },
     {
-      institution: 'Joint Universities Preliminary Examinations Board',
-      abbr: 'JUPEB',
-      programme: 'Advanced Level Programme',
+      // Studied at EBSU; JUPEB (the Joint Universities Preliminary
+      // Examinations Board) is the body that sets and awards the programme.
+      institution: 'Ebonyi State University',
+      abbr: 'EBSU',
+      programme: 'Advanced Level Programme (JUPEB)',
       period: '2019 — 2020',
-      schemaType: 'EducationalOrganization',
+      schemaType: 'CollegeOrUniversity',
       current: false,
     },
   ] as ReadonlyArray<{

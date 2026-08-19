@@ -52,8 +52,12 @@ const person = {
   /** Google looks for an image on a Person when it builds a knowledge panel. */
   image: abs(profile.portrait.src),
   address: { '@type': 'PostalAddress', addressRegion: profile.location },
-  /** Each body typed by what it actually is — a university, or an exam board. */
-  alumniOf: profile.education.map((e) => ({
+  /**
+   * One entry per institution, typed by what it actually is. Deduplicated by
+   * name: two qualifications taken at the same university are one alma mater,
+   * not two.
+   */
+  alumniOf: [...new Map(profile.education.map((e) => [e.institution, e])).values()].map((e) => ({
     '@type': e.schemaType,
     name: e.institution,
   })),

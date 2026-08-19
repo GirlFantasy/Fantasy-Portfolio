@@ -7,19 +7,22 @@ import '@/styles/global.css';
 
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
-import { profile, seo } from '@/data/profile';
+import { profile, seo, verification } from '@/data/profile';
 
 interface Props {
   title?: string;
   description?: string;
   /** Set on interior pages so the canonical/OG URL is correct. */
   path?: string;
+  /** Keep a page out of search results — the 404 page, and nothing else so far. */
+  noindex?: boolean;
 }
 
 const {
   title = seo.title,
   description = seo.description,
   path = Astro.url.pathname,
+  noindex = false,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? Astro.url).toString();
@@ -33,23 +36,85 @@ const clamp = (text: string, max = 158) => {
 const metaDescription = clamp(description);
 const pageTitle = title === seo.title ? title : `${title} — ${profile.shortName}`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+const origin = (Astro.site ?? Astro.url).origin + '/';
+const abs = (p: string) => new URL(p, Astro.site ?? Astro.url).toString();
+
+const person = {
   '@type': 'Person',
+  '@id': `${origin}#person`,
   name: profile.name,
   alternateName: profile.creativeName,
   /** The headline is the job title; titleFull is the fuller account beneath it. */
   jobTitle: profile.headline,
   description: `${profile.titleFull}. Working in ${profile.field}.`,
   email: [profile.email, profile.emailSecondary].filter(Boolean).map((e) => `mailto:${e}`),
-  url: Astro.site?.toString(),
+  url: origin,
+  /** Google looks for an image on a Person when it builds a knowledge panel. */
+  image: abs(profile.portrait.src),
   address: { '@type': 'PostalAddress', addressRegion: profile.location },
   alumniOf: profile.education.map((e) => ({
     '@type': 'CollegeOrUniversity',
     name: e.institution,
   })),
   knowsAbout: seo.keywords,
+  /** Every verified profile, so search engines can tie them to this site. */
   sameAs: Object.values(profile.socials).map((s) => s.href),
+};
+
+/** Names the site itself — what lets a search for your name resolve to it. */
+const website = {
+  '@type': 'WebSite',
+  '@id': `${origin}#website`,
+  url: origin,
+  name: profile.name,
+  alternateName: [profile.shortName, profile.creativeName],
+  inLanguage: 'en',
+  publisher: { '@id': `${origin}#person` },
+};
+
+/**
+ * Breadcrumbs for interior pages — Google shows these in place of a raw URL.
+ * Derived from the path, so any new page gets them without extra work.
+ */
+const segments = path.split('/').filter(Boolean);
+
+/**
+ * Intermediate segments need a real destination — `/pillars/` is a route prefix
+ * with no page behind it, so that crumb points at the homepage section that
+ * lists them instead. A breadcrumb linking to a 404 is worse than no breadcrumb.
+ */
+const crumbs: Record<string, { name: string; href: string }> = {
+  pillars: { name: 'Pillars', href: '/#pillars' },
+  work: { name: 'Work', href: '/work/' },
+  about: { name: 'About', href: '/about/' },
+};
+
+const breadcrumb =
+  segments.length > 0 && !noindex
+    ? {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: origin },
+          ...segments.map((seg, i) => {
+            const isLast = i === segments.length - 1;
+            const known = crumbs[seg];
+            return {
+              '@type': 'ListItem',
+              position: i + 2,
+              name: isLast && !known ? title : (known?.name ?? seg),
+              item:
+                isLast || !known
+                  ? abs('/' + segments.slice(0, i + 1).join('/') + '/')
+                  : abs(known.href),
+            };
+          }),
+        ],
+      }
+    : null;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [person, website, ...(breadcrumb ? [breadcrumb] : [])],
 };
 ---
 
@@ -58,8 +123,12 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    {/* SVG for modern browsers, PNG for the crawlers and platforms that ignore it. */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <title>{pageTitle}</title>
@@ -75,10 +144,18 @@ const jsonLd = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${profile.name} — ${profile.headline}`} />
+    <meta property="og:locale" content="en_NG" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={new URL('/og.jpg', Astro.site ?? Astro.url).toString()} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={metaDescription} />
+    {/* Credits you when someone shares a page, and links the card to your account. */}
+    <meta name="twitter:creator" content={profile.socials.x.handle} />
+
+    {verification.google && (
+      <meta name="google-site-verification" content={verification.google} />
+    )}
+    {verification.bing && <meta name="msvalidate.01" content={verification.bing} />}
 
     <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)" />

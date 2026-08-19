@@ -256,6 +256,28 @@ export const domains = {
 export type DomainKey = keyof typeof domains;
 export type SocialKey = keyof typeof profile.socials;
 
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  SEARCH ENGINE VERIFICATION
+ * ─────────────────────────────────────────────────────────────────────────────
+ *  To prove to Google (and Bing) that this site is yours, so you can submit the
+ *  sitemap and watch what people search to find you:
+ *
+ *  1. Go to https://search.google.com/search-console
+ *  2. Add a property → "URL prefix" → paste your site address
+ *  3. Choose the "HTML tag" method. You will be shown a tag like:
+ *       <meta name="google-site-verification" content="AbC123..." />
+ *  4. Copy ONLY the content value and paste it below, between the quotes.
+ *  5. Commit and push, wait for the deploy, then click Verify.
+ *
+ *  Leave these as null and nothing is added to the page.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+export const verification = {
+  google: null as string | null,
+  bing: null as string | null,
+};
+
 export const seo = {
   /** Leads with the headline: it is what a search result must answer. */
   title: `${profile.shortName} — ${profile.headline}`,

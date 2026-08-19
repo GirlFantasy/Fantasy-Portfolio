@@ -9,7 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 //    It drives canonical URLs, Open Graph tags, sitemap.xml and robots.txt.
 // ─────────────────────────────────────────────────────────────────────────────
 export default defineConfig({
-  site: 'https://chimdalu-portfolio.vercel.app',
+  site: 'https://www.chimdalu.xyz',
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

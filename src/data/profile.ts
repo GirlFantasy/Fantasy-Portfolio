@@ -56,8 +56,7 @@ export const profile = {
    * whole lines freely. This is the text most visitors read first.
    */
   statement: [
-    'I am a medical student, researcher, data analyst, and SDG5 advocate exploring how medicine, data, and emerging technology can solve problems that matter.',
-    'My work sits at the intersection of healthcare, research, data, and blockchain — using evidence, technology, and systems thinking to understand complex problems and build better solutions.',
+    'I explore how medicine, data, and emerging technology can solve problems that matter — from healthcare and research to blockchain adoption and analytics.',
   ],
 
   education: [
@@ -221,8 +220,9 @@ export const profile = {
   datainbyte: {
     name: 'DataInByte',
     tagline: 'Web3 Data Stories',
+    /** Not currently rendered — the live description is the pillar page intro. */
     description:
-      'DataInByte is building an onchain adoption intelligence system that measures how users interact with blockchain products through onchain user behavior analysis. It moves beyond vanity metrics like views, followers, and community size to track what activates users, how long they stay, where they drop off, and whether growth persists after the incentive wave.',
+      'DataInByte is my onchain adoption intelligence project, focused on how blockchain products actually grow — measuring activation, retention, and drop-off rather than relying on vanity metrics. It tracks what activates users, how long they stay, where they drop off, and whether growth persists after the incentive wave.',
 
     /**
      * Featured Dune dashboards, in display order.
